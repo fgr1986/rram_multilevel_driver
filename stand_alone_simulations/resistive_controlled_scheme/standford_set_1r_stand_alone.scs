@@ -1,0 +1,77 @@
+////////////////////////////
+// Single rram experiment //
+// v0.1 28/09/2017        //
+////////////////////////////
+
+simulator lang=spectre
+global 0 vdd! vss!
+
+// Including parsed model. Original: '/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs'
+include "/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs" section=top_tt
+
+
+include "ommit/stanford_rram_cell_1r.scs"
+include "nominal_simulation.scs"
+
+// Parameters
+parameters
+
+// simulation
++ p_sim_time=200n
+// temperature
++ p_T0=300
++ p_temp=(p_T0-273.15) // in celsius
+
+// rram initial state
+// Roff->Ron For set (3.68M)
++ p_X0=3e-9 p_W0=0.5e-9
+
+// aux_resistance
++ p_r0=6k
+
+// vdd
++ my_vdd=1.8
+// write pulse
++ p_up=10n p_fall=10n p_delay=50n p_write_length=100n
+// write amp nominal
++ p_write_amp=2.5
+
+// transistor
++ p_tx_p_l=40n
+// + p_tx_p_w=120n
++ p_tx_p_w=4000n
+
+// voltage supply
+VDD      ( vdd!     0 ) vsource dc=my_vdd type=dc
+VSS      ( vss!     0 ) vsource dc=0      type=dc
+
+// write votlage
+V0 (n_write 0) vsource type=pulse delay=p_delay val0=0 val1=p_write_amp rise=p_up fall=p_fall width=p_write_length
+
+//////////////
+// OPTION A //
+//////////////
+// Memristor
+// set
+rram_0 (n_write n_control)              rram_cell_1r rram_X0=p_X0 rram_W0=p_W0 rram_T0=p_T0
+// resistor
+r_0    (n_control n_drain)              resistor     r=p_r0
+
+// tx
+// source gate drain bulk
+tx_p_0 (0 n_gate n_drain 0)  nch_mac l=p_tx_p_l w=p_tx_p_w m=1 nf=1
+// v_aux (n_gate 0) bsource v= v(n_write)>0 ? (my_vdd - v(n_control)) : 0
+v_aux (n_gate 0) bsource v= max(my_vdd - v(n_control), 0)
+
+// //////////////
+// // OPTION B //
+// //////////////
+// // Memristor
+// // set
+// rram_0 (n_plus n_minus)                   rram_cell_1r rram_X0=p_X0 rram_W0=p_W0 rram_T0=p_T0
+// // // source gate drain bulk
+// tx_p_0 (n_minus n_control 0 vdd!)  pch_mac l=p_tx_p_l w=p_tx_p_w m=1 nf=1
+//
+// // resistor
+// v_aux  (n_control 0) bsource v=p_r0*i(tx_p_0:1)
+// r_aux  (n_control 0) resistor r=p_r0

@@ -1,0 +1,79 @@
+
+
+simulator lang=spectre
+
+// include "/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs" section=top_tt
+ahdl_include "arizona_rram.va"
+
+//////////////////////////
+// Single rram 1T1R cell //
+// v0.1 14/06/2016     //
+//////////////////////////
+
+subckt rram_cell_1t1r (plus minus sel)
+
+	parameters rram_tstep=10p
+	+ rram_T0=300
+  + rram_Vread=0.1
+	// LRS
+	// + rram_gap_ini=0.1e-9
+	// HRS
+	+ rram_gap_ini=1.367e-9
+
+	// transistor
+	+ tx_p_l=40n
+	+ tx_p_w=120n
+
+	// parasitics
+	+ rram_R1=10 rram_Rh=2e9 rram_Cp=1f rram_R2=10
+
+
+	// Parasitic elements
+	// top resistance
+	ext_R1 (plus mid1) resistor r=rram_R1
+	// parallel
+	// ext_Rh (mid1 mid2) resistor r=rram_Rh
+	ext_Cp (mid1 mid2) capacitor c=rram_Cp
+	// bottom resistance
+	ext_R2 (mid2 tx_drain) resistor r=rram_R2
+
+	// memristor
+	mem_0 (mid1 mid2) RRAM T0=rram_T0 gap_ini=rram_gap_ini tstep=rram_tstep Vread=rram_Vread
+
+	// tx
+	tx_0 (minus sel tx_drain 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+
+ends rram_cell_1t1r
+
+
+//////////////////////////
+// Single rram 1R cell //
+// v0.1 14/06/2016     //
+//////////////////////////
+
+subckt rram_cell_1r (plus minus)
+
+	parameters rram_tstep=10p
+	+ rram_T0=300
+  + rram_Vread=0.1
+	// LRS
+	// + rram_gap_ini=0.1e-9
+	// HRS
+	+ rram_gap_ini=1.367e-9
+
+	// parasitics
+	+ rram_R1=10 rram_Rh=2e9 rram_Cp=1f rram_R2=10
+
+	// Parasitic elements
+	// top resistance
+	ext_R1 (plus mid1) resistor r=rram_R1
+	// parallel
+	ext_Rh (mid1 mid2) resistor r=rram_Rh
+	ext_Cp (mid1 mid2) capacitor c=rram_Cp
+	// bottom resistance
+	ext_R2 (mid2 minus) resistor r=rram_R2
+
+	// memristor
+	mem_0 (mid1 mid2) RRAM T0=rram_T0 gap_ini=rram_gap_ini tstep=rram_tstep Vread=rram_Vread
+
+ends rram_cell_1r

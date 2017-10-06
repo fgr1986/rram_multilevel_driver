@@ -1,0 +1,67 @@
+simulator lang=spectre
+
+include "r0_paramset.scs"
+
+// simulation
+// + sim_max_step=0.5ns sim_step=0.3ns + sim_max_step= 1u
+
+// writing starts at 1u
+// psettiming paramset {
+// 	time maxstep
+// 	0  	0.5u
+// 	9n 0.001n
+// }
+
+
+
+// Start of reliability_montecarlo (montecarlo) analysis
+// reliability_montecarlo montecarlo variations=all donominal=no savefamilyplots=yes firstrun=fw_firstrun seed=fw_seed numruns=fw_numruns {
+
+
+	// Start of sensible_nodes_sweep (sweep) analysis
+
+	// with paramset
+	// rram_sweep sweep paramset=r0_paramset {
+
+	// no paramset
+	rram_sweep sweep param=p_r0 start=5k stop=200k step=5k{
+		// Start of reliability_framework_tran (tran) analysis
+		reliability_framework_tran tran save=selected stop=p_sim_time method=gear2only annotate=no maxiters=5
+			+ maxstep=p_max_step
+			// + paramset=psettiming
+	}
+
+// }// End of reliability_montecarlo (montecarlo ) analysis
+
+// Old options (TVLSI)
+// simulation options
+// simulatorOptions options temp=mT0Celsius genmcdep=yes
+// + tnom=27 scale=1.0 gmin=1e-12 rforce=1 maxnotes=5 maxwarns=5 digits=5 cols=80 pivrel=1e-3
+// + reltol=1e-8 vabstol=1e-9 iabstol=1e-11
+// + reltol=1e-9 vabstol=1e-10 iabstol=1e-12
+
+// New options
+simulatorOptions options temp=p_temp tnom=27 scale=1.0 gmin=1e-12 rforce=1 maxnotes=5 maxwarns=5 digits=5 cols=80
+		// + reltol=1e-8 vabstol=1e-9 iabstol=1e-11
+		+ pivrel=1e-3 reltol=1e-10 vabstol=1e-10 iabstol=1e-13
+
+saveOptions options save=selected saveahdlvars=selected
+
+// save statements
+save n_write
+save n_drain
+save n_gate
+save n_control
+save n_sel
+
+save rram_0.tx_src
+save rram_0.tx_drain
+save rram_0.mid1
+save rram_0.mid2
+
+save rram_0.mem_0:R_out
+save rram_0.mem_0:gap_out
+save rram_0.mem_0:rram_v
+save rram_0.mem_0:rram_i
+save rram_0.mem_0:rram_r
+save rram_0.mem_0:rram_r_read
