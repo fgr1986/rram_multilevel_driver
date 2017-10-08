@@ -61,6 +61,8 @@ save rram_0.mid2
 
 save rram_0.mem_0:R_out
 save rram_0.mem_0:gap_out
+save rram_0.mem_0:gap_ddt
+save rram_0.mem_0:temperature
 save rram_0.mem_0:rram_v
 save rram_0.mem_0:rram_i
 save rram_0.mem_0:rram_r
