@@ -24,7 +24,7 @@ include "r0_paramset.scs"
 	// rram_sweep sweep paramset=r0_paramset {
 
 	// no paramset
-	rram_sweep sweep param=p_r0 start=5k stop=200k step=5k{
+	rram_sweep sweep param=p_r0 start=5k stop=200k step=50k{
 		// Start of reliability_framework_tran (tran) analysis
 		reliability_framework_tran tran save=selected stop=p_sim_time method=gear2only annotate=no maxiters=5
 			+ maxstep=p_max_step
@@ -59,10 +59,9 @@ save rram_0.tx_drain
 save rram_0.mid1
 save rram_0.mid2
 
-save rram_0.mem_0:R_out
-save rram_0.mem_0:gap_out
 save rram_0.mem_0:gap_ddt
-save rram_0.mem_0:temperature
+save rram_0.mem_0:rram_g
+save rram_0.mem_0:rram_temperature
 save rram_0.mem_0:rram_v
 save rram_0.mem_0:rram_i
 save rram_0.mem_0:rram_r

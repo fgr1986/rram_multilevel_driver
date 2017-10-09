@@ -73,6 +73,8 @@ module RRAM(Nt, Nb);
 	real rram_v;
 	real rram_i;
 	real rram_r;
+	real rram_g;
+	real rram_temperature;
 	real rram_r_read;
 
 
@@ -111,16 +113,20 @@ module RRAM(Nt, Nb);
 		// Calculate the local temperature (implicit form)
 		temperature = (temperature + dt*(abs(V(Nt,Nb)*I(Nt,Nb))/Cth+T0/Tau_th))/(1+dt/Tau_th);
 
-		// Parameter extraction
-		V(gap_out) <+ gap;			// Gap distance
-		V(temp_out) <+ temperature;	// Temperature
+		// old parameter extraction:
+		// converted to real bellow to improve performance (spectre)
+		// // Parameter extraction
+		// V(gap_out) <+ gap;			// Gap distance
+		// V(temp_out) <+ temperature;	// Temperature
 		Iread = I0*exp(-gap/g0)*sinh(Vread/V0);
-		V(R_out) <+ Vread/Iread;	// Resistance @Vread
+		// V(R_out) <+ Vread/Iread;	// Resistance @Vread
 
 		// fgarcia
 		rram_v = V(Nt,Nb);
 		rram_i = I(Nt,Nb);
-		rram_r_read = V(R_out);
+		rram_r_read = Vread/Iread;
+		rram_g = gap;
+		rram_temperature = temperature;
 		// Limitation on the gap growth
 		if (abs(V(Nt,Nb))> 0)
 		begin

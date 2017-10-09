@@ -77,3 +77,22 @@ subckt rram_cell_1r (plus minus)
 	mem_0 (mid1 mid2) RRAM T0=rram_T0 gap_ini=rram_gap_ini tstep=rram_tstep Vread=rram_Vread
 
 ends rram_cell_1r
+
+
+//////////////////////////
+// Single rram 1R cell //
+// v0.1 14/06/2016     //
+//////////////////////////
+
+subckt rram_cell_1r_no_parasitics (plus minus)
+
+	parameters rram_tstep=10p
+	+ rram_T0=300
+  + rram_Vread=0.1
+	// LRS
+	// + rram_gap_ini=0.1e-9
+	// HRS
+	+ rram_gap_ini=1.367e-9
+
+	mem_0 (plus minus) RRAM T0=rram_T0 gap_ini=rram_gap_ini tstep=rram_tstep Vread=rram_Vread
+ends rram_cell_1r
