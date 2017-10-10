@@ -7,7 +7,9 @@ simulator lang=spectre
 global 0 vdd! vss!
 
 // Including parsed model. Original: '/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs'
-include "/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs" section=top_tt
+// top_localmconly top_tt
+// include "/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs" section=top_localmconly
+include "/opt/technology/tsmc40nm_18/tsmcN40/../models/spectre/toplevel.scs" section=top_localmconly
 
 
 // include "ommit/arizona_rram_cell_1r.scs"
@@ -30,6 +32,7 @@ parameters
 // Roff->Ron For set (3.68M)
 // + p_rram_gap_ini=1.367e-9
 + p_rram_gap_ini=1.7e-9
++ p_rram_gap_ini_2=1.367e-9
 
 // aux_resistance
 // + p_r0=120k // 1M
@@ -71,12 +74,21 @@ V1 (n_sel 0) bsource v=v(n_gate)
 // OPTION A //
 //////////////
 // Memristor
-// set
-rram_0 (n_write n_control)  rram_cell_1r_no_parasitics rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini
-// rram_0 (n_write n_control)  rram_cell_1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini
-// rram_0 (n_write n_control n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini
+// 1R no parasitics
+rram_0 (n_write n_control)    rram_cell_1r_no_parasitics rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini
+rram_1 (n_write n_control_2)  rram_cell_1r_no_parasitics rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini_2
+// 1R with parasitics
+// rram_0 (n_write n_control)    rram_cell_1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini
+// rram_1 (n_write n_control_2)  rram_cell_1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini_2
+// 1T1R with parasitics
+// rram_0 (n_write n_control   n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini
+// rram_1 (n_write n_control_2 n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini_2
 // resistor
-r_0    (n_control 0)  resistor     r=p_r0
+// r_0    (n_control 0)    resistor     r=p_r0
+// r_1    (n_control_2 0)  resistor     r=p_r0
+r_0 (n_control   0 0) rnwsti lr=10u wr=2u multi=(1) m=1
+r_1 (n_control_2 0 0) rnwsti lr=10u wr=2u multi=(1) m=1
+
 // source gate drain bulk
 // tx_p_0 (0 n_gate n_drain 0) nch_mac l=p_tx_p_l w=p_tx_p_w m=1 nf=1
 // v_aux (n_gate 0) bsource v= p_vdd/(1+exp(100*(v(n_control)-p_v_set)))
