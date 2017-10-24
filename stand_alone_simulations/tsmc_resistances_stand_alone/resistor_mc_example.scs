@@ -1,0 +1,52 @@
+// Generated for: spectre
+// Generated on: Oct 19 16:29:36 2017
+// Design library name: test_fgarcia
+// Design cell name: test_resistor
+// Design view name: schematic
+simulator lang=spectre
+global 0
+parameters m_dc=2
+
+// Including parsed model. Original: '/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs'
+include "/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs" section=top_globalmc_localmc
+
+// ahdl_include "ommit/mux2.va"
+
+// Library name: test_fgarcia
+// Cell name: test_resistor
+// View name: schematic
+
+
+// R1 (a\<2\> 0 0 ) rppolyl_m lr=100.0000u wr=4u multi=(1) m=1
+// R0 (a\<1\> 0 0 ) rppolyl_m lr=100.0000u wr=2u multi=(1) m=1
+
+// all are 5k
+R0 (net3_0 0 0 ) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
+R1 (net3_1 0 0 ) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
+
+// m0 (net3_0, net3_1, v_w, v_c) mux2
+
+V0 (net3_0 0) vsource dc=m_dc type=dc
+V1 (net3_1 0) vsource dc=m_dc type=dc
+
+simulatorOptions options reltol=1e-3 vabstol=1e-6 iabstol=1e-12 temp=27 \
+    tnom=27 scalem=1.0 scale=1.0 gmin=1e-12 rforce=1 maxnotes=5 maxwarns=5 \
+    digits=5 cols=80 pivrel=1e-3 sensfile="../psf/sens.output" \
+    checklimitdest=psf
+mc1 montecarlo numruns=10 seed=12345 variations=all sampling=standard \
+    donominal=yes scalarfile="../monteCarlo/mcdata" \
+    paramfile="../monteCarlo/mcparam" saveprocessparams=yes \
+    processparamfile="../monteCarlo/processParam" \
+    processscalarfile="../monteCarlo/processData" savemismatchparams=no \
+    savefamilyplots=yes savedatainseparatedir=yes wfseparation=yes {
+dc dc param=m_dc start=0 stop=3 write="spectre.dc" oppoint=rawfile \
+    maxiters=150 maxsteps=10000 annotate=status
+modelParameter info what=models where=rawfile
+element info what=inst where=rawfile
+outputParameter info what=output where=rawfile
+designParamVals info what=parameters where=rawfile
+primitives info what=primitives where=rawfile
+export noExprs=oceanEval("0")
+}
+save R0:1 R1:1 R3:1 R2:1
+saveOptions options save=allpub
