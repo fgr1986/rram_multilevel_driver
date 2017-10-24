@@ -49,11 +49,12 @@ import random
 ##############
 # constants
 ##############
-analog_mux_inputs = 32
+analog_mux_inputs = 1024
 generated_files_folder = "exported"
 analog_mux_file = "analog_mux.va"
 loads_subcircuit = "loads_subcircuit.scs"
-resistor_properties = "rppolywo_m lr=15.78u wr=2u multi=(1) m=1"
+resistor_properties = "resistor r=1k"
+# "rppolywo_m lr=15.78u wr=2u multi=(1) m=1"
 
 ############################
 # preparing folder

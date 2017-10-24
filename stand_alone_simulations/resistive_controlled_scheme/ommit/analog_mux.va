@@ -5,8 +5,8 @@ module analog_mux(n_out, n_in, v_sel);
 
 	inout n_in;
 	electrical n_in;
-	inout [31:0] n_out;
-	electrical [31:0] n_out;
+	inout [1023:0] n_out;
+	electrical [1023:0] n_out;
 	inout v_sel;
 	electrical v_sel;
 
@@ -15,7 +15,7 @@ module analog_mux(n_out, n_in, v_sel);
 
 	analog begin
 		select = V(v_sel);
-		generate c (0,31,1) begin
+		generate c (0,1023,1) begin
 			if( c==select ) begin
 				V(n_out[c], n_in) <+ 0;
 			end else begin

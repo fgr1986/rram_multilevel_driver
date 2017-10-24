@@ -37,7 +37,7 @@ parameters fw_firstrun=1 fw_seed=1 fw_numruns=10
 	// rram_sweep sweep paramset=r0_paramset {
 
 	// no paramset
-	rram_sweep sweep param=p_level start=0 stop=31 step=1{
+	rram_sweep sweep param=p_level start=0 stop=511 step=1{
 	// rram_sweep sweep param=p_tx_p_l start=40n stop=1.5u dec=5{
 		// Start of reliability_framework_tran (tran) analysis
 		reliability_framework_tran tran save=selected stop=p_sim_time method=gear2only annotate=no maxiters=5
@@ -68,7 +68,6 @@ save n_gate
 
 save n_level
 save n_control_0
-save n_control_1
 
 save rl_0.m_0:select
 save rl_0.m_0:in
@@ -97,10 +96,12 @@ save rram_0.mem_0:rram_i
 save rram_0.mem_0:rram_r
 save rram_0.mem_0:rram_r_read
 
-// save rram_1.mem_0:gap_ddt
-// save rram_1.mem_0:rram_g
-// save rram_1.mem_0:rram_temperature
-// save rram_1.mem_0:rram_v
-// save rram_1.mem_0:rram_i
-// save rram_1.mem_0:rram_r
-// save rram_1.mem_0:rram_r_read
+
+save rram_0.mem_0:rram_r_read
+save rram_1.mem_0:rram_r_read
+save rram_2.mem_0:rram_r_read
+save rram_3.mem_0:rram_r_read
+save rram_4.mem_0:rram_r_read
+save rram_5.mem_0:rram_r_read
+save rram_6.mem_0:rram_r_read
+save rram_7.mem_0:rram_r_read

@@ -9,43 +9,1134 @@ ahdl_include "analog_mux.va"
 
 subckt resistive_loads (to_rram sel)
 
-	r_31 (n_31 n_30 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_30 (n_30 n_29 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_29 (n_29 n_28 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_28 (n_28 n_27 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_27 (n_27 n_26 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_26 (n_26 n_25 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_25 (n_25 n_24 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_24 (n_24 n_23 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_23 (n_23 n_22 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_22 (n_22 n_21 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_21 (n_21 n_20 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_20 (n_20 n_19 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_19 (n_19 n_18 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_18 (n_18 n_17 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_17 (n_17 n_16 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_16 (n_16 n_15 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_15 (n_15 n_14 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_14 (n_14 n_13 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_13 (n_13 n_12 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_12 (n_12 n_11 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_11 (n_11 n_10 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_10 (n_10 n_9 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_9 (n_9 n_8 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_8 (n_8 n_7 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_7 (n_7 n_6 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_6 (n_6 n_5 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_5 (n_5 n_4 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_4 (n_4 n_3 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_3 (n_3 n_2 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_2 (n_2 n_1 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_1 (n_1 n_0 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
-	r_0 (n_0 0 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1 
+	r_1023 (n_1023 n_1022 0) resistor r=1k
+	r_1022 (n_1022 n_1021 0) resistor r=1k
+	r_1021 (n_1021 n_1020 0) resistor r=1k
+	r_1020 (n_1020 n_1019 0) resistor r=1k
+	r_1019 (n_1019 n_1018 0) resistor r=1k
+	r_1018 (n_1018 n_1017 0) resistor r=1k
+	r_1017 (n_1017 n_1016 0) resistor r=1k
+	r_1016 (n_1016 n_1015 0) resistor r=1k
+	r_1015 (n_1015 n_1014 0) resistor r=1k
+	r_1014 (n_1014 n_1013 0) resistor r=1k
+	r_1013 (n_1013 n_1012 0) resistor r=1k
+	r_1012 (n_1012 n_1011 0) resistor r=1k
+	r_1011 (n_1011 n_1010 0) resistor r=1k
+	r_1010 (n_1010 n_1009 0) resistor r=1k
+	r_1009 (n_1009 n_1008 0) resistor r=1k
+	r_1008 (n_1008 n_1007 0) resistor r=1k
+	r_1007 (n_1007 n_1006 0) resistor r=1k
+	r_1006 (n_1006 n_1005 0) resistor r=1k
+	r_1005 (n_1005 n_1004 0) resistor r=1k
+	r_1004 (n_1004 n_1003 0) resistor r=1k
+	r_1003 (n_1003 n_1002 0) resistor r=1k
+	r_1002 (n_1002 n_1001 0) resistor r=1k
+	r_1001 (n_1001 n_1000 0) resistor r=1k
+	r_1000 (n_1000 n_999 0) resistor r=1k
+	r_999 (n_999 n_998 0) resistor r=1k
+	r_998 (n_998 n_997 0) resistor r=1k
+	r_997 (n_997 n_996 0) resistor r=1k
+	r_996 (n_996 n_995 0) resistor r=1k
+	r_995 (n_995 n_994 0) resistor r=1k
+	r_994 (n_994 n_993 0) resistor r=1k
+	r_993 (n_993 n_992 0) resistor r=1k
+	r_992 (n_992 n_991 0) resistor r=1k
+	r_991 (n_991 n_990 0) resistor r=1k
+	r_990 (n_990 n_989 0) resistor r=1k
+	r_989 (n_989 n_988 0) resistor r=1k
+	r_988 (n_988 n_987 0) resistor r=1k
+	r_987 (n_987 n_986 0) resistor r=1k
+	r_986 (n_986 n_985 0) resistor r=1k
+	r_985 (n_985 n_984 0) resistor r=1k
+	r_984 (n_984 n_983 0) resistor r=1k
+	r_983 (n_983 n_982 0) resistor r=1k
+	r_982 (n_982 n_981 0) resistor r=1k
+	r_981 (n_981 n_980 0) resistor r=1k
+	r_980 (n_980 n_979 0) resistor r=1k
+	r_979 (n_979 n_978 0) resistor r=1k
+	r_978 (n_978 n_977 0) resistor r=1k
+	r_977 (n_977 n_976 0) resistor r=1k
+	r_976 (n_976 n_975 0) resistor r=1k
+	r_975 (n_975 n_974 0) resistor r=1k
+	r_974 (n_974 n_973 0) resistor r=1k
+	r_973 (n_973 n_972 0) resistor r=1k
+	r_972 (n_972 n_971 0) resistor r=1k
+	r_971 (n_971 n_970 0) resistor r=1k
+	r_970 (n_970 n_969 0) resistor r=1k
+	r_969 (n_969 n_968 0) resistor r=1k
+	r_968 (n_968 n_967 0) resistor r=1k
+	r_967 (n_967 n_966 0) resistor r=1k
+	r_966 (n_966 n_965 0) resistor r=1k
+	r_965 (n_965 n_964 0) resistor r=1k
+	r_964 (n_964 n_963 0) resistor r=1k
+	r_963 (n_963 n_962 0) resistor r=1k
+	r_962 (n_962 n_961 0) resistor r=1k
+	r_961 (n_961 n_960 0) resistor r=1k
+	r_960 (n_960 n_959 0) resistor r=1k
+	r_959 (n_959 n_958 0) resistor r=1k
+	r_958 (n_958 n_957 0) resistor r=1k
+	r_957 (n_957 n_956 0) resistor r=1k
+	r_956 (n_956 n_955 0) resistor r=1k
+	r_955 (n_955 n_954 0) resistor r=1k
+	r_954 (n_954 n_953 0) resistor r=1k
+	r_953 (n_953 n_952 0) resistor r=1k
+	r_952 (n_952 n_951 0) resistor r=1k
+	r_951 (n_951 n_950 0) resistor r=1k
+	r_950 (n_950 n_949 0) resistor r=1k
+	r_949 (n_949 n_948 0) resistor r=1k
+	r_948 (n_948 n_947 0) resistor r=1k
+	r_947 (n_947 n_946 0) resistor r=1k
+	r_946 (n_946 n_945 0) resistor r=1k
+	r_945 (n_945 n_944 0) resistor r=1k
+	r_944 (n_944 n_943 0) resistor r=1k
+	r_943 (n_943 n_942 0) resistor r=1k
+	r_942 (n_942 n_941 0) resistor r=1k
+	r_941 (n_941 n_940 0) resistor r=1k
+	r_940 (n_940 n_939 0) resistor r=1k
+	r_939 (n_939 n_938 0) resistor r=1k
+	r_938 (n_938 n_937 0) resistor r=1k
+	r_937 (n_937 n_936 0) resistor r=1k
+	r_936 (n_936 n_935 0) resistor r=1k
+	r_935 (n_935 n_934 0) resistor r=1k
+	r_934 (n_934 n_933 0) resistor r=1k
+	r_933 (n_933 n_932 0) resistor r=1k
+	r_932 (n_932 n_931 0) resistor r=1k
+	r_931 (n_931 n_930 0) resistor r=1k
+	r_930 (n_930 n_929 0) resistor r=1k
+	r_929 (n_929 n_928 0) resistor r=1k
+	r_928 (n_928 n_927 0) resistor r=1k
+	r_927 (n_927 n_926 0) resistor r=1k
+	r_926 (n_926 n_925 0) resistor r=1k
+	r_925 (n_925 n_924 0) resistor r=1k
+	r_924 (n_924 n_923 0) resistor r=1k
+	r_923 (n_923 n_922 0) resistor r=1k
+	r_922 (n_922 n_921 0) resistor r=1k
+	r_921 (n_921 n_920 0) resistor r=1k
+	r_920 (n_920 n_919 0) resistor r=1k
+	r_919 (n_919 n_918 0) resistor r=1k
+	r_918 (n_918 n_917 0) resistor r=1k
+	r_917 (n_917 n_916 0) resistor r=1k
+	r_916 (n_916 n_915 0) resistor r=1k
+	r_915 (n_915 n_914 0) resistor r=1k
+	r_914 (n_914 n_913 0) resistor r=1k
+	r_913 (n_913 n_912 0) resistor r=1k
+	r_912 (n_912 n_911 0) resistor r=1k
+	r_911 (n_911 n_910 0) resistor r=1k
+	r_910 (n_910 n_909 0) resistor r=1k
+	r_909 (n_909 n_908 0) resistor r=1k
+	r_908 (n_908 n_907 0) resistor r=1k
+	r_907 (n_907 n_906 0) resistor r=1k
+	r_906 (n_906 n_905 0) resistor r=1k
+	r_905 (n_905 n_904 0) resistor r=1k
+	r_904 (n_904 n_903 0) resistor r=1k
+	r_903 (n_903 n_902 0) resistor r=1k
+	r_902 (n_902 n_901 0) resistor r=1k
+	r_901 (n_901 n_900 0) resistor r=1k
+	r_900 (n_900 n_899 0) resistor r=1k
+	r_899 (n_899 n_898 0) resistor r=1k
+	r_898 (n_898 n_897 0) resistor r=1k
+	r_897 (n_897 n_896 0) resistor r=1k
+	r_896 (n_896 n_895 0) resistor r=1k
+	r_895 (n_895 n_894 0) resistor r=1k
+	r_894 (n_894 n_893 0) resistor r=1k
+	r_893 (n_893 n_892 0) resistor r=1k
+	r_892 (n_892 n_891 0) resistor r=1k
+	r_891 (n_891 n_890 0) resistor r=1k
+	r_890 (n_890 n_889 0) resistor r=1k
+	r_889 (n_889 n_888 0) resistor r=1k
+	r_888 (n_888 n_887 0) resistor r=1k
+	r_887 (n_887 n_886 0) resistor r=1k
+	r_886 (n_886 n_885 0) resistor r=1k
+	r_885 (n_885 n_884 0) resistor r=1k
+	r_884 (n_884 n_883 0) resistor r=1k
+	r_883 (n_883 n_882 0) resistor r=1k
+	r_882 (n_882 n_881 0) resistor r=1k
+	r_881 (n_881 n_880 0) resistor r=1k
+	r_880 (n_880 n_879 0) resistor r=1k
+	r_879 (n_879 n_878 0) resistor r=1k
+	r_878 (n_878 n_877 0) resistor r=1k
+	r_877 (n_877 n_876 0) resistor r=1k
+	r_876 (n_876 n_875 0) resistor r=1k
+	r_875 (n_875 n_874 0) resistor r=1k
+	r_874 (n_874 n_873 0) resistor r=1k
+	r_873 (n_873 n_872 0) resistor r=1k
+	r_872 (n_872 n_871 0) resistor r=1k
+	r_871 (n_871 n_870 0) resistor r=1k
+	r_870 (n_870 n_869 0) resistor r=1k
+	r_869 (n_869 n_868 0) resistor r=1k
+	r_868 (n_868 n_867 0) resistor r=1k
+	r_867 (n_867 n_866 0) resistor r=1k
+	r_866 (n_866 n_865 0) resistor r=1k
+	r_865 (n_865 n_864 0) resistor r=1k
+	r_864 (n_864 n_863 0) resistor r=1k
+	r_863 (n_863 n_862 0) resistor r=1k
+	r_862 (n_862 n_861 0) resistor r=1k
+	r_861 (n_861 n_860 0) resistor r=1k
+	r_860 (n_860 n_859 0) resistor r=1k
+	r_859 (n_859 n_858 0) resistor r=1k
+	r_858 (n_858 n_857 0) resistor r=1k
+	r_857 (n_857 n_856 0) resistor r=1k
+	r_856 (n_856 n_855 0) resistor r=1k
+	r_855 (n_855 n_854 0) resistor r=1k
+	r_854 (n_854 n_853 0) resistor r=1k
+	r_853 (n_853 n_852 0) resistor r=1k
+	r_852 (n_852 n_851 0) resistor r=1k
+	r_851 (n_851 n_850 0) resistor r=1k
+	r_850 (n_850 n_849 0) resistor r=1k
+	r_849 (n_849 n_848 0) resistor r=1k
+	r_848 (n_848 n_847 0) resistor r=1k
+	r_847 (n_847 n_846 0) resistor r=1k
+	r_846 (n_846 n_845 0) resistor r=1k
+	r_845 (n_845 n_844 0) resistor r=1k
+	r_844 (n_844 n_843 0) resistor r=1k
+	r_843 (n_843 n_842 0) resistor r=1k
+	r_842 (n_842 n_841 0) resistor r=1k
+	r_841 (n_841 n_840 0) resistor r=1k
+	r_840 (n_840 n_839 0) resistor r=1k
+	r_839 (n_839 n_838 0) resistor r=1k
+	r_838 (n_838 n_837 0) resistor r=1k
+	r_837 (n_837 n_836 0) resistor r=1k
+	r_836 (n_836 n_835 0) resistor r=1k
+	r_835 (n_835 n_834 0) resistor r=1k
+	r_834 (n_834 n_833 0) resistor r=1k
+	r_833 (n_833 n_832 0) resistor r=1k
+	r_832 (n_832 n_831 0) resistor r=1k
+	r_831 (n_831 n_830 0) resistor r=1k
+	r_830 (n_830 n_829 0) resistor r=1k
+	r_829 (n_829 n_828 0) resistor r=1k
+	r_828 (n_828 n_827 0) resistor r=1k
+	r_827 (n_827 n_826 0) resistor r=1k
+	r_826 (n_826 n_825 0) resistor r=1k
+	r_825 (n_825 n_824 0) resistor r=1k
+	r_824 (n_824 n_823 0) resistor r=1k
+	r_823 (n_823 n_822 0) resistor r=1k
+	r_822 (n_822 n_821 0) resistor r=1k
+	r_821 (n_821 n_820 0) resistor r=1k
+	r_820 (n_820 n_819 0) resistor r=1k
+	r_819 (n_819 n_818 0) resistor r=1k
+	r_818 (n_818 n_817 0) resistor r=1k
+	r_817 (n_817 n_816 0) resistor r=1k
+	r_816 (n_816 n_815 0) resistor r=1k
+	r_815 (n_815 n_814 0) resistor r=1k
+	r_814 (n_814 n_813 0) resistor r=1k
+	r_813 (n_813 n_812 0) resistor r=1k
+	r_812 (n_812 n_811 0) resistor r=1k
+	r_811 (n_811 n_810 0) resistor r=1k
+	r_810 (n_810 n_809 0) resistor r=1k
+	r_809 (n_809 n_808 0) resistor r=1k
+	r_808 (n_808 n_807 0) resistor r=1k
+	r_807 (n_807 n_806 0) resistor r=1k
+	r_806 (n_806 n_805 0) resistor r=1k
+	r_805 (n_805 n_804 0) resistor r=1k
+	r_804 (n_804 n_803 0) resistor r=1k
+	r_803 (n_803 n_802 0) resistor r=1k
+	r_802 (n_802 n_801 0) resistor r=1k
+	r_801 (n_801 n_800 0) resistor r=1k
+	r_800 (n_800 n_799 0) resistor r=1k
+	r_799 (n_799 n_798 0) resistor r=1k
+	r_798 (n_798 n_797 0) resistor r=1k
+	r_797 (n_797 n_796 0) resistor r=1k
+	r_796 (n_796 n_795 0) resistor r=1k
+	r_795 (n_795 n_794 0) resistor r=1k
+	r_794 (n_794 n_793 0) resistor r=1k
+	r_793 (n_793 n_792 0) resistor r=1k
+	r_792 (n_792 n_791 0) resistor r=1k
+	r_791 (n_791 n_790 0) resistor r=1k
+	r_790 (n_790 n_789 0) resistor r=1k
+	r_789 (n_789 n_788 0) resistor r=1k
+	r_788 (n_788 n_787 0) resistor r=1k
+	r_787 (n_787 n_786 0) resistor r=1k
+	r_786 (n_786 n_785 0) resistor r=1k
+	r_785 (n_785 n_784 0) resistor r=1k
+	r_784 (n_784 n_783 0) resistor r=1k
+	r_783 (n_783 n_782 0) resistor r=1k
+	r_782 (n_782 n_781 0) resistor r=1k
+	r_781 (n_781 n_780 0) resistor r=1k
+	r_780 (n_780 n_779 0) resistor r=1k
+	r_779 (n_779 n_778 0) resistor r=1k
+	r_778 (n_778 n_777 0) resistor r=1k
+	r_777 (n_777 n_776 0) resistor r=1k
+	r_776 (n_776 n_775 0) resistor r=1k
+	r_775 (n_775 n_774 0) resistor r=1k
+	r_774 (n_774 n_773 0) resistor r=1k
+	r_773 (n_773 n_772 0) resistor r=1k
+	r_772 (n_772 n_771 0) resistor r=1k
+	r_771 (n_771 n_770 0) resistor r=1k
+	r_770 (n_770 n_769 0) resistor r=1k
+	r_769 (n_769 n_768 0) resistor r=1k
+	r_768 (n_768 n_767 0) resistor r=1k
+	r_767 (n_767 n_766 0) resistor r=1k
+	r_766 (n_766 n_765 0) resistor r=1k
+	r_765 (n_765 n_764 0) resistor r=1k
+	r_764 (n_764 n_763 0) resistor r=1k
+	r_763 (n_763 n_762 0) resistor r=1k
+	r_762 (n_762 n_761 0) resistor r=1k
+	r_761 (n_761 n_760 0) resistor r=1k
+	r_760 (n_760 n_759 0) resistor r=1k
+	r_759 (n_759 n_758 0) resistor r=1k
+	r_758 (n_758 n_757 0) resistor r=1k
+	r_757 (n_757 n_756 0) resistor r=1k
+	r_756 (n_756 n_755 0) resistor r=1k
+	r_755 (n_755 n_754 0) resistor r=1k
+	r_754 (n_754 n_753 0) resistor r=1k
+	r_753 (n_753 n_752 0) resistor r=1k
+	r_752 (n_752 n_751 0) resistor r=1k
+	r_751 (n_751 n_750 0) resistor r=1k
+	r_750 (n_750 n_749 0) resistor r=1k
+	r_749 (n_749 n_748 0) resistor r=1k
+	r_748 (n_748 n_747 0) resistor r=1k
+	r_747 (n_747 n_746 0) resistor r=1k
+	r_746 (n_746 n_745 0) resistor r=1k
+	r_745 (n_745 n_744 0) resistor r=1k
+	r_744 (n_744 n_743 0) resistor r=1k
+	r_743 (n_743 n_742 0) resistor r=1k
+	r_742 (n_742 n_741 0) resistor r=1k
+	r_741 (n_741 n_740 0) resistor r=1k
+	r_740 (n_740 n_739 0) resistor r=1k
+	r_739 (n_739 n_738 0) resistor r=1k
+	r_738 (n_738 n_737 0) resistor r=1k
+	r_737 (n_737 n_736 0) resistor r=1k
+	r_736 (n_736 n_735 0) resistor r=1k
+	r_735 (n_735 n_734 0) resistor r=1k
+	r_734 (n_734 n_733 0) resistor r=1k
+	r_733 (n_733 n_732 0) resistor r=1k
+	r_732 (n_732 n_731 0) resistor r=1k
+	r_731 (n_731 n_730 0) resistor r=1k
+	r_730 (n_730 n_729 0) resistor r=1k
+	r_729 (n_729 n_728 0) resistor r=1k
+	r_728 (n_728 n_727 0) resistor r=1k
+	r_727 (n_727 n_726 0) resistor r=1k
+	r_726 (n_726 n_725 0) resistor r=1k
+	r_725 (n_725 n_724 0) resistor r=1k
+	r_724 (n_724 n_723 0) resistor r=1k
+	r_723 (n_723 n_722 0) resistor r=1k
+	r_722 (n_722 n_721 0) resistor r=1k
+	r_721 (n_721 n_720 0) resistor r=1k
+	r_720 (n_720 n_719 0) resistor r=1k
+	r_719 (n_719 n_718 0) resistor r=1k
+	r_718 (n_718 n_717 0) resistor r=1k
+	r_717 (n_717 n_716 0) resistor r=1k
+	r_716 (n_716 n_715 0) resistor r=1k
+	r_715 (n_715 n_714 0) resistor r=1k
+	r_714 (n_714 n_713 0) resistor r=1k
+	r_713 (n_713 n_712 0) resistor r=1k
+	r_712 (n_712 n_711 0) resistor r=1k
+	r_711 (n_711 n_710 0) resistor r=1k
+	r_710 (n_710 n_709 0) resistor r=1k
+	r_709 (n_709 n_708 0) resistor r=1k
+	r_708 (n_708 n_707 0) resistor r=1k
+	r_707 (n_707 n_706 0) resistor r=1k
+	r_706 (n_706 n_705 0) resistor r=1k
+	r_705 (n_705 n_704 0) resistor r=1k
+	r_704 (n_704 n_703 0) resistor r=1k
+	r_703 (n_703 n_702 0) resistor r=1k
+	r_702 (n_702 n_701 0) resistor r=1k
+	r_701 (n_701 n_700 0) resistor r=1k
+	r_700 (n_700 n_699 0) resistor r=1k
+	r_699 (n_699 n_698 0) resistor r=1k
+	r_698 (n_698 n_697 0) resistor r=1k
+	r_697 (n_697 n_696 0) resistor r=1k
+	r_696 (n_696 n_695 0) resistor r=1k
+	r_695 (n_695 n_694 0) resistor r=1k
+	r_694 (n_694 n_693 0) resistor r=1k
+	r_693 (n_693 n_692 0) resistor r=1k
+	r_692 (n_692 n_691 0) resistor r=1k
+	r_691 (n_691 n_690 0) resistor r=1k
+	r_690 (n_690 n_689 0) resistor r=1k
+	r_689 (n_689 n_688 0) resistor r=1k
+	r_688 (n_688 n_687 0) resistor r=1k
+	r_687 (n_687 n_686 0) resistor r=1k
+	r_686 (n_686 n_685 0) resistor r=1k
+	r_685 (n_685 n_684 0) resistor r=1k
+	r_684 (n_684 n_683 0) resistor r=1k
+	r_683 (n_683 n_682 0) resistor r=1k
+	r_682 (n_682 n_681 0) resistor r=1k
+	r_681 (n_681 n_680 0) resistor r=1k
+	r_680 (n_680 n_679 0) resistor r=1k
+	r_679 (n_679 n_678 0) resistor r=1k
+	r_678 (n_678 n_677 0) resistor r=1k
+	r_677 (n_677 n_676 0) resistor r=1k
+	r_676 (n_676 n_675 0) resistor r=1k
+	r_675 (n_675 n_674 0) resistor r=1k
+	r_674 (n_674 n_673 0) resistor r=1k
+	r_673 (n_673 n_672 0) resistor r=1k
+	r_672 (n_672 n_671 0) resistor r=1k
+	r_671 (n_671 n_670 0) resistor r=1k
+	r_670 (n_670 n_669 0) resistor r=1k
+	r_669 (n_669 n_668 0) resistor r=1k
+	r_668 (n_668 n_667 0) resistor r=1k
+	r_667 (n_667 n_666 0) resistor r=1k
+	r_666 (n_666 n_665 0) resistor r=1k
+	r_665 (n_665 n_664 0) resistor r=1k
+	r_664 (n_664 n_663 0) resistor r=1k
+	r_663 (n_663 n_662 0) resistor r=1k
+	r_662 (n_662 n_661 0) resistor r=1k
+	r_661 (n_661 n_660 0) resistor r=1k
+	r_660 (n_660 n_659 0) resistor r=1k
+	r_659 (n_659 n_658 0) resistor r=1k
+	r_658 (n_658 n_657 0) resistor r=1k
+	r_657 (n_657 n_656 0) resistor r=1k
+	r_656 (n_656 n_655 0) resistor r=1k
+	r_655 (n_655 n_654 0) resistor r=1k
+	r_654 (n_654 n_653 0) resistor r=1k
+	r_653 (n_653 n_652 0) resistor r=1k
+	r_652 (n_652 n_651 0) resistor r=1k
+	r_651 (n_651 n_650 0) resistor r=1k
+	r_650 (n_650 n_649 0) resistor r=1k
+	r_649 (n_649 n_648 0) resistor r=1k
+	r_648 (n_648 n_647 0) resistor r=1k
+	r_647 (n_647 n_646 0) resistor r=1k
+	r_646 (n_646 n_645 0) resistor r=1k
+	r_645 (n_645 n_644 0) resistor r=1k
+	r_644 (n_644 n_643 0) resistor r=1k
+	r_643 (n_643 n_642 0) resistor r=1k
+	r_642 (n_642 n_641 0) resistor r=1k
+	r_641 (n_641 n_640 0) resistor r=1k
+	r_640 (n_640 n_639 0) resistor r=1k
+	r_639 (n_639 n_638 0) resistor r=1k
+	r_638 (n_638 n_637 0) resistor r=1k
+	r_637 (n_637 n_636 0) resistor r=1k
+	r_636 (n_636 n_635 0) resistor r=1k
+	r_635 (n_635 n_634 0) resistor r=1k
+	r_634 (n_634 n_633 0) resistor r=1k
+	r_633 (n_633 n_632 0) resistor r=1k
+	r_632 (n_632 n_631 0) resistor r=1k
+	r_631 (n_631 n_630 0) resistor r=1k
+	r_630 (n_630 n_629 0) resistor r=1k
+	r_629 (n_629 n_628 0) resistor r=1k
+	r_628 (n_628 n_627 0) resistor r=1k
+	r_627 (n_627 n_626 0) resistor r=1k
+	r_626 (n_626 n_625 0) resistor r=1k
+	r_625 (n_625 n_624 0) resistor r=1k
+	r_624 (n_624 n_623 0) resistor r=1k
+	r_623 (n_623 n_622 0) resistor r=1k
+	r_622 (n_622 n_621 0) resistor r=1k
+	r_621 (n_621 n_620 0) resistor r=1k
+	r_620 (n_620 n_619 0) resistor r=1k
+	r_619 (n_619 n_618 0) resistor r=1k
+	r_618 (n_618 n_617 0) resistor r=1k
+	r_617 (n_617 n_616 0) resistor r=1k
+	r_616 (n_616 n_615 0) resistor r=1k
+	r_615 (n_615 n_614 0) resistor r=1k
+	r_614 (n_614 n_613 0) resistor r=1k
+	r_613 (n_613 n_612 0) resistor r=1k
+	r_612 (n_612 n_611 0) resistor r=1k
+	r_611 (n_611 n_610 0) resistor r=1k
+	r_610 (n_610 n_609 0) resistor r=1k
+	r_609 (n_609 n_608 0) resistor r=1k
+	r_608 (n_608 n_607 0) resistor r=1k
+	r_607 (n_607 n_606 0) resistor r=1k
+	r_606 (n_606 n_605 0) resistor r=1k
+	r_605 (n_605 n_604 0) resistor r=1k
+	r_604 (n_604 n_603 0) resistor r=1k
+	r_603 (n_603 n_602 0) resistor r=1k
+	r_602 (n_602 n_601 0) resistor r=1k
+	r_601 (n_601 n_600 0) resistor r=1k
+	r_600 (n_600 n_599 0) resistor r=1k
+	r_599 (n_599 n_598 0) resistor r=1k
+	r_598 (n_598 n_597 0) resistor r=1k
+	r_597 (n_597 n_596 0) resistor r=1k
+	r_596 (n_596 n_595 0) resistor r=1k
+	r_595 (n_595 n_594 0) resistor r=1k
+	r_594 (n_594 n_593 0) resistor r=1k
+	r_593 (n_593 n_592 0) resistor r=1k
+	r_592 (n_592 n_591 0) resistor r=1k
+	r_591 (n_591 n_590 0) resistor r=1k
+	r_590 (n_590 n_589 0) resistor r=1k
+	r_589 (n_589 n_588 0) resistor r=1k
+	r_588 (n_588 n_587 0) resistor r=1k
+	r_587 (n_587 n_586 0) resistor r=1k
+	r_586 (n_586 n_585 0) resistor r=1k
+	r_585 (n_585 n_584 0) resistor r=1k
+	r_584 (n_584 n_583 0) resistor r=1k
+	r_583 (n_583 n_582 0) resistor r=1k
+	r_582 (n_582 n_581 0) resistor r=1k
+	r_581 (n_581 n_580 0) resistor r=1k
+	r_580 (n_580 n_579 0) resistor r=1k
+	r_579 (n_579 n_578 0) resistor r=1k
+	r_578 (n_578 n_577 0) resistor r=1k
+	r_577 (n_577 n_576 0) resistor r=1k
+	r_576 (n_576 n_575 0) resistor r=1k
+	r_575 (n_575 n_574 0) resistor r=1k
+	r_574 (n_574 n_573 0) resistor r=1k
+	r_573 (n_573 n_572 0) resistor r=1k
+	r_572 (n_572 n_571 0) resistor r=1k
+	r_571 (n_571 n_570 0) resistor r=1k
+	r_570 (n_570 n_569 0) resistor r=1k
+	r_569 (n_569 n_568 0) resistor r=1k
+	r_568 (n_568 n_567 0) resistor r=1k
+	r_567 (n_567 n_566 0) resistor r=1k
+	r_566 (n_566 n_565 0) resistor r=1k
+	r_565 (n_565 n_564 0) resistor r=1k
+	r_564 (n_564 n_563 0) resistor r=1k
+	r_563 (n_563 n_562 0) resistor r=1k
+	r_562 (n_562 n_561 0) resistor r=1k
+	r_561 (n_561 n_560 0) resistor r=1k
+	r_560 (n_560 n_559 0) resistor r=1k
+	r_559 (n_559 n_558 0) resistor r=1k
+	r_558 (n_558 n_557 0) resistor r=1k
+	r_557 (n_557 n_556 0) resistor r=1k
+	r_556 (n_556 n_555 0) resistor r=1k
+	r_555 (n_555 n_554 0) resistor r=1k
+	r_554 (n_554 n_553 0) resistor r=1k
+	r_553 (n_553 n_552 0) resistor r=1k
+	r_552 (n_552 n_551 0) resistor r=1k
+	r_551 (n_551 n_550 0) resistor r=1k
+	r_550 (n_550 n_549 0) resistor r=1k
+	r_549 (n_549 n_548 0) resistor r=1k
+	r_548 (n_548 n_547 0) resistor r=1k
+	r_547 (n_547 n_546 0) resistor r=1k
+	r_546 (n_546 n_545 0) resistor r=1k
+	r_545 (n_545 n_544 0) resistor r=1k
+	r_544 (n_544 n_543 0) resistor r=1k
+	r_543 (n_543 n_542 0) resistor r=1k
+	r_542 (n_542 n_541 0) resistor r=1k
+	r_541 (n_541 n_540 0) resistor r=1k
+	r_540 (n_540 n_539 0) resistor r=1k
+	r_539 (n_539 n_538 0) resistor r=1k
+	r_538 (n_538 n_537 0) resistor r=1k
+	r_537 (n_537 n_536 0) resistor r=1k
+	r_536 (n_536 n_535 0) resistor r=1k
+	r_535 (n_535 n_534 0) resistor r=1k
+	r_534 (n_534 n_533 0) resistor r=1k
+	r_533 (n_533 n_532 0) resistor r=1k
+	r_532 (n_532 n_531 0) resistor r=1k
+	r_531 (n_531 n_530 0) resistor r=1k
+	r_530 (n_530 n_529 0) resistor r=1k
+	r_529 (n_529 n_528 0) resistor r=1k
+	r_528 (n_528 n_527 0) resistor r=1k
+	r_527 (n_527 n_526 0) resistor r=1k
+	r_526 (n_526 n_525 0) resistor r=1k
+	r_525 (n_525 n_524 0) resistor r=1k
+	r_524 (n_524 n_523 0) resistor r=1k
+	r_523 (n_523 n_522 0) resistor r=1k
+	r_522 (n_522 n_521 0) resistor r=1k
+	r_521 (n_521 n_520 0) resistor r=1k
+	r_520 (n_520 n_519 0) resistor r=1k
+	r_519 (n_519 n_518 0) resistor r=1k
+	r_518 (n_518 n_517 0) resistor r=1k
+	r_517 (n_517 n_516 0) resistor r=1k
+	r_516 (n_516 n_515 0) resistor r=1k
+	r_515 (n_515 n_514 0) resistor r=1k
+	r_514 (n_514 n_513 0) resistor r=1k
+	r_513 (n_513 n_512 0) resistor r=1k
+	r_512 (n_512 n_511 0) resistor r=1k
+	r_511 (n_511 n_510 0) resistor r=1k
+	r_510 (n_510 n_509 0) resistor r=1k
+	r_509 (n_509 n_508 0) resistor r=1k
+	r_508 (n_508 n_507 0) resistor r=1k
+	r_507 (n_507 n_506 0) resistor r=1k
+	r_506 (n_506 n_505 0) resistor r=1k
+	r_505 (n_505 n_504 0) resistor r=1k
+	r_504 (n_504 n_503 0) resistor r=1k
+	r_503 (n_503 n_502 0) resistor r=1k
+	r_502 (n_502 n_501 0) resistor r=1k
+	r_501 (n_501 n_500 0) resistor r=1k
+	r_500 (n_500 n_499 0) resistor r=1k
+	r_499 (n_499 n_498 0) resistor r=1k
+	r_498 (n_498 n_497 0) resistor r=1k
+	r_497 (n_497 n_496 0) resistor r=1k
+	r_496 (n_496 n_495 0) resistor r=1k
+	r_495 (n_495 n_494 0) resistor r=1k
+	r_494 (n_494 n_493 0) resistor r=1k
+	r_493 (n_493 n_492 0) resistor r=1k
+	r_492 (n_492 n_491 0) resistor r=1k
+	r_491 (n_491 n_490 0) resistor r=1k
+	r_490 (n_490 n_489 0) resistor r=1k
+	r_489 (n_489 n_488 0) resistor r=1k
+	r_488 (n_488 n_487 0) resistor r=1k
+	r_487 (n_487 n_486 0) resistor r=1k
+	r_486 (n_486 n_485 0) resistor r=1k
+	r_485 (n_485 n_484 0) resistor r=1k
+	r_484 (n_484 n_483 0) resistor r=1k
+	r_483 (n_483 n_482 0) resistor r=1k
+	r_482 (n_482 n_481 0) resistor r=1k
+	r_481 (n_481 n_480 0) resistor r=1k
+	r_480 (n_480 n_479 0) resistor r=1k
+	r_479 (n_479 n_478 0) resistor r=1k
+	r_478 (n_478 n_477 0) resistor r=1k
+	r_477 (n_477 n_476 0) resistor r=1k
+	r_476 (n_476 n_475 0) resistor r=1k
+	r_475 (n_475 n_474 0) resistor r=1k
+	r_474 (n_474 n_473 0) resistor r=1k
+	r_473 (n_473 n_472 0) resistor r=1k
+	r_472 (n_472 n_471 0) resistor r=1k
+	r_471 (n_471 n_470 0) resistor r=1k
+	r_470 (n_470 n_469 0) resistor r=1k
+	r_469 (n_469 n_468 0) resistor r=1k
+	r_468 (n_468 n_467 0) resistor r=1k
+	r_467 (n_467 n_466 0) resistor r=1k
+	r_466 (n_466 n_465 0) resistor r=1k
+	r_465 (n_465 n_464 0) resistor r=1k
+	r_464 (n_464 n_463 0) resistor r=1k
+	r_463 (n_463 n_462 0) resistor r=1k
+	r_462 (n_462 n_461 0) resistor r=1k
+	r_461 (n_461 n_460 0) resistor r=1k
+	r_460 (n_460 n_459 0) resistor r=1k
+	r_459 (n_459 n_458 0) resistor r=1k
+	r_458 (n_458 n_457 0) resistor r=1k
+	r_457 (n_457 n_456 0) resistor r=1k
+	r_456 (n_456 n_455 0) resistor r=1k
+	r_455 (n_455 n_454 0) resistor r=1k
+	r_454 (n_454 n_453 0) resistor r=1k
+	r_453 (n_453 n_452 0) resistor r=1k
+	r_452 (n_452 n_451 0) resistor r=1k
+	r_451 (n_451 n_450 0) resistor r=1k
+	r_450 (n_450 n_449 0) resistor r=1k
+	r_449 (n_449 n_448 0) resistor r=1k
+	r_448 (n_448 n_447 0) resistor r=1k
+	r_447 (n_447 n_446 0) resistor r=1k
+	r_446 (n_446 n_445 0) resistor r=1k
+	r_445 (n_445 n_444 0) resistor r=1k
+	r_444 (n_444 n_443 0) resistor r=1k
+	r_443 (n_443 n_442 0) resistor r=1k
+	r_442 (n_442 n_441 0) resistor r=1k
+	r_441 (n_441 n_440 0) resistor r=1k
+	r_440 (n_440 n_439 0) resistor r=1k
+	r_439 (n_439 n_438 0) resistor r=1k
+	r_438 (n_438 n_437 0) resistor r=1k
+	r_437 (n_437 n_436 0) resistor r=1k
+	r_436 (n_436 n_435 0) resistor r=1k
+	r_435 (n_435 n_434 0) resistor r=1k
+	r_434 (n_434 n_433 0) resistor r=1k
+	r_433 (n_433 n_432 0) resistor r=1k
+	r_432 (n_432 n_431 0) resistor r=1k
+	r_431 (n_431 n_430 0) resistor r=1k
+	r_430 (n_430 n_429 0) resistor r=1k
+	r_429 (n_429 n_428 0) resistor r=1k
+	r_428 (n_428 n_427 0) resistor r=1k
+	r_427 (n_427 n_426 0) resistor r=1k
+	r_426 (n_426 n_425 0) resistor r=1k
+	r_425 (n_425 n_424 0) resistor r=1k
+	r_424 (n_424 n_423 0) resistor r=1k
+	r_423 (n_423 n_422 0) resistor r=1k
+	r_422 (n_422 n_421 0) resistor r=1k
+	r_421 (n_421 n_420 0) resistor r=1k
+	r_420 (n_420 n_419 0) resistor r=1k
+	r_419 (n_419 n_418 0) resistor r=1k
+	r_418 (n_418 n_417 0) resistor r=1k
+	r_417 (n_417 n_416 0) resistor r=1k
+	r_416 (n_416 n_415 0) resistor r=1k
+	r_415 (n_415 n_414 0) resistor r=1k
+	r_414 (n_414 n_413 0) resistor r=1k
+	r_413 (n_413 n_412 0) resistor r=1k
+	r_412 (n_412 n_411 0) resistor r=1k
+	r_411 (n_411 n_410 0) resistor r=1k
+	r_410 (n_410 n_409 0) resistor r=1k
+	r_409 (n_409 n_408 0) resistor r=1k
+	r_408 (n_408 n_407 0) resistor r=1k
+	r_407 (n_407 n_406 0) resistor r=1k
+	r_406 (n_406 n_405 0) resistor r=1k
+	r_405 (n_405 n_404 0) resistor r=1k
+	r_404 (n_404 n_403 0) resistor r=1k
+	r_403 (n_403 n_402 0) resistor r=1k
+	r_402 (n_402 n_401 0) resistor r=1k
+	r_401 (n_401 n_400 0) resistor r=1k
+	r_400 (n_400 n_399 0) resistor r=1k
+	r_399 (n_399 n_398 0) resistor r=1k
+	r_398 (n_398 n_397 0) resistor r=1k
+	r_397 (n_397 n_396 0) resistor r=1k
+	r_396 (n_396 n_395 0) resistor r=1k
+	r_395 (n_395 n_394 0) resistor r=1k
+	r_394 (n_394 n_393 0) resistor r=1k
+	r_393 (n_393 n_392 0) resistor r=1k
+	r_392 (n_392 n_391 0) resistor r=1k
+	r_391 (n_391 n_390 0) resistor r=1k
+	r_390 (n_390 n_389 0) resistor r=1k
+	r_389 (n_389 n_388 0) resistor r=1k
+	r_388 (n_388 n_387 0) resistor r=1k
+	r_387 (n_387 n_386 0) resistor r=1k
+	r_386 (n_386 n_385 0) resistor r=1k
+	r_385 (n_385 n_384 0) resistor r=1k
+	r_384 (n_384 n_383 0) resistor r=1k
+	r_383 (n_383 n_382 0) resistor r=1k
+	r_382 (n_382 n_381 0) resistor r=1k
+	r_381 (n_381 n_380 0) resistor r=1k
+	r_380 (n_380 n_379 0) resistor r=1k
+	r_379 (n_379 n_378 0) resistor r=1k
+	r_378 (n_378 n_377 0) resistor r=1k
+	r_377 (n_377 n_376 0) resistor r=1k
+	r_376 (n_376 n_375 0) resistor r=1k
+	r_375 (n_375 n_374 0) resistor r=1k
+	r_374 (n_374 n_373 0) resistor r=1k
+	r_373 (n_373 n_372 0) resistor r=1k
+	r_372 (n_372 n_371 0) resistor r=1k
+	r_371 (n_371 n_370 0) resistor r=1k
+	r_370 (n_370 n_369 0) resistor r=1k
+	r_369 (n_369 n_368 0) resistor r=1k
+	r_368 (n_368 n_367 0) resistor r=1k
+	r_367 (n_367 n_366 0) resistor r=1k
+	r_366 (n_366 n_365 0) resistor r=1k
+	r_365 (n_365 n_364 0) resistor r=1k
+	r_364 (n_364 n_363 0) resistor r=1k
+	r_363 (n_363 n_362 0) resistor r=1k
+	r_362 (n_362 n_361 0) resistor r=1k
+	r_361 (n_361 n_360 0) resistor r=1k
+	r_360 (n_360 n_359 0) resistor r=1k
+	r_359 (n_359 n_358 0) resistor r=1k
+	r_358 (n_358 n_357 0) resistor r=1k
+	r_357 (n_357 n_356 0) resistor r=1k
+	r_356 (n_356 n_355 0) resistor r=1k
+	r_355 (n_355 n_354 0) resistor r=1k
+	r_354 (n_354 n_353 0) resistor r=1k
+	r_353 (n_353 n_352 0) resistor r=1k
+	r_352 (n_352 n_351 0) resistor r=1k
+	r_351 (n_351 n_350 0) resistor r=1k
+	r_350 (n_350 n_349 0) resistor r=1k
+	r_349 (n_349 n_348 0) resistor r=1k
+	r_348 (n_348 n_347 0) resistor r=1k
+	r_347 (n_347 n_346 0) resistor r=1k
+	r_346 (n_346 n_345 0) resistor r=1k
+	r_345 (n_345 n_344 0) resistor r=1k
+	r_344 (n_344 n_343 0) resistor r=1k
+	r_343 (n_343 n_342 0) resistor r=1k
+	r_342 (n_342 n_341 0) resistor r=1k
+	r_341 (n_341 n_340 0) resistor r=1k
+	r_340 (n_340 n_339 0) resistor r=1k
+	r_339 (n_339 n_338 0) resistor r=1k
+	r_338 (n_338 n_337 0) resistor r=1k
+	r_337 (n_337 n_336 0) resistor r=1k
+	r_336 (n_336 n_335 0) resistor r=1k
+	r_335 (n_335 n_334 0) resistor r=1k
+	r_334 (n_334 n_333 0) resistor r=1k
+	r_333 (n_333 n_332 0) resistor r=1k
+	r_332 (n_332 n_331 0) resistor r=1k
+	r_331 (n_331 n_330 0) resistor r=1k
+	r_330 (n_330 n_329 0) resistor r=1k
+	r_329 (n_329 n_328 0) resistor r=1k
+	r_328 (n_328 n_327 0) resistor r=1k
+	r_327 (n_327 n_326 0) resistor r=1k
+	r_326 (n_326 n_325 0) resistor r=1k
+	r_325 (n_325 n_324 0) resistor r=1k
+	r_324 (n_324 n_323 0) resistor r=1k
+	r_323 (n_323 n_322 0) resistor r=1k
+	r_322 (n_322 n_321 0) resistor r=1k
+	r_321 (n_321 n_320 0) resistor r=1k
+	r_320 (n_320 n_319 0) resistor r=1k
+	r_319 (n_319 n_318 0) resistor r=1k
+	r_318 (n_318 n_317 0) resistor r=1k
+	r_317 (n_317 n_316 0) resistor r=1k
+	r_316 (n_316 n_315 0) resistor r=1k
+	r_315 (n_315 n_314 0) resistor r=1k
+	r_314 (n_314 n_313 0) resistor r=1k
+	r_313 (n_313 n_312 0) resistor r=1k
+	r_312 (n_312 n_311 0) resistor r=1k
+	r_311 (n_311 n_310 0) resistor r=1k
+	r_310 (n_310 n_309 0) resistor r=1k
+	r_309 (n_309 n_308 0) resistor r=1k
+	r_308 (n_308 n_307 0) resistor r=1k
+	r_307 (n_307 n_306 0) resistor r=1k
+	r_306 (n_306 n_305 0) resistor r=1k
+	r_305 (n_305 n_304 0) resistor r=1k
+	r_304 (n_304 n_303 0) resistor r=1k
+	r_303 (n_303 n_302 0) resistor r=1k
+	r_302 (n_302 n_301 0) resistor r=1k
+	r_301 (n_301 n_300 0) resistor r=1k
+	r_300 (n_300 n_299 0) resistor r=1k
+	r_299 (n_299 n_298 0) resistor r=1k
+	r_298 (n_298 n_297 0) resistor r=1k
+	r_297 (n_297 n_296 0) resistor r=1k
+	r_296 (n_296 n_295 0) resistor r=1k
+	r_295 (n_295 n_294 0) resistor r=1k
+	r_294 (n_294 n_293 0) resistor r=1k
+	r_293 (n_293 n_292 0) resistor r=1k
+	r_292 (n_292 n_291 0) resistor r=1k
+	r_291 (n_291 n_290 0) resistor r=1k
+	r_290 (n_290 n_289 0) resistor r=1k
+	r_289 (n_289 n_288 0) resistor r=1k
+	r_288 (n_288 n_287 0) resistor r=1k
+	r_287 (n_287 n_286 0) resistor r=1k
+	r_286 (n_286 n_285 0) resistor r=1k
+	r_285 (n_285 n_284 0) resistor r=1k
+	r_284 (n_284 n_283 0) resistor r=1k
+	r_283 (n_283 n_282 0) resistor r=1k
+	r_282 (n_282 n_281 0) resistor r=1k
+	r_281 (n_281 n_280 0) resistor r=1k
+	r_280 (n_280 n_279 0) resistor r=1k
+	r_279 (n_279 n_278 0) resistor r=1k
+	r_278 (n_278 n_277 0) resistor r=1k
+	r_277 (n_277 n_276 0) resistor r=1k
+	r_276 (n_276 n_275 0) resistor r=1k
+	r_275 (n_275 n_274 0) resistor r=1k
+	r_274 (n_274 n_273 0) resistor r=1k
+	r_273 (n_273 n_272 0) resistor r=1k
+	r_272 (n_272 n_271 0) resistor r=1k
+	r_271 (n_271 n_270 0) resistor r=1k
+	r_270 (n_270 n_269 0) resistor r=1k
+	r_269 (n_269 n_268 0) resistor r=1k
+	r_268 (n_268 n_267 0) resistor r=1k
+	r_267 (n_267 n_266 0) resistor r=1k
+	r_266 (n_266 n_265 0) resistor r=1k
+	r_265 (n_265 n_264 0) resistor r=1k
+	r_264 (n_264 n_263 0) resistor r=1k
+	r_263 (n_263 n_262 0) resistor r=1k
+	r_262 (n_262 n_261 0) resistor r=1k
+	r_261 (n_261 n_260 0) resistor r=1k
+	r_260 (n_260 n_259 0) resistor r=1k
+	r_259 (n_259 n_258 0) resistor r=1k
+	r_258 (n_258 n_257 0) resistor r=1k
+	r_257 (n_257 n_256 0) resistor r=1k
+	r_256 (n_256 n_255 0) resistor r=1k
+	r_255 (n_255 n_254 0) resistor r=1k
+	r_254 (n_254 n_253 0) resistor r=1k
+	r_253 (n_253 n_252 0) resistor r=1k
+	r_252 (n_252 n_251 0) resistor r=1k
+	r_251 (n_251 n_250 0) resistor r=1k
+	r_250 (n_250 n_249 0) resistor r=1k
+	r_249 (n_249 n_248 0) resistor r=1k
+	r_248 (n_248 n_247 0) resistor r=1k
+	r_247 (n_247 n_246 0) resistor r=1k
+	r_246 (n_246 n_245 0) resistor r=1k
+	r_245 (n_245 n_244 0) resistor r=1k
+	r_244 (n_244 n_243 0) resistor r=1k
+	r_243 (n_243 n_242 0) resistor r=1k
+	r_242 (n_242 n_241 0) resistor r=1k
+	r_241 (n_241 n_240 0) resistor r=1k
+	r_240 (n_240 n_239 0) resistor r=1k
+	r_239 (n_239 n_238 0) resistor r=1k
+	r_238 (n_238 n_237 0) resistor r=1k
+	r_237 (n_237 n_236 0) resistor r=1k
+	r_236 (n_236 n_235 0) resistor r=1k
+	r_235 (n_235 n_234 0) resistor r=1k
+	r_234 (n_234 n_233 0) resistor r=1k
+	r_233 (n_233 n_232 0) resistor r=1k
+	r_232 (n_232 n_231 0) resistor r=1k
+	r_231 (n_231 n_230 0) resistor r=1k
+	r_230 (n_230 n_229 0) resistor r=1k
+	r_229 (n_229 n_228 0) resistor r=1k
+	r_228 (n_228 n_227 0) resistor r=1k
+	r_227 (n_227 n_226 0) resistor r=1k
+	r_226 (n_226 n_225 0) resistor r=1k
+	r_225 (n_225 n_224 0) resistor r=1k
+	r_224 (n_224 n_223 0) resistor r=1k
+	r_223 (n_223 n_222 0) resistor r=1k
+	r_222 (n_222 n_221 0) resistor r=1k
+	r_221 (n_221 n_220 0) resistor r=1k
+	r_220 (n_220 n_219 0) resistor r=1k
+	r_219 (n_219 n_218 0) resistor r=1k
+	r_218 (n_218 n_217 0) resistor r=1k
+	r_217 (n_217 n_216 0) resistor r=1k
+	r_216 (n_216 n_215 0) resistor r=1k
+	r_215 (n_215 n_214 0) resistor r=1k
+	r_214 (n_214 n_213 0) resistor r=1k
+	r_213 (n_213 n_212 0) resistor r=1k
+	r_212 (n_212 n_211 0) resistor r=1k
+	r_211 (n_211 n_210 0) resistor r=1k
+	r_210 (n_210 n_209 0) resistor r=1k
+	r_209 (n_209 n_208 0) resistor r=1k
+	r_208 (n_208 n_207 0) resistor r=1k
+	r_207 (n_207 n_206 0) resistor r=1k
+	r_206 (n_206 n_205 0) resistor r=1k
+	r_205 (n_205 n_204 0) resistor r=1k
+	r_204 (n_204 n_203 0) resistor r=1k
+	r_203 (n_203 n_202 0) resistor r=1k
+	r_202 (n_202 n_201 0) resistor r=1k
+	r_201 (n_201 n_200 0) resistor r=1k
+	r_200 (n_200 n_199 0) resistor r=1k
+	r_199 (n_199 n_198 0) resistor r=1k
+	r_198 (n_198 n_197 0) resistor r=1k
+	r_197 (n_197 n_196 0) resistor r=1k
+	r_196 (n_196 n_195 0) resistor r=1k
+	r_195 (n_195 n_194 0) resistor r=1k
+	r_194 (n_194 n_193 0) resistor r=1k
+	r_193 (n_193 n_192 0) resistor r=1k
+	r_192 (n_192 n_191 0) resistor r=1k
+	r_191 (n_191 n_190 0) resistor r=1k
+	r_190 (n_190 n_189 0) resistor r=1k
+	r_189 (n_189 n_188 0) resistor r=1k
+	r_188 (n_188 n_187 0) resistor r=1k
+	r_187 (n_187 n_186 0) resistor r=1k
+	r_186 (n_186 n_185 0) resistor r=1k
+	r_185 (n_185 n_184 0) resistor r=1k
+	r_184 (n_184 n_183 0) resistor r=1k
+	r_183 (n_183 n_182 0) resistor r=1k
+	r_182 (n_182 n_181 0) resistor r=1k
+	r_181 (n_181 n_180 0) resistor r=1k
+	r_180 (n_180 n_179 0) resistor r=1k
+	r_179 (n_179 n_178 0) resistor r=1k
+	r_178 (n_178 n_177 0) resistor r=1k
+	r_177 (n_177 n_176 0) resistor r=1k
+	r_176 (n_176 n_175 0) resistor r=1k
+	r_175 (n_175 n_174 0) resistor r=1k
+	r_174 (n_174 n_173 0) resistor r=1k
+	r_173 (n_173 n_172 0) resistor r=1k
+	r_172 (n_172 n_171 0) resistor r=1k
+	r_171 (n_171 n_170 0) resistor r=1k
+	r_170 (n_170 n_169 0) resistor r=1k
+	r_169 (n_169 n_168 0) resistor r=1k
+	r_168 (n_168 n_167 0) resistor r=1k
+	r_167 (n_167 n_166 0) resistor r=1k
+	r_166 (n_166 n_165 0) resistor r=1k
+	r_165 (n_165 n_164 0) resistor r=1k
+	r_164 (n_164 n_163 0) resistor r=1k
+	r_163 (n_163 n_162 0) resistor r=1k
+	r_162 (n_162 n_161 0) resistor r=1k
+	r_161 (n_161 n_160 0) resistor r=1k
+	r_160 (n_160 n_159 0) resistor r=1k
+	r_159 (n_159 n_158 0) resistor r=1k
+	r_158 (n_158 n_157 0) resistor r=1k
+	r_157 (n_157 n_156 0) resistor r=1k
+	r_156 (n_156 n_155 0) resistor r=1k
+	r_155 (n_155 n_154 0) resistor r=1k
+	r_154 (n_154 n_153 0) resistor r=1k
+	r_153 (n_153 n_152 0) resistor r=1k
+	r_152 (n_152 n_151 0) resistor r=1k
+	r_151 (n_151 n_150 0) resistor r=1k
+	r_150 (n_150 n_149 0) resistor r=1k
+	r_149 (n_149 n_148 0) resistor r=1k
+	r_148 (n_148 n_147 0) resistor r=1k
+	r_147 (n_147 n_146 0) resistor r=1k
+	r_146 (n_146 n_145 0) resistor r=1k
+	r_145 (n_145 n_144 0) resistor r=1k
+	r_144 (n_144 n_143 0) resistor r=1k
+	r_143 (n_143 n_142 0) resistor r=1k
+	r_142 (n_142 n_141 0) resistor r=1k
+	r_141 (n_141 n_140 0) resistor r=1k
+	r_140 (n_140 n_139 0) resistor r=1k
+	r_139 (n_139 n_138 0) resistor r=1k
+	r_138 (n_138 n_137 0) resistor r=1k
+	r_137 (n_137 n_136 0) resistor r=1k
+	r_136 (n_136 n_135 0) resistor r=1k
+	r_135 (n_135 n_134 0) resistor r=1k
+	r_134 (n_134 n_133 0) resistor r=1k
+	r_133 (n_133 n_132 0) resistor r=1k
+	r_132 (n_132 n_131 0) resistor r=1k
+	r_131 (n_131 n_130 0) resistor r=1k
+	r_130 (n_130 n_129 0) resistor r=1k
+	r_129 (n_129 n_128 0) resistor r=1k
+	r_128 (n_128 n_127 0) resistor r=1k
+	r_127 (n_127 n_126 0) resistor r=1k
+	r_126 (n_126 n_125 0) resistor r=1k
+	r_125 (n_125 n_124 0) resistor r=1k
+	r_124 (n_124 n_123 0) resistor r=1k
+	r_123 (n_123 n_122 0) resistor r=1k
+	r_122 (n_122 n_121 0) resistor r=1k
+	r_121 (n_121 n_120 0) resistor r=1k
+	r_120 (n_120 n_119 0) resistor r=1k
+	r_119 (n_119 n_118 0) resistor r=1k
+	r_118 (n_118 n_117 0) resistor r=1k
+	r_117 (n_117 n_116 0) resistor r=1k
+	r_116 (n_116 n_115 0) resistor r=1k
+	r_115 (n_115 n_114 0) resistor r=1k
+	r_114 (n_114 n_113 0) resistor r=1k
+	r_113 (n_113 n_112 0) resistor r=1k
+	r_112 (n_112 n_111 0) resistor r=1k
+	r_111 (n_111 n_110 0) resistor r=1k
+	r_110 (n_110 n_109 0) resistor r=1k
+	r_109 (n_109 n_108 0) resistor r=1k
+	r_108 (n_108 n_107 0) resistor r=1k
+	r_107 (n_107 n_106 0) resistor r=1k
+	r_106 (n_106 n_105 0) resistor r=1k
+	r_105 (n_105 n_104 0) resistor r=1k
+	r_104 (n_104 n_103 0) resistor r=1k
+	r_103 (n_103 n_102 0) resistor r=1k
+	r_102 (n_102 n_101 0) resistor r=1k
+	r_101 (n_101 n_100 0) resistor r=1k
+	r_100 (n_100 n_99 0) resistor r=1k
+	r_99 (n_99 n_98 0) resistor r=1k
+	r_98 (n_98 n_97 0) resistor r=1k
+	r_97 (n_97 n_96 0) resistor r=1k
+	r_96 (n_96 n_95 0) resistor r=1k
+	r_95 (n_95 n_94 0) resistor r=1k
+	r_94 (n_94 n_93 0) resistor r=1k
+	r_93 (n_93 n_92 0) resistor r=1k
+	r_92 (n_92 n_91 0) resistor r=1k
+	r_91 (n_91 n_90 0) resistor r=1k
+	r_90 (n_90 n_89 0) resistor r=1k
+	r_89 (n_89 n_88 0) resistor r=1k
+	r_88 (n_88 n_87 0) resistor r=1k
+	r_87 (n_87 n_86 0) resistor r=1k
+	r_86 (n_86 n_85 0) resistor r=1k
+	r_85 (n_85 n_84 0) resistor r=1k
+	r_84 (n_84 n_83 0) resistor r=1k
+	r_83 (n_83 n_82 0) resistor r=1k
+	r_82 (n_82 n_81 0) resistor r=1k
+	r_81 (n_81 n_80 0) resistor r=1k
+	r_80 (n_80 n_79 0) resistor r=1k
+	r_79 (n_79 n_78 0) resistor r=1k
+	r_78 (n_78 n_77 0) resistor r=1k
+	r_77 (n_77 n_76 0) resistor r=1k
+	r_76 (n_76 n_75 0) resistor r=1k
+	r_75 (n_75 n_74 0) resistor r=1k
+	r_74 (n_74 n_73 0) resistor r=1k
+	r_73 (n_73 n_72 0) resistor r=1k
+	r_72 (n_72 n_71 0) resistor r=1k
+	r_71 (n_71 n_70 0) resistor r=1k
+	r_70 (n_70 n_69 0) resistor r=1k
+	r_69 (n_69 n_68 0) resistor r=1k
+	r_68 (n_68 n_67 0) resistor r=1k
+	r_67 (n_67 n_66 0) resistor r=1k
+	r_66 (n_66 n_65 0) resistor r=1k
+	r_65 (n_65 n_64 0) resistor r=1k
+	r_64 (n_64 n_63 0) resistor r=1k
+	r_63 (n_63 n_62 0) resistor r=1k
+	r_62 (n_62 n_61 0) resistor r=1k
+	r_61 (n_61 n_60 0) resistor r=1k
+	r_60 (n_60 n_59 0) resistor r=1k
+	r_59 (n_59 n_58 0) resistor r=1k
+	r_58 (n_58 n_57 0) resistor r=1k
+	r_57 (n_57 n_56 0) resistor r=1k
+	r_56 (n_56 n_55 0) resistor r=1k
+	r_55 (n_55 n_54 0) resistor r=1k
+	r_54 (n_54 n_53 0) resistor r=1k
+	r_53 (n_53 n_52 0) resistor r=1k
+	r_52 (n_52 n_51 0) resistor r=1k
+	r_51 (n_51 n_50 0) resistor r=1k
+	r_50 (n_50 n_49 0) resistor r=1k
+	r_49 (n_49 n_48 0) resistor r=1k
+	r_48 (n_48 n_47 0) resistor r=1k
+	r_47 (n_47 n_46 0) resistor r=1k
+	r_46 (n_46 n_45 0) resistor r=1k
+	r_45 (n_45 n_44 0) resistor r=1k
+	r_44 (n_44 n_43 0) resistor r=1k
+	r_43 (n_43 n_42 0) resistor r=1k
+	r_42 (n_42 n_41 0) resistor r=1k
+	r_41 (n_41 n_40 0) resistor r=1k
+	r_40 (n_40 n_39 0) resistor r=1k
+	r_39 (n_39 n_38 0) resistor r=1k
+	r_38 (n_38 n_37 0) resistor r=1k
+	r_37 (n_37 n_36 0) resistor r=1k
+	r_36 (n_36 n_35 0) resistor r=1k
+	r_35 (n_35 n_34 0) resistor r=1k
+	r_34 (n_34 n_33 0) resistor r=1k
+	r_33 (n_33 n_32 0) resistor r=1k
+	r_32 (n_32 n_31 0) resistor r=1k
+	r_31 (n_31 n_30 0) resistor r=1k
+	r_30 (n_30 n_29 0) resistor r=1k
+	r_29 (n_29 n_28 0) resistor r=1k
+	r_28 (n_28 n_27 0) resistor r=1k
+	r_27 (n_27 n_26 0) resistor r=1k
+	r_26 (n_26 n_25 0) resistor r=1k
+	r_25 (n_25 n_24 0) resistor r=1k
+	r_24 (n_24 n_23 0) resistor r=1k
+	r_23 (n_23 n_22 0) resistor r=1k
+	r_22 (n_22 n_21 0) resistor r=1k
+	r_21 (n_21 n_20 0) resistor r=1k
+	r_20 (n_20 n_19 0) resistor r=1k
+	r_19 (n_19 n_18 0) resistor r=1k
+	r_18 (n_18 n_17 0) resistor r=1k
+	r_17 (n_17 n_16 0) resistor r=1k
+	r_16 (n_16 n_15 0) resistor r=1k
+	r_15 (n_15 n_14 0) resistor r=1k
+	r_14 (n_14 n_13 0) resistor r=1k
+	r_13 (n_13 n_12 0) resistor r=1k
+	r_12 (n_12 n_11 0) resistor r=1k
+	r_11 (n_11 n_10 0) resistor r=1k
+	r_10 (n_10 n_9 0) resistor r=1k
+	r_9 (n_9 n_8 0) resistor r=1k
+	r_8 (n_8 n_7 0) resistor r=1k
+	r_7 (n_7 n_6 0) resistor r=1k
+	r_6 (n_6 n_5 0) resistor r=1k
+	r_5 (n_5 n_4 0) resistor r=1k
+	r_4 (n_4 n_3 0) resistor r=1k
+	r_3 (n_3 n_2 0) resistor r=1k
+	r_2 (n_2 n_1 0) resistor r=1k
+	r_1 (n_1 n_0 0) resistor r=1k
+	r_0 (n_0 0 0) resistor r=1k 
 
 
 	// analog_mux connection
 
-	m_0 (n_31 n_30 
+	m_0 (n_1023 n_1022 n_1021 n_1020 
+		+ n_1019 n_1018 n_1017 n_1016 n_1015 n_1014 n_1013 n_1012 n_1011 n_1010 
+		+ n_1009 n_1008 n_1007 n_1006 n_1005 n_1004 n_1003 n_1002 n_1001 n_1000 
+		+ n_999 n_998 n_997 n_996 n_995 n_994 n_993 n_992 n_991 n_990 
+		+ n_989 n_988 n_987 n_986 n_985 n_984 n_983 n_982 n_981 n_980 
+		+ n_979 n_978 n_977 n_976 n_975 n_974 n_973 n_972 n_971 n_970 
+		+ n_969 n_968 n_967 n_966 n_965 n_964 n_963 n_962 n_961 n_960 
+		+ n_959 n_958 n_957 n_956 n_955 n_954 n_953 n_952 n_951 n_950 
+		+ n_949 n_948 n_947 n_946 n_945 n_944 n_943 n_942 n_941 n_940 
+		+ n_939 n_938 n_937 n_936 n_935 n_934 n_933 n_932 n_931 n_930 
+		+ n_929 n_928 n_927 n_926 n_925 n_924 n_923 n_922 n_921 n_920 
+		+ n_919 n_918 n_917 n_916 n_915 n_914 n_913 n_912 n_911 n_910 
+		+ n_909 n_908 n_907 n_906 n_905 n_904 n_903 n_902 n_901 n_900 
+		+ n_899 n_898 n_897 n_896 n_895 n_894 n_893 n_892 n_891 n_890 
+		+ n_889 n_888 n_887 n_886 n_885 n_884 n_883 n_882 n_881 n_880 
+		+ n_879 n_878 n_877 n_876 n_875 n_874 n_873 n_872 n_871 n_870 
+		+ n_869 n_868 n_867 n_866 n_865 n_864 n_863 n_862 n_861 n_860 
+		+ n_859 n_858 n_857 n_856 n_855 n_854 n_853 n_852 n_851 n_850 
+		+ n_849 n_848 n_847 n_846 n_845 n_844 n_843 n_842 n_841 n_840 
+		+ n_839 n_838 n_837 n_836 n_835 n_834 n_833 n_832 n_831 n_830 
+		+ n_829 n_828 n_827 n_826 n_825 n_824 n_823 n_822 n_821 n_820 
+		+ n_819 n_818 n_817 n_816 n_815 n_814 n_813 n_812 n_811 n_810 
+		+ n_809 n_808 n_807 n_806 n_805 n_804 n_803 n_802 n_801 n_800 
+		+ n_799 n_798 n_797 n_796 n_795 n_794 n_793 n_792 n_791 n_790 
+		+ n_789 n_788 n_787 n_786 n_785 n_784 n_783 n_782 n_781 n_780 
+		+ n_779 n_778 n_777 n_776 n_775 n_774 n_773 n_772 n_771 n_770 
+		+ n_769 n_768 n_767 n_766 n_765 n_764 n_763 n_762 n_761 n_760 
+		+ n_759 n_758 n_757 n_756 n_755 n_754 n_753 n_752 n_751 n_750 
+		+ n_749 n_748 n_747 n_746 n_745 n_744 n_743 n_742 n_741 n_740 
+		+ n_739 n_738 n_737 n_736 n_735 n_734 n_733 n_732 n_731 n_730 
+		+ n_729 n_728 n_727 n_726 n_725 n_724 n_723 n_722 n_721 n_720 
+		+ n_719 n_718 n_717 n_716 n_715 n_714 n_713 n_712 n_711 n_710 
+		+ n_709 n_708 n_707 n_706 n_705 n_704 n_703 n_702 n_701 n_700 
+		+ n_699 n_698 n_697 n_696 n_695 n_694 n_693 n_692 n_691 n_690 
+		+ n_689 n_688 n_687 n_686 n_685 n_684 n_683 n_682 n_681 n_680 
+		+ n_679 n_678 n_677 n_676 n_675 n_674 n_673 n_672 n_671 n_670 
+		+ n_669 n_668 n_667 n_666 n_665 n_664 n_663 n_662 n_661 n_660 
+		+ n_659 n_658 n_657 n_656 n_655 n_654 n_653 n_652 n_651 n_650 
+		+ n_649 n_648 n_647 n_646 n_645 n_644 n_643 n_642 n_641 n_640 
+		+ n_639 n_638 n_637 n_636 n_635 n_634 n_633 n_632 n_631 n_630 
+		+ n_629 n_628 n_627 n_626 n_625 n_624 n_623 n_622 n_621 n_620 
+		+ n_619 n_618 n_617 n_616 n_615 n_614 n_613 n_612 n_611 n_610 
+		+ n_609 n_608 n_607 n_606 n_605 n_604 n_603 n_602 n_601 n_600 
+		+ n_599 n_598 n_597 n_596 n_595 n_594 n_593 n_592 n_591 n_590 
+		+ n_589 n_588 n_587 n_586 n_585 n_584 n_583 n_582 n_581 n_580 
+		+ n_579 n_578 n_577 n_576 n_575 n_574 n_573 n_572 n_571 n_570 
+		+ n_569 n_568 n_567 n_566 n_565 n_564 n_563 n_562 n_561 n_560 
+		+ n_559 n_558 n_557 n_556 n_555 n_554 n_553 n_552 n_551 n_550 
+		+ n_549 n_548 n_547 n_546 n_545 n_544 n_543 n_542 n_541 n_540 
+		+ n_539 n_538 n_537 n_536 n_535 n_534 n_533 n_532 n_531 n_530 
+		+ n_529 n_528 n_527 n_526 n_525 n_524 n_523 n_522 n_521 n_520 
+		+ n_519 n_518 n_517 n_516 n_515 n_514 n_513 n_512 n_511 n_510 
+		+ n_509 n_508 n_507 n_506 n_505 n_504 n_503 n_502 n_501 n_500 
+		+ n_499 n_498 n_497 n_496 n_495 n_494 n_493 n_492 n_491 n_490 
+		+ n_489 n_488 n_487 n_486 n_485 n_484 n_483 n_482 n_481 n_480 
+		+ n_479 n_478 n_477 n_476 n_475 n_474 n_473 n_472 n_471 n_470 
+		+ n_469 n_468 n_467 n_466 n_465 n_464 n_463 n_462 n_461 n_460 
+		+ n_459 n_458 n_457 n_456 n_455 n_454 n_453 n_452 n_451 n_450 
+		+ n_449 n_448 n_447 n_446 n_445 n_444 n_443 n_442 n_441 n_440 
+		+ n_439 n_438 n_437 n_436 n_435 n_434 n_433 n_432 n_431 n_430 
+		+ n_429 n_428 n_427 n_426 n_425 n_424 n_423 n_422 n_421 n_420 
+		+ n_419 n_418 n_417 n_416 n_415 n_414 n_413 n_412 n_411 n_410 
+		+ n_409 n_408 n_407 n_406 n_405 n_404 n_403 n_402 n_401 n_400 
+		+ n_399 n_398 n_397 n_396 n_395 n_394 n_393 n_392 n_391 n_390 
+		+ n_389 n_388 n_387 n_386 n_385 n_384 n_383 n_382 n_381 n_380 
+		+ n_379 n_378 n_377 n_376 n_375 n_374 n_373 n_372 n_371 n_370 
+		+ n_369 n_368 n_367 n_366 n_365 n_364 n_363 n_362 n_361 n_360 
+		+ n_359 n_358 n_357 n_356 n_355 n_354 n_353 n_352 n_351 n_350 
+		+ n_349 n_348 n_347 n_346 n_345 n_344 n_343 n_342 n_341 n_340 
+		+ n_339 n_338 n_337 n_336 n_335 n_334 n_333 n_332 n_331 n_330 
+		+ n_329 n_328 n_327 n_326 n_325 n_324 n_323 n_322 n_321 n_320 
+		+ n_319 n_318 n_317 n_316 n_315 n_314 n_313 n_312 n_311 n_310 
+		+ n_309 n_308 n_307 n_306 n_305 n_304 n_303 n_302 n_301 n_300 
+		+ n_299 n_298 n_297 n_296 n_295 n_294 n_293 n_292 n_291 n_290 
+		+ n_289 n_288 n_287 n_286 n_285 n_284 n_283 n_282 n_281 n_280 
+		+ n_279 n_278 n_277 n_276 n_275 n_274 n_273 n_272 n_271 n_270 
+		+ n_269 n_268 n_267 n_266 n_265 n_264 n_263 n_262 n_261 n_260 
+		+ n_259 n_258 n_257 n_256 n_255 n_254 n_253 n_252 n_251 n_250 
+		+ n_249 n_248 n_247 n_246 n_245 n_244 n_243 n_242 n_241 n_240 
+		+ n_239 n_238 n_237 n_236 n_235 n_234 n_233 n_232 n_231 n_230 
+		+ n_229 n_228 n_227 n_226 n_225 n_224 n_223 n_222 n_221 n_220 
+		+ n_219 n_218 n_217 n_216 n_215 n_214 n_213 n_212 n_211 n_210 
+		+ n_209 n_208 n_207 n_206 n_205 n_204 n_203 n_202 n_201 n_200 
+		+ n_199 n_198 n_197 n_196 n_195 n_194 n_193 n_192 n_191 n_190 
+		+ n_189 n_188 n_187 n_186 n_185 n_184 n_183 n_182 n_181 n_180 
+		+ n_179 n_178 n_177 n_176 n_175 n_174 n_173 n_172 n_171 n_170 
+		+ n_169 n_168 n_167 n_166 n_165 n_164 n_163 n_162 n_161 n_160 
+		+ n_159 n_158 n_157 n_156 n_155 n_154 n_153 n_152 n_151 n_150 
+		+ n_149 n_148 n_147 n_146 n_145 n_144 n_143 n_142 n_141 n_140 
+		+ n_139 n_138 n_137 n_136 n_135 n_134 n_133 n_132 n_131 n_130 
+		+ n_129 n_128 n_127 n_126 n_125 n_124 n_123 n_122 n_121 n_120 
+		+ n_119 n_118 n_117 n_116 n_115 n_114 n_113 n_112 n_111 n_110 
+		+ n_109 n_108 n_107 n_106 n_105 n_104 n_103 n_102 n_101 n_100 
+		+ n_99 n_98 n_97 n_96 n_95 n_94 n_93 n_92 n_91 n_90 
+		+ n_89 n_88 n_87 n_86 n_85 n_84 n_83 n_82 n_81 n_80 
+		+ n_79 n_78 n_77 n_76 n_75 n_74 n_73 n_72 n_71 n_70 
+		+ n_69 n_68 n_67 n_66 n_65 n_64 n_63 n_62 n_61 n_60 
+		+ n_59 n_58 n_57 n_56 n_55 n_54 n_53 n_52 n_51 n_50 
+		+ n_49 n_48 n_47 n_46 n_45 n_44 n_43 n_42 n_41 n_40 
+		+ n_39 n_38 n_37 n_36 n_35 n_34 n_33 n_32 n_31 n_30 
 		+ n_29 n_28 n_27 n_26 n_25 n_24 n_23 n_22 n_21 n_20 
 		+ n_19 n_18 n_17 n_16 n_15 n_14 n_13 n_12 n_11 n_10 
 		+ n_9 n_8 n_7 n_6 n_5 n_4 n_3 n_2 n_1 n_0 
