@@ -1,0 +1,57 @@
+simulator lang=spectre
+
+ahdl_include "analog_mux.va"
+
+//////////////////////////////////
+// Resistive loads and analog_mux cell //
+// v0.1 24/10/2017              //
+//////////////////////////////////
+
+// rppolywo_m lr=15.78u wr=2u multi=(1) m=1
+
+subckt resistive_loads (to_rram sel)
+	parameters p_r0=5k
+
+	r_31 (n_31 n_30 0) resistor r=p_r0
+	r_30 (n_30 n_29 0) resistor r=p_r0
+	r_29 (n_29 n_28 0) resistor r=p_r0
+	r_28 (n_28 n_27 0) resistor r=p_r0
+	r_27 (n_27 n_26 0) resistor r=p_r0
+	r_26 (n_26 n_25 0) resistor r=p_r0
+	r_25 (n_25 n_24 0) resistor r=p_r0
+	r_24 (n_24 n_23 0) resistor r=p_r0
+	r_23 (n_23 n_22 0) resistor r=p_r0
+	r_22 (n_22 n_21 0) resistor r=p_r0
+	r_21 (n_21 n_20 0) resistor r=p_r0
+	r_20 (n_20 n_19 0) resistor r=p_r0
+	r_19 (n_19 n_18 0) resistor r=p_r0
+	r_18 (n_18 n_17 0) resistor r=p_r0
+	r_17 (n_17 n_16 0) resistor r=p_r0
+	r_16 (n_16 n_15 0) resistor r=p_r0
+	r_15 (n_15 n_14 0) resistor r=p_r0
+	r_14 (n_14 n_13 0) resistor r=p_r0
+	r_13 (n_13 n_12 0) resistor r=p_r0
+	r_12 (n_12 n_11 0) resistor r=p_r0
+	r_11 (n_11 n_10 0) resistor r=p_r0
+	r_10 (n_10 n_9 0) resistor r=p_r0
+	r_9 (n_9 n_8 0) resistor r=p_r0
+	r_8 (n_8 n_7 0) resistor r=p_r0
+	r_7 (n_7 n_6 0) resistor r=p_r0
+	r_6 (n_6 n_5 0) resistor r=p_r0
+	r_5 (n_5 n_4 0) resistor r=p_r0
+	r_4 (n_4 n_3 0) resistor r=p_r0
+	r_3 (n_3 n_2 0) resistor r=p_r0
+	r_2 (n_2 n_1 0) resistor r=p_r0
+	r_1 (n_1 n_0 0) resistor r=p_r0
+	r_0 (n_0 0 0) resistor r=p_r0
+
+
+	// analog_mux connection
+
+	m_0 (n_31 n_30
+		+ n_29 n_28 n_27 n_26 n_25 n_24 n_23 n_22 n_21 n_20
+		+ n_19 n_18 n_17 n_16 n_15 n_14 n_13 n_12 n_11 n_10
+		+ n_9 n_8 n_7 n_6 n_5 n_4 n_3 n_2 n_1 n_0
+		+  to_rram sel) analog_mux
+
+ends resistive_loads
