@@ -1,13 +1,21 @@
 simulator lang=spectre
 
 r0_paramset paramset {
-	p_r0
-	1k
-	5k
-	11.5k
-	100K
-	500k
+	p_level
+	0
+	1
+	2
+	3
 }
+
+// r0_paramset paramset {
+// 	p_r0
+// 	1k
+// 	5k
+// 	11.5k
+// 	100K
+// 	500k
+// }
 
 
 // r0_paramset paramset {
