@@ -21,7 +21,7 @@ parameters
 // simulation
 + p_sim_time=30n + p_write_length
 // + p_max_step=1n
-+ p_max_step=10p
++ p_max_step=100p
 // temperature
 + p_T0=300
 + p_temp=(p_T0-273.15) // in celsius

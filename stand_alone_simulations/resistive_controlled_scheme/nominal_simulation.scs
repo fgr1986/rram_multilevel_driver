@@ -40,7 +40,8 @@ parameters fw_firstrun=1 fw_seed=1 fw_numruns=10
 	rram_sweep sweep param=p_level start=0 stop=511 step=1{
 	// rram_sweep sweep param=p_tx_p_l start=40n stop=1.5u dec=5{
 		// Start of reliability_framework_tran (tran) analysis
-		reliability_framework_tran tran save=selected stop=p_sim_time method=gear2only annotate=no maxiters=5
+		reliability_framework_tran tran save=selected stop=p_sim_time
+			+ method=gear2only annotate=no maxiters=5
 			+ maxstep=p_max_step
 			// + paramset=psettiming
 	}
