@@ -1,0 +1,60 @@
+
+simulator lang=spectre
+
+// Library name: sense_amplifier
+// Cell name: low_signals_sense_amplifier
+// View name: schematic
+subckt low_signals_sense_amplifier bl blb out_data saen
+    M15 (0 saen node_1 0) nch_hvt_mac l=40n w=120.0n multi=1 nf=1 \
+        sd=140.0n ad=1.32e-14 as=1.32e-14 pd=460.0n ps=460.0n nrd=0.193171 \
+        nrs=0.193171 sa=110.0n sb=110.0n sa1=110.0n sa2=110.0n sa3=110.0n \
+        sa4=110.0n sb1=110.0n sb2=110.0n sb3=110.0n spa=140.0n spa1=140.0n \
+        spa2=140.0n spa3=140.0n sap=130.305n spba=745.547n sapb=1.59028u \
+        spba1=745.933n
+    M14 (0 saen node_2 0) nch_hvt_mac l=40n w=120.0n multi=1 nf=1 \
+        sd=140.0n ad=1.32e-14 as=1.32e-14 pd=460.0n ps=460.0n nrd=0.193171 \
+        nrs=0.193171 sa=110.0n sb=110.0n sa1=110.0n sa2=110.0n sa3=110.0n \
+        sa4=110.0n sb1=110.0n sb2=110.0n sb3=110.0n spa=140.0n spa1=140.0n \
+        spa2=140.0n spa3=140.0n sap=130.305n spba=745.547n sapb=1.59028u \
+        spba1=745.933n
+    M12 (0 node_2 node_1 0) nch_hvt_mac l=80n w=320.0n multi=1 nf=1 \
+        sd=140.0n ad=3.52e-14 as=3.52e-14 pd=860.0n ps=860.0n nrd=0.128780 \
+        nrs=0.128780 sa=110.0n sb=110.0n sa1=110.0n sa2=110.0n sa3=110.0n \
+        sa4=110.0n sb1=110.0n sb2=110.0n sb3=110.0n spa=3u spa1=3u spa2=3u \
+        spa3=3u sap=1.00025u spba=1.73436u sapb=577.831n spba1=1.74128u
+    M11 (0 node_1 node_2 0) nch_hvt_mac l=40n w=320.0n multi=1 nf=1 \
+        sd=140.0n ad=3.52e-14 as=3.52e-14 pd=860.0n ps=860.0n nrd=0.128780 \
+        nrs=0.128780 sa=110.0n sb=110.0n sa1=110.0n sa2=110.0n sa3=110.0n \
+        sa4=110.0n sb1=110.0n sb2=110.0n sb3=110.0n spa=140.0n spa1=140.0n \
+        spa2=140.0n spa3=140.0n sap=130.305n spba=745.547n sapb=1.59028u \
+        spba1=745.933n
+    M18 (net9 saen vdd! vdd!) pch_hvt_mac l=40n w=10u multi=10 nf=1 \
+        sd=140.0n ad=1.1e-12 as=1.1e-12 pd=20.22u ps=20.22u nrd=0.004638 \
+        nrs=0.004638 sa=110.0n sb=110.0n sa1=110.0n sa2=110.0n sa3=110.0n \
+        sa4=110.0n sb1=110.0n sb2=110.0n sb3=110.0n spa=140.0n spa1=140.0n \
+        spa2=140.0n spa3=140.0n sap=130.305n spba=745.547n sapb=1.59028u \
+        spba1=745.933n
+    M17 (node_2 bl net9 vdd!) pch_hvt_mac l=40n w=480.0n multi=1 nf=1 \
+        sd=140.0n ad=5.28e-14 as=5.28e-14 pd=1.18u ps=1.18u nrd=0.124706 \
+        nrs=0.124706 sa=110.0n sb=110.0n sa1=110.0n sa2=110.0n sa3=110.0n \
+        sa4=110.0n sb1=110.0n sb2=110.0n sb3=110.0n spa=140.0n spa1=140.0n \
+        spa2=140.0n spa3=140.0n sap=130.305n spba=745.547n sapb=1.59028u \
+        spba1=745.933n
+    M16 (node_1 blb net9 vdd!) pch_hvt_mac l=80n w=480.0n multi=1 nf=1 \
+        sd=140.0n ad=5.28e-14 as=5.28e-14 pd=1.18u ps=1.18u nrd=0.124706 \
+        nrs=0.124706 sa=110.0n sb=110.0n sa1=110.0n sa2=110.0n sa3=110.0n \
+        sa4=110.0n sb1=110.0n sb2=110.0n sb3=110.0n spa=3u spa1=3u spa2=3u \
+        spa3=3u sap=1.00025u spba=1.73436u sapb=577.831n spba1=1.74128u
+    M1 (out_data node_2 0 0) nch_mac l=40n w=120n multi=1 nf=1 sd=140n \
+        ad=1.32e-14 as=1.32e-14 pd=460n ps=460n nrd=0.193171 nrs=0.193171 \
+        sa=110n sb=110n sa1=110n sa2=110n sa3=110n sa4=110n sb1=110n \
+        sb2=110n sb3=110n spa=140n spa1=140n spa2=140n spa3=140n \
+        sap=130.305n spba=745.547n sapb=1.59028u spba1=745.933n
+    M0 (out_data node_2 vdd! vdd!) pch_mac l=40n w=240.0n multi=1 nf=1 \
+        sd=140.0n ad=2.64e-14 as=2.64e-14 pd=700n ps=700n nrd=0.561178 \
+        nrs=0.561178 sa=110.0n sb=110.0n sa1=110.0n sa2=110.0n sa3=110.0n \
+        sa4=110.0n sb1=110.0n sb2=110.0n sb3=110.0n spa=140.0n spa1=140.0n \
+        spa2=140.0n spa3=140.0n sap=130.305n spba=745.547n sapb=1.59028u \
+        spba1=745.933n
+ends low_signals_sense_amplifier
+// End of subcircuit definition.

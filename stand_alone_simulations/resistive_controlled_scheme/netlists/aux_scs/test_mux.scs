@@ -1,0 +1,56 @@
+////////////////////////////
+// Single rram experiment //
+// v0.1 28/09/2017        //
+////////////////////////////
+
+simulator lang=spectre
+global 0 vdd! vss!
+
+// Including parsed model. Original: '/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs'
+// top_localmconly top_tt
+// include "/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs" section=top_localmconly
+include "/opt/technology/tsmc40nm_18/tsmcN40/../models/spectre/toplevel.scs" section=top_localmconly
+
+ahdl_include "ommit/mux2.va"
+
+// Parameters
+parameters
+
+// simulation
++ p_sim_time=20n
+// + p_max_step=1n
++ p_max_step=10p
+// temperature
++ p_T0=300
++ p_temp=(p_T0-273.15) // in celsius
+
++ p_sel=1
+
+// vdd
++ p_vdd=1
+
+// voltage supply
+VDD      ( vdd!     0 ) vsource dc=p_vdd type=dc
+VSS      ( vss!     0 ) vsource dc=0      type=dc
+
+// voltages
+V0 (n_0 0) vsource type=dc    dc=1.8
+V1 (n_1 0) vsource type=dc    dc=1
+V2 (sel 0) vsource type=pulse delay=5n val0=0 val1=1 rise=1n fall=1n width=10n
+
+// resistor 5K
+r_0 (n_0 0 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
+r_1 (n_1 0 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
+r_2 (m_o 0 0) rppolywo_m lr=15.78u wr=2u multi=(1) m=1
+
+// mux
+m_0 (n_0 n_1 m_o sel) mux2
+
+// Transient
+reliability_framework_tran tran save=selected stop=p_sim_time method=gear2only annotate=no maxiters=5
+  + maxstep=p_max_step// New options
+simulatorOptions options temp=p_temp tnom=27 scale=1.0 gmin=1e-12 rforce=1 maxnotes=5 maxwarns=5 digits=5 cols=80
+		// + reltol=1e-8 vabstol=1e-9 iabstol=1e-11
+		+ pivrel=1e-3 reltol=1e-10 vabstol=1e-10 iabstol=1e-13
+// save options
+saveOptions options save=all saveahdlvars=all

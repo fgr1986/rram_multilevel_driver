@@ -1,0 +1,28 @@
+electrical cout;
+real Vin_real;
+real C1,gm,R1;
+parameter real Vos=0;
+parameter real Rin=1M;
+parameter real Rout=100;
+parameter real gain=1.0e5;
+parameter real GBW=1.0e8;
+parameter real iin_max=100e-6;
+parameter real slew_rate=0.5e6;
+parameter real ibias=100e-6;
+analog begin
+  @(initial_step)
+    begin
+      C1=iin_max/slew_rate;
+      gm=2*`M_PI*freq_unitygain*C1;
+      R1=gain/gm;
+    end
+  I(inn)<+ibias;
+  I(inp)<+ibias;
+  Vin_real=V(inp,inn)+Vos;
+  I(inp,inn)<+Vin_real/Rin;
+  I(cout)<+ -gm*Vin_real;
+  I(cout)<+C1*ddt(V(cout));
+  I(cout)<+V(cout)/R1;
+  I(out)<+ -V(cout)/Rout;
+  I(out)<+V(out)/Rout;
+end

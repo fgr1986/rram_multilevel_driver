@@ -49,11 +49,11 @@ import random
 ##############
 # constants
 ##############
-analog_mux_inputs = 1024
+analog_mux_inputs = 256
 generated_files_folder = "exported"
 analog_mux_file = "analog_mux.va"
 loads_subcircuit = "loads_subcircuit.scs"
-resistor_properties = "resistor r=1k"
+resistor_properties = "resistor r=2k"
 # "rppolywo_m lr=15.78u wr=2u multi=(1) m=1"
 
 ############################
@@ -81,14 +81,16 @@ fl_analog_mux.write("module analog_mux(n_out, n_in, v_sel);\n\n")
 fl_analog_mux.write("\tinout n_in;\n")
 fl_analog_mux.write("\telectrical n_in;\n")
 fl_analog_mux.write("\tinout [" + str(analog_mux_inputs-1) + ":0] n_out;\n")
-fl_analog_mux.write("\telectrical [" + str(analog_mux_inputs-1) + ":0] n_out;\n")
+fl_analog_mux.write("\telectrical [" + str(analog_mux_inputs-1)
+                    + ":0] n_out;\n")
 fl_analog_mux.write("\tinout v_sel;\n")
 fl_analog_mux.write("\telectrical v_sel;\n\n")
 fl_analog_mux.write("\tinteger select;\n")
 fl_analog_mux.write("\tgenvar c;\n\n")
 fl_analog_mux.write("\tanalog begin\n")
 fl_analog_mux.write("\t\tselect = V(v_sel);\n")
-fl_analog_mux.write("\t\tgenerate c (0," + str(analog_mux_inputs-1) + ",1) begin\n")
+fl_analog_mux.write("\t\tgenerate c (0," + str(analog_mux_inputs-1)
+                    + ",1) begin\n")
 fl_analog_mux.write("\t\t\tif( c==select ) begin\n")
 fl_analog_mux.write("\t\t\t\tV(n_out[c], n_in) <+ 0;\n")
 fl_analog_mux.write("\t\t\tend else begin\n")
@@ -119,7 +121,8 @@ for i in range(analog_mux_inputs-1, 0, -1):
 # last resistor
 fl_loads_scs.write("\tr_0 (n_0 0 0) " + resistor_properties + " \n")
 fl_loads_scs.write("\n\n\t// analog_mux connection\n\n")
-# fl_loads_scs.write("\tm_0 (n_\<" + str(analog_mux_inputs-1) + "\:0\> to_rram sel)"
+# fl_loads_scs.write("\tm_0 (n_\<" + str(analog_mux_inputs-1)
+#                    + "\:0\> to_rram sel)"
 #                    + " analog_mux\n\n")
 fl_loads_scs.write("\tm_0 (")
 

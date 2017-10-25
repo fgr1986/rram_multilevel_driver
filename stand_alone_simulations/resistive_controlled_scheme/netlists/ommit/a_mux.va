@@ -1,0 +1,29 @@
+`include "constants.vams"
+`include "disciplines.vams"
+
+module a_mux(v_in, v_out, v_sel);
+
+module mux(v_out, v_in, v_sel);
+
+	inout v_in;
+	electrical v_in;
+	inout [7:0] v_out;
+	electrical [7:0] v_out;
+	inout v_sel;
+	electrical v_sel;
+
+	integer select;
+	genvar c;
+
+	analog begin
+		select = V(v_sel);
+		in = V(v_in);
+		generate c (0,7,1) begin
+			if( c==select ) begin
+				V(v_out[c], v_in) <+ 0;
+			end else begin
+				I(v_out[c], v_in) <+ 0;
+			end
+		end
+	end
+endmodule
