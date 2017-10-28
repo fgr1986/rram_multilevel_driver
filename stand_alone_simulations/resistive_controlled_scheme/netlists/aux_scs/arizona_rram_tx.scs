@@ -7,7 +7,8 @@ simulator lang=spectre
 global 0 vdd! vss!
 
 // Including parsed model. Original: '/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs'
-include "/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs" section=top_tt
+// top_localmconly top_tt
+include "/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs" section=top_localmconly
 
 
 // include "ommit/arizona_rram_cell_1r.scs"
@@ -28,8 +29,9 @@ parameters
 
 // rram initial state
 // Roff->Ron For set (3.68M)
-+ p_rram_gap_ini=1.367e-9
-// + p_rram_gap_ini=1.7e-9
+// + p_rram_gap_ini=1.367e-9
++ p_rram_gap_ini=1.7e-9
++ p_rram_gap_ini_2=1.2e-9
 
 // aux_resistance
 // + p_r0=120k // 1M
@@ -49,15 +51,16 @@ parameters
 // transistor
 + p_tx_p_l=40n
 // + p_tx_p_w=120n
-+ p_tx_p_w=1u
++ p_tx_p_w=1.5u
 
 // voltage supply
 VDD      ( vdd!     0 ) vsource dc=p_vdd type=dc
 VSS      ( vss!     0 ) vsource dc=0      type=dc
 
-// write voltage
+// write voltage (pulse)
 V0 (n_write 0) vsource type=pulse delay=p_delay val0=0 val1=p_write_amp rise=p_up fall=p_fall width=p_write_length
-// V1 (n_sel 0) vsource type=pulse delay=p_delay val0=0 val1=p_vdd rise=p_up fall=p_fall width=p_write_length
+// write voltage (triangle)
+// V0 (n_write 0) vsource type=pulse delay=p_delay val0=0 val1=p_write_amp rise=p_write_length/2 fall=p_write_length/2 width=0
 V1 (n_sel 0) bsource v=v(n_gate)
 
 // set characterization voltage
@@ -70,28 +73,17 @@ V1 (n_sel 0) bsource v=v(n_gate)
 // OPTION A //
 //////////////
 // Memristor
-// set
-rram_0 (n_write n_control)  rram_cell_1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini
-// rram_0 (n_write n_control n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini
+// 1R no parasitics
+// rram_0 (n_write n_control)    rram_cell_1r_no_parasitics rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini
+// rram_1 (n_write n_control_2)  rram_cell_1r_no_parasitics rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini_2
+// 1R with parasitics
+rram_0 (n_write n_control)    rram_cell_1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini
+rram_1 (n_write n_control_2)  rram_cell_1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini_2
+// 1T1R with parasitics
+// rram_0 (n_write n_control   n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini
+// rram_1 (n_write n_control_2 n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini_2
 // resistor
-r_0    (n_control 0)  resistor     r=p_r0
+VG       ( n_gate   0 ) vsource dc=0.6 type=dc
 // source gate drain bulk
-// tx_p_0 (0 n_gate n_drain 0) nch_mac l=p_tx_p_l w=p_tx_p_w m=1 nf=1
-// v_aux (n_gate 0) bsource v= p_vdd/(1+exp(100*(v(n_control)-p_v_set)))
-v_aux (n_gate 0) bsource v= v(n_control)>p_v_set ? 0 : p_vdd
-
-// v_aux (n_gate 0) bsource v= 2*max(p_vdd - v(n_control), 0)
-// v_aux (n_gate 0) bsource v= v(n_control)>p_v_set ? 0 : p_vdd
-// v_aux (n_gate 0) bsource v= p_vdd*(1/( 1+exp(v(n_control)>p_v_set) ))
-
-
-// //////////////
-// // OPTION B //
-// // with p_r0 from 5k to 150k with 1.8 v_set
-// // with p_r0 from 5k to 200k with 2 v_set
-// //////////////
-// r_a    (n_write n_control)  resistor     r=p_r0/2
-// rram_0 (n_control 0)  rram_cell_1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini
-// // rram_0 (n_write n_control n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini
-// // resistor
-// r_0    (n_control 0)  resistor     r=p_r0
+tx_p_0 (0 n_gate n_control   0) nch_mac l=p_tx_p_l w=p_tx_p_w m=1 nf=1
+tx_p_1 (0 n_gate n_control_2 0) nch_mac l=p_tx_p_l w=p_tx_p_w m=1 nf=1

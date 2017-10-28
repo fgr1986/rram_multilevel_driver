@@ -2,7 +2,7 @@
  "cells": [
   {
    "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 1,
    "metadata": {
     "collapsed": true
    },
@@ -17,7 +17,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
+   "execution_count": 2,
    "metadata": {
     "collapsed": true
    },
@@ -40,8 +40,10 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
-   "metadata": {},
+   "execution_count": 5,
+   "metadata": {
+    "collapsed": true
+   },
    "outputs": [],
    "source": [
     "# constants\n",
@@ -89,13 +91,13 @@
     "# grid\n",
     "# g_step = 1e-12\n",
     "# v_step = 1e-1\n",
-    "g_step = 1e-12\n",
-    "v_step = 1e-1"
+    "g_step = 1e-11\n",
+    "v_step = 1e-2"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
+   "execution_count": 6,
    "metadata": {
     "collapsed": true
    },
@@ -117,15 +119,17 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 16,
+   "execution_count": 7,
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "v_m shape: (36,)\n",
-      "gaps shape: (1600,)\n"
+      "v_m shape: (351,)\n",
+      "gaps shape: (161,)\n",
+      "XX shape: (161, 351)\n",
+      "YY shape: (161, 351)\n"
      ]
     }
    ],
@@ -138,12 +142,14 @@
     "# gaps = np.array([np.linspace(p_gap_min, p_gap_max, gaps_number)]).T\n",
     "XX, YY = np.meshgrid(v_m, gaps)\n",
     "print('v_m shape: ' + str(v_m.shape))\n",
-    "print('gaps shape: ' + str(gaps.shape))"
+    "print('gaps shape: ' + str(gaps.shape))\n",
+    "print('XX shape: ' + str(XX.shape))\n",
+    "print('YY shape: ' + str(YY.shape))"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 14,
    "metadata": {
     "scrolled": true
    },
@@ -152,32 +158,53 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "eq_resistance shape: (351, 1600)\n",
-      "eq_current shape: (351, 1600)\n"
+      "------------------------------\n",
+      "- 2D-Data structures:        -\n",
+      "-   rows:    gaps            -\n",
+      "-   columns: voltages        -\n",
+      "------------------------------\n",
+      "\n",
+      "\n",
+      "\n",
+      "eq_current shape: (161, 351)\n",
+      "eq_resistance shape: (161, 351)\n"
      ]
     }
    ],
    "source": [
+    "print('------------------------------')\n",
+    "print('- 2D-Data structures:        -')\n",
+    "print('-   rows:    gaps            -')\n",
+    "print('-   columns: voltages        -')\n",
+    "print('------------------------------')\n",
+    "print('\\n\\n')\n",
+    "#\n",
     "# idea\n",
     "# r = v./(p_I0*exp(-g/p_g0)*sinh(v/p_V0))\n",
     "# \n",
     "# def resistance(v, g):\n",
     "#     return v/(p_I0*math.exp(-g/p_g0)*math.sinh(v/p_V0))\n",
     "# with outer\n",
-    "eq_current = np.outer(np.sinh(v_m/p_V0), p_I0*np.exp(-gaps/p_g0))\n",
+    "eq_current = np.outer(p_I0*np.exp(-gaps/p_g0), np.sinh(v_m/p_V0))\n",
+    "# problem: \n",
+    "eq_current_2 = np.outer(np.sinh(v_m/p_V0), p_I0*np.exp(-gaps/p_g0)).T\n",
+    "print('eq_current shape: ' + str(eq_current.shape))\n",
+    "\n",
     "# with matrix like multiplication\n",
     "# eq_current_2 = np.array([np.sinh(v_m/p_V0)]).T * np.array(p_I0*np.exp(-gaps/p_g0)).T\n",
     "# print(eq_current-eq_current_2)\n",
     "# element wise division\n",
-    "eq_resistance = np.divide(v_m, eq_current.T).T\n",
-    "print('eq_resistance shape: ' + str(eq_resistance.shape))\n",
-    "print('eq_current shape: ' + str(eq_current.shape))\n"
+    "# eq_resistance = np.divide(v_m, eq_current.T).T\n",
+    "eq_resistance = np.divide(v_m, eq_current)\n",
+    "print('eq_resistance shape: ' + str(eq_resistance.shape))\n"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
-   "metadata": {},
+   "execution_count": 9,
+   "metadata": {
+    "collapsed": true
+   },
    "outputs": [],
    "source": [
     "if plot_3d_r:\n",
@@ -190,11 +217,11 @@
     "        )\n",
     "    ]\n",
     "    layout_3d_r = plotly.graph_objs.Layout(\n",
-    "        scene=plotly.graph_objs.Scene(\n",
-    "            xaxis=plotly.graph_objs.XAxis(title='applied voltage [V]'),\n",
-    "            yaxis=plotly.graph_objs.YAxis(title='gap [m]'),\n",
-    "            zaxis=plotly.graph_objs.ZAxis(title='equivalent resistance [ohm]')\n",
-    "        ),\n",
+    "#         scene=plotly.graph_objs.Scene(\n",
+    "#             xaxis=plotly.graph_objs.XAxis(title='applied voltage [V]'),\n",
+    "#             yaxis=plotly.graph_objs.YAxis(title='gap [m]'),\n",
+    "#             zaxis=plotly.graph_objs.ZAxis(title='equivalent resistance [ohm]')\n",
+    "#         ),\n",
     "        title='Read resistance: gap vs read_voltage'\n",
     "    )\n",
     "    fig_r = plotly.graph_objs.Figure(data=data_3d_r, layout=layout_3d_r)\n",
@@ -209,12 +236,12 @@
     "        )\n",
     "    ]\n",
     "    layout_3d_i = plotly.graph_objs.Layout(\n",
-    "        scene=plotly.graph_objs.Scene(\n",
-    "            xaxis=plotly.graph_objs.XAxis(title='applied voltage [V]'),\n",
-    "            yaxis=plotly.graph_objs.YAxis(title='gap [m]'),\n",
-    "            zaxis=plotly.graph_objs.ZAxis(title='current [A]')\n",
-    "        ),\n",
-    "        title='Read resistance: gap vs read_voltage'\n",
+    "#         scene=plotly.graph_objs.Scene(\n",
+    "#             xaxis=plotly.graph_objs.XAxis(title='applied voltage [V]'),\n",
+    "#             yaxis=plotly.graph_objs.YAxis(title='gap [m]'),\n",
+    "#             zaxis=plotly.graph_objs.ZAxis(title='current [A]')\n",
+    "#         ),\n",
+    "        title='RRAM current: gap vs read_voltage'\n",
     "    )\n",
     "    fig_i = plotly.graph_objs.Figure(data=data_3d_i, layout=layout_3d_i)\n",
     "    plotly.offline.plot(fig_i, filename = 'eq_current_3d.html')\n"
@@ -222,20 +249,47 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 18,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "gamma shape: (161,)\n"
+     ]
+    },
+    {
+     "ename": "ValueError",
+     "evalue": "operands could not be broadcast together with shapes (161,) (351,) ",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mValueError\u001b[0m                                Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-18-077c1bb47da7>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m     10\u001b[0m \u001b[0mgamma\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mp_gamma0\u001b[0m \u001b[0;34m-\u001b[0m \u001b[0mp_beta\u001b[0m\u001b[0;34m*\u001b[0m\u001b[0mnp\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mpower\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mgaps\u001b[0m\u001b[0;34m/\u001b[0m\u001b[0mp_g1\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;36m3\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     11\u001b[0m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'gamma shape: '\u001b[0m \u001b[0;34m+\u001b[0m \u001b[0mstr\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mgamma\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mshape\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 12\u001b[0;31m \u001b[0mgap_1\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mnp\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mexp\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m-\u001b[0m\u001b[0mp_q\u001b[0m\u001b[0;34m*\u001b[0m\u001b[0mp_Eag\u001b[0m\u001b[0;34m/\u001b[0m\u001b[0mp_kb\u001b[0m\u001b[0;34m/\u001b[0m\u001b[0mtemperature\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m*\u001b[0m\u001b[0mnp\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mexp\u001b[0m\u001b[0;34m(\u001b[0m \u001b[0mnp\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mmultiply\u001b[0m\u001b[0;34m(\u001b[0m \u001b[0mgamma\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mv_m\u001b[0m\u001b[0;34m*\u001b[0m\u001b[0mp_a0\u001b[0m\u001b[0;34m/\u001b[0m\u001b[0mp_L\u001b[0m\u001b[0;34m*\u001b[0m\u001b[0mp_q\u001b[0m\u001b[0;34m/\u001b[0m\u001b[0mp_kb\u001b[0m\u001b[0;34m/\u001b[0m\u001b[0mtemperature\u001b[0m \u001b[0;34m)\u001b[0m \u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     13\u001b[0m \u001b[0mgap_2\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mnp\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mexp\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m-\u001b[0m\u001b[0mp_q\u001b[0m\u001b[0;34m*\u001b[0m\u001b[0mp_Ear\u001b[0m\u001b[0;34m/\u001b[0m\u001b[0mp_kb\u001b[0m\u001b[0;34m/\u001b[0m\u001b[0mtemperature\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m*\u001b[0m\u001b[0mnp\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mexp\u001b[0m\u001b[0;34m(\u001b[0m \u001b[0mnp\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mmultiply\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m-\u001b[0m\u001b[0mgamma\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mv_m\u001b[0m\u001b[0;34m*\u001b[0m\u001b[0mp_a0\u001b[0m\u001b[0;34m/\u001b[0m\u001b[0mp_L\u001b[0m\u001b[0;34m*\u001b[0m\u001b[0mp_q\u001b[0m\u001b[0;34m/\u001b[0m\u001b[0mp_kb\u001b[0m\u001b[0;34m/\u001b[0m\u001b[0mtemperature\u001b[0m \u001b[0;34m)\u001b[0m \u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     14\u001b[0m \u001b[0mgap_ddt\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m-\u001b[0m\u001b[0mp_Vel0\u001b[0m\u001b[0;34m*\u001b[0m\u001b[0;34m(\u001b[0m \u001b[0mgap_1\u001b[0m \u001b[0;34m-\u001b[0m \u001b[0mgap_2\u001b[0m \u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mValueError\u001b[0m: operands could not be broadcast together with shapes (161,) (351,) "
+     ]
+    }
+   ],
    "source": [
+    "# gap study:\n",
+    "#\n",
+    "# Formula:\n",
+    "# gap_ddt = -Vel0*( exp(-q*Eag/kb/temperature)*exp(gamma*a0/L*q*V(Nt,Nb)/kb/temperature) - exp(-q*Ear/kb/temperature)*exp(-gamma*a0/L*q*V(Nt,Nb)/kb/temperature) );\n",
+    "\n",
+    "\n",
     "# gap_ddt temperature constant\n",
     "#\n",
     "temperature = p_T0\n",
     "gamma = p_gamma0 - p_beta*np.power(gaps/p_g1, 3)\n",
+    "print('gamma shape: ' + str(gamma.shape))\n",
     "gap_1 = np.exp(-p_q*p_Eag/p_kb/temperature)*np.exp( np.outer( gamma, v_m*p_a0/p_L*p_q/p_kb/temperature ) )\n",
     "gap_2 = np.exp(-p_q*p_Ear/p_kb/temperature)*np.exp( np.outer(-gamma, v_m*p_a0/p_L*p_q/p_kb/temperature ) )\n",
     "gap_ddt = -p_Vel0*( gap_1 - gap_2 )\n",
     "gap_ddt_th = 1500\n",
     "gap_ddt[gap_ddt > gap_ddt_th] = gap_ddt_th\n",
     "gap_ddt[gap_ddt < -gap_ddt_th] = -gap_ddt_th\n",
+    "print('gap_ddt shape: ' + str(gap_ddt.shape))\n",
     "\n",
     "# gap_ddt temp\n",
     "#\n",
@@ -260,6 +314,7 @@
     "gap_ddt_th = 1500\n",
     "gap_ddt_2[gap_ddt_2 > gap_ddt_th] = gap_ddt_th\n",
     "gap_ddt_2[gap_ddt_2 < -gap_ddt_th] = -gap_ddt_th\n",
+    "print('gap_ddt_2 shape: ' + str(gap_ddt_2.shape))\n",
     "\n",
     "if plot_3d_g:\n",
     "\n",
@@ -313,7 +368,9 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "metadata": {},
+   "metadata": {
+    "collapsed": true
+   },
    "outputs": [],
    "source": [
     "# System eq.\n",
@@ -354,7 +411,9 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "metadata": {},
+   "metadata": {
+    "collapsed": true
+   },
    "outputs": [],
    "source": [
     "\n",

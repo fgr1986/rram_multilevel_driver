@@ -1,0 +1,49 @@
+// Generated for: spectre
+// Generated on: Oct 10 22:48:25 2017
+// Design library name: tsmc_resistances_test
+// Design cell name: resistances_test
+// Design view name: schematic
+simulator lang=spectre
+global 0
+include "/opt/technology/tsmc40nm_18/tsmcN40/../models/spectre/toplevel.scs" section=top_localmconly
+
+// Library name: tsmc_resistances_test
+// Cell name: resistances_test
+// View name: schematic
+R0 (net02 0 0 ) rppolyl_m lr=100.0000u wr=2u multi=(1) m=1
+
+M0 (net02 net03 0 0) nch_18 l=150n w=320n m=1 nf=1 sd=220n ad=4.8e-14 \
+        as=4.8e-14 pd=940n ps=940n nrd=0 nrs=0 sa=150n sb=150n
+V0 (net02 0) vsource type=pulse delay=5n val0=100.0m val1=3 rise=10n \
+        fall=10n width=0
+V2 (net03 0) vsource dc=600.0m type=dc delay=5n val0=0 val1=2 rise=10n \
+        fall=10n width=0
+simulatorOptions options reltol=1e-3 vabstol=1e-6 iabstol=1e-12 temp=27 \
+    tnom=27 scalem=1.0 scale=1.0 gmin=1e-12 rforce=1 maxnotes=5 maxwarns=5 \
+    digits=5 cols=80 pivrel=1e-3 sensfile="../psf/sens.output" \
+    checklimitdest=psf 
+mc1 montecarlo numruns=10 seed=12345 variations=all sampling=standard \
+    donominal=yes scalarfile="../monteCarlo/mcdata" \
+    paramfile="../monteCarlo/mcparam" saveprocessparams=yes \
+    processparamfile="../monteCarlo/processParam" \
+    processscalarfile="../monteCarlo/processData" savemismatchparams=yes \
+    dependencymapfile="../monteCarlo/mismatchdependency" \
+    dumpdependency=mismatch \
+    dependencyscalarfile="../monteCarlo/compactmismatchdata" \
+    dependencyparamfile="../monteCarlo/compactmismatchparam"  \
+    paramdumpmode=yes savefamilyplots=yes savedatainseparatedir=yes \
+    wfseparation=yes {
+tran tran stop=50n write="spectre.ic" writefinal="spectre.fc" \
+    annotate=status maxiters=5 
+finalTimeOP info what=oppoint where=rawfile
+modelParameter info what=models where=rawfile
+element info what=inst where=rawfile
+outputParameter info what=output where=rawfile
+designParamVals info what=parameters where=rawfile
+primitives info what=primitives where=rawfile
+export noExprs=oceanEval("0")
+}
+mcOptions options genmcdep=yes
+save M0:d R0:1 
+saveOptions options save=allpub
+

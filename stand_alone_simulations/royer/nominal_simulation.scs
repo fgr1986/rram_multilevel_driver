@@ -4,6 +4,7 @@ include "r0_paramset.scs"
 
 // simulation
 // + sim_max_step=0.5ns sim_step=0.3ns + sim_max_step= 1u
+parameters fw_firstrun=1 fw_seed=1 fw_numruns=10
 
 // writing starts at 1u
 // psettiming paramset {
@@ -17,6 +18,18 @@ include "r0_paramset.scs"
 // Start of reliability_montecarlo (montecarlo) analysis
 // reliability_montecarlo montecarlo variations=all donominal=no savefamilyplots=yes firstrun=fw_firstrun seed=fw_seed numruns=fw_numruns {
 
+// mc1 montecarlo numruns=10 seed=12345 variations=all sampling=standard \
+// 	donominal=yes scalarfile="../monteCarlo/mcdata" \
+// 	paramfile="../monteCarlo/mcparam" saveprocessparams=yes \
+// 	processparamfile="../monteCarlo/processParam" \
+// 	processscalarfile="../monteCarlo/processData" savemismatchparams=yes \
+// 	dependencymapfile="../monteCarlo/mismatchdependency" \
+// 	dumpdependency=mismatch \
+// 	dependencyscalarfile="../monteCarlo/compactmismatchdata" \
+// 	dependencyparamfile="../monteCarlo/compactmismatchparam"  \
+// 	paramdumpmode=yes savefamilyplots=yes savedatainseparatedir=yes \
+// 	wfseparation=yes {
+
 
 	// Start of sensible_nodes_sweep (sweep) analysis
 
@@ -24,14 +37,16 @@ include "r0_paramset.scs"
 	// rram_sweep sweep paramset=r0_paramset {
 
 	// no paramset
-	rram_sweep sweep param=p_r0 start=5k stop=200k step=5k{
+	// rram_sweep sweep param=p_r0 start=5k stop=150k step=5k{
+	// rram_sweep sweep param=p_tx_p_l start=40n stop=1.5u dec=5{
 		// Start of reliability_framework_tran (tran) analysis
 		reliability_framework_tran tran save=selected stop=p_sim_time method=gear2only annotate=no maxiters=5
 			+ maxstep=p_max_step
 			// + paramset=psettiming
-	}
+	// }
 
 // }// End of reliability_montecarlo (montecarlo ) analysis
+mcOptions options genmcdep=yes
 
 // Old options (TVLSI)
 // simulation options
@@ -51,19 +66,27 @@ saveOptions options save=selected saveahdlvars=selected
 save n_write
 save n_drain
 save n_gate
-save n_control
 save n_sel
+save n_control_1
+save n_control_2
 
 save rram_0.tx_src
 save rram_0.tx_drain
 save rram_0.mid1
 save rram_0.mid2
 
-save rram_0.mem_0:R_out
-save rram_0.mem_0:gap_out
 save rram_0.mem_0:gap_ddt
-save rram_0.mem_0:temperature
+save rram_0.mem_0:rram_g
+save rram_0.mem_0:rram_temperature
 save rram_0.mem_0:rram_v
 save rram_0.mem_0:rram_i
 save rram_0.mem_0:rram_r
 save rram_0.mem_0:rram_r_read
+
+save rram_1.mem_0:gap_ddt
+save rram_1.mem_0:rram_g
+save rram_1.mem_0:rram_temperature
+save rram_1.mem_0:rram_v
+save rram_1.mem_0:rram_i
+save rram_1.mem_0:rram_r
+save rram_1.mem_0:rram_r_read

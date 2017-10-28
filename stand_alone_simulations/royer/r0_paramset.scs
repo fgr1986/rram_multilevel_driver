@@ -3,8 +3,12 @@ simulator lang=spectre
 r0_paramset paramset {
 	p_r0
 	1k
+	2k
 	5k
+	8k
 	11.5k
+	20k
+	50k
 	100K
 	500k
 }

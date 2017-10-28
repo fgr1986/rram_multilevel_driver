@@ -1,0 +1,140 @@
+// RRAM Model from Arizona State University
+// Developers and contact information:
+// Pai-Yu Chen, Shimeng Yu, Arizona State University
+// For technical questions, address to Pai-Yu Chen, pchen72@asu.edu
+// For logistic questions, address to Prof. Shimeng Yu, shimengy@asu.edu
+//
+// Extracted from manual:
+//
+// Copyright of the model is maintained by the developers, and the model is distributed under the
+// terms of the Creative Commons Attribution-NonCommercial 4.0 International Public License
+// http://creativecommons.org/licenses/by-nc/4.0/legalcode. If you use this model in your work, you are
+// requested to cite [1] in the reference
+// [1] P.-Y. Chen, S. Yu, “Compact modeling of RRAM devices and its applications in 1T1R and 1S1R
+// array design,” IEEE Trans. Electron Devices, vol. 62, no. 12, pp. 4022-4028, 2015.
+//
+//
+// Altered by fgarcia: added extra ports to read current, resistance, etc.
+// denoted with 'rram_magnitude' and preceded by the comment '// fgarcia'
+
+
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module RRAM(Nt, Nb);
+
+	inout Nt, Nb;
+	electrical Nt, Nb, gap_out, R_out, temp_out;
+
+	real kb =  `P_K;	// Boltzmann's constant= 1.3806503e-23 (J/K)
+	real q =  `P_Q;		// Electron charge= 1.6e-19 (C)
+
+	// Device parameters
+	parameter real L = 5e-9 from (0:inf);           // Oxide thickness (m)
+	parameter real gap_min = 0.1e-9 from (0:L);		// Min. gap distance (m)
+	parameter real gap_max = 1.7e-9 from (gap_min:L);	// Max. gap distance (m)
+	parameter real gap_ini = 0.1e-9 from [gap_min:gap_max];	// Initial gap distance (m)
+	parameter real a0 = 0.25e-9 from (0:inf);		// Atomic distance (m)
+	parameter real Eag = 1.501 from (0:inf);  	// Activation energy for vacancy generation (eV)
+	parameter real Ear = 1.5 from (0:inf);  	// Activation energy for vacancy recombination (eV)
+
+	// I-V characteristics
+	parameter real I0 = 6.14e-5 from (0:inf);
+	parameter real g0 = 2.7505e-10 from (0:inf);
+	parameter real V0 = 0.43 from (0:inf);
+
+	// Gap dynamics
+	parameter real Vel0 = 150 from (0:inf);
+	parameter real gamma0 = 16.5 from (0:inf);
+	parameter real g1 = 1e-9 from (0:inf);
+	parameter real beta = 1.25 from (0:gamma0/(pow(gap_max/g1,3)));
+	real gap;       // Current gap (m)
+	real gap_ddt;   // Gap growth velocity (m/s)
+	real gamma;     // Local enhancement factor
+
+	// Temperature dynamics
+	parameter real T0 = 273+25 from (0:inf);		// Ambient temperature (K)
+	parameter real Cth = 3.1825e-16 from (0:inf);	// Effective thermal capacitance (J/K)
+	parameter real Tau_th = 2.3e-10 from (0:inf);	// Effective thermal time constant (s)
+	real temperature;   // Current temperature (K)
+
+	// Simulation time control
+	parameter real tstep = 1e-9 from (0:inf);	// Max. internal timestep (s)
+	real c_time;	// Current timestep (s)
+	real p_time;	// Previous timestep (s)
+	real dt;		// Difference between current and previous timestep (s)
+
+	// Resitance
+	parameter real Vread = 0.1; // Read voltage (V)
+	real Iread;     // Read current @Vread (A)
+
+	// fgarcia
+	real rram_v;
+	real rram_i;
+	real rram_r;
+	real rram_g;
+	real rram_temperature;
+	real rram_r_read;
+
+
+	analog begin
+
+		@(initial_step)  begin
+			temperature = T0;
+			gap = gap_ini;
+		end
+
+		$bound_step(tstep);	// Bound the time step
+		c_time = $abstime;	// Get current timestep
+		dt = c_time-p_time;
+
+		// Calculate the local enhancement factor
+		gamma = gamma0 - beta*pow(gap/g1, 3);
+
+		// Gap dynamics
+		gap_ddt = -Vel0*( exp(-q*Eag/kb/temperature)*exp(gamma*a0/L*q*V(Nt,Nb)/kb/temperature) - exp(-q*Ear/kb/temperature)*exp(-gamma*a0/L*q*V(Nt,Nb)/kb/temperature) );
+		gap = gap + gap_ddt*dt;
+
+		// Limitation on the gap growth
+		// edited by fernando
+		if (gap > gap_max)
+		begin
+				gap = gap_max;
+		end
+		else if (gap < gap_min)
+		begin
+				gap = gap_min;
+		end
+
+		// Calculate the current
+		I(Nt,Nb) <+ I0*exp(-gap/g0)*sinh(V(Nt,Nb)/V0);
+
+		// Calculate the local temperature (implicit form)
+		temperature = (temperature + dt*(abs(V(Nt,Nb)*I(Nt,Nb))/Cth+T0/Tau_th))/(1+dt/Tau_th);
+
+		// old parameter extraction:
+		// converted to real bellow to improve performance (spectre)
+		// // Parameter extraction
+		// V(gap_out) <+ gap;			// Gap distance
+		// V(temp_out) <+ temperature;	// Temperature
+		Iread = I0*exp(-gap/g0)*sinh(Vread/V0);
+		// V(R_out) <+ Vread/Iread;	// Resistance @Vread
+
+		// fgarcia
+		rram_v = V(Nt,Nb);
+		rram_i = I(Nt,Nb);
+		rram_r_read = Vread/Iread;
+		rram_g = gap;
+		rram_temperature = temperature;
+		// Limitation on the gap growth
+		if (abs(V(Nt,Nb))> 0)
+		begin
+				rram_r = V(Nt,Nb)/I(Nt,Nb);
+		end
+
+
+		p_time = $abstime;	// Record current timestep for the previous timestep at next timestep
+
+	end
+endmodule
