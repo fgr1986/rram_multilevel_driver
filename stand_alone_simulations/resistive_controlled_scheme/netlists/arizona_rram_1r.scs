@@ -1,0 +1,99 @@
+////////////////////////////
+// Single rram experiment //
+// v0.1 28/09/2017        //
+////////////////////////////
+
+simulator lang=spectre
+global 0 vdd! vss!
+
+// Including parsed model. Original: '/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs'
+// top_localmconly top_tt
+// include "/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs" section=top_localmconly
+include "/opt/technology/tsmc40nm_18/tsmcN40/../models/spectre/toplevel.scs" section=top_localmconly
+
+include "ommit/arizona_rram_cells.scs"
+include "ommit/loads_subcircuit.scs"
+include "nominal_simulation.scs"
+
+// Parameters
+parameters
+
+// simulation
++ p_sim_time=30n + p_write_length
+// + p_max_step=10p
++ p_max_step=1000p
+// temperature
++ p_T0=300
++ p_temp=(p_T0-273.15) // in celsius
+
+// rram initial state
+// Roff->Ron For set (3.68M)
+// + p_rram_gap_ini=1.367e-9
+// + p_rram_gap_ini_0=0.2e-9
+// + p_rram_gap_ini_1=0.1367e-9
+
++ p_rram_gap_ini_4=1.7e-9
++ p_rram_gap_ini_3=1.6e-9
++ p_rram_gap_ini_2=1.5e-9
++ p_rram_gap_ini_1=1.367e-9
++ p_rram_gap_ini_0=1.3e-9
+
+// aux_resistance
+// + p_r0=120k // 1M
++ p_r0=36k     // 350k
+
+// vdd
++ p_vdd=1.8
+// write pulse
++ p_up=5n p_fall=5n p_delay=10n p_write_length=100n
+// write amp nominal
++ p_v_set=1.8 // fom simulations
+// + p_v_set=1.7 // fom simulations
++ p_v_th=1.6 // fom simulations
++ p_write_amp=2*p_v_set
++ p_comp_v_tol = 0.1
+
+// transistor
++ p_tx_p_l=40n
+// + p_tx_p_w=120n
++ p_tx_p_w=5u
+
+// level
++ p_level=1
++ p_total_levels=256-1 // for sweep
+
+// voltage supply
+VDD      ( vdd!     0 ) vsource dc=p_vdd type=dc
+VSS      ( vss!     0 ) vsource dc=0     type=dc
+
+// write voltage (pulse)
+V0 (n_write 0) vsource type=pulse delay=p_delay val0=0 val1=p_write_amp rise=p_up fall=p_fall width=p_write_length
+
+// set characterization voltage
+// Vcar (n_write 0) vsource type=pulse delay=p_delay val0=0 val1=p_write_amp rise=p_write_length/2 fall=p_write_length/2 width=p_write_length
+// // rram_0 (n_write n_control)  rram_cell_1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini
+// rram_0 (n_write 0 n_sel)  rram_cell_1t1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini
+
+
+////////////////////////////
+// Write circuit
+////////////////////////////
+// Memristor
+// 1R no parasitics
+// rram_0 (n_write n_control_0)  rram_cell_1r_no_parasitics rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini_0
+// 1R with parasitics
+rram_0 (n_write n_control_0)  rram_cell_1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini_0
+rram_1 (n_write n_control_1)  rram_cell_1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini_1
+rram_2 (n_write n_control_2)  rram_cell_1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini_2
+rram_3 (n_write n_control_3)  rram_cell_1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini_3
+rram_4 (n_write n_control_4)  rram_cell_1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini_4
+
+// resistor loads
+rl_0 (n_control_0 n_level) resistive_loads
+rl_1 (n_control_1 n_level) resistive_loads
+rl_2 (n_control_2 n_level) resistive_loads
+rl_3 (n_control_3 n_level) resistive_loads
+rl_4 (n_control_4 n_level) resistive_loads
+
+// selector
+V_level(n_level 0) vsource type=dc dc=p_level

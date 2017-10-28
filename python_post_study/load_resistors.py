@@ -1,18 +1,8 @@
-
-# coding: utf-8
-
-# In[1]:
-
-
 # import plotly.plotly as py
 import plotly.offline
 from plotly.graph_objs import Scatter, Layout
 import numpy as np
 import pandas as pd
-
-
-# In[2]:
-
 
 def find_nearest(array, value):
     idx = (np.abs(array-value)).argmin()
@@ -29,9 +19,6 @@ def find_nearest_sorted(sorted_array, value):
         return sorted_array[idx], idx
 
 
-# In[3]:
-
-
 # target resistances
 initial_gaps = np.array( [1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
 data_file = 'exported_data/1t1r_last.csv'
@@ -42,29 +29,14 @@ r_load_min = 1e3
 r_loads = np.linspace(r_load_min, simulated_levels*r_load_min, simulated_levels)
 
 
-# In[4]:
-
-
-# plotly.tools.set_credentials_file(username='fmu', api_key='NIDiVLcNRVtwNzBnfpLJ')
 plotly.tools.set_config_file(world_readable=False,
                              sharing='private')
-# plotly.tools.set_config_file(world_readable=True,
-#                            sharing='public')
-
-
-# In[5]:
-
 
 full_data = np.genfromtxt(data_file, delimiter=',')
 # data in X0 Y0, X1, Y1 format, grab all Y values
 last_r_read = np.array([full_data[full_data.shape[0]-1, 1::2]])
 r_length = int(last_r_read.shape[1]/n_gaps)
 last_r_read = last_r_read.reshape(n_gaps, r_length)
-
-
-
-# In[6]:
-
 
 plot_2d = True
 if plot_2d:
@@ -100,10 +72,6 @@ if plot_2d:
     fig_read_r = plotly.graph_objs.Figure(data=data_read_r, layout=layout_read_r)
     plotly.offline.plot(fig_read_r, filename = 'read_resistance.html')
 
-
-# In[7]:
-
-
 # find the simulated resistance closer to de target value
 sim_read_r = np.zeros([n_gaps, target_levels])
 for g_idx, g in enumerate(last_r_read):
@@ -114,20 +82,12 @@ required_loads = np.zeros(sim_read_r.shape)
 # simple 1:levels axysd
 simple_index = np.linspace(1, target_levels, target_levels)
 
-
-# In[8]:
-
-
 # find target gaps for each target resistance at v_read
 for g_idx, g in enumerate(sim_read_r):
     for t_idx, r in enumerate(g):
         new_r, r_idx = find_nearest_sorted(last_r_read[g_idx, :], r)
         sim_read_r[g_idx, t_idx] = new_r
         required_loads[g_idx, t_idx] = r_loads[r_idx]
-
-
-# In[9]:
-
 
 if plot_2d:
     fig_r = plotly.tools.make_subplots(rows=1, cols=2)
@@ -195,10 +155,6 @@ if plot_2d:
     fig_r.update( layout=layout_r)
     plotly.offline.plot(fig_r, filename = 'load_resistances.html')
 
-
-# In[16]:
-
-
 # find read values if load resistors are equidistanced
 eq_distributed_loads = np.zeros(required_loads.shape)
 for g_idx, g in enumerate(required_loads):
@@ -209,23 +165,14 @@ for g_idx, g in enumerate(required_loads):
 # if loads are equidistanced (eq_d_)
 eq_d_read_r = np.zeros(eq_distributed_loads.shape)
 real_eq_d_loads = np.zeros(eq_distributed_loads.shape)
-# for g_idx, g in enumerate(last_r_read):
-#     target_r[g_idx] = np.linspace(np.min(g), np.max(g), target_levels)
 
 # read resistance
 print(required_loads.shape)
 for g_idx, g in enumerate(eq_distributed_loads):
     for t_idx, r in enumerate(g):
         new_r, r_idx = find_nearest_sorted(r_loads, r)
-#         print( 'required: ' + str(r))
-#         print( 'found: ' + str(new_r))
-#         print('--------')
         real_eq_d_loads[g_idx, t_idx] = new_r
         eq_d_read_r[g_idx, t_idx] = last_r_read[g_idx, r_idx]
-
-
-# In[17]:
-
 
 if plot_2d:
     fig_eq_l_r = plotly.tools.make_subplots(rows=1, cols=2)
