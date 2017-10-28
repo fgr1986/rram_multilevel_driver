@@ -4,6 +4,9 @@ from plotly.graph_objs import Scatter, Layout
 import numpy as np
 import pandas as pd
 
+############################
+# Useful functions
+############################
 def find_nearest(array, value):
     idx = (np.abs(array-value)).argmin()
     return array[idx]
@@ -18,26 +21,37 @@ def find_nearest_sorted(sorted_array, value):
     else:
         return sorted_array[idx], idx
 
-
+############################
+# Parameters
+############################
 # target resistances
-initial_gaps = np.array( [1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
+initial_gaps = np.array([1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
 data_file = 'exported_data/1t1r_last.csv'
 n_gaps = initial_gaps.shape[0]
 simulated_levels = 256
 target_levels = 32
 r_load_min = 1e3
-r_loads = np.linspace(r_load_min, simulated_levels*r_load_min, simulated_levels)
+r_loads = np.linspace(r_load_min,
+                      simulated_levels*r_load_min, simulated_levels)
 
-
+############################
+# Plotly configuration
+############################
 plotly.tools.set_config_file(world_readable=False,
                              sharing='private')
 
+############################
+# Import data
+############################
 full_data = np.genfromtxt(data_file, delimiter=',')
 # data in X0 Y0, X1, Y1 format, grab all Y values
 last_r_read = np.array([full_data[full_data.shape[0]-1, 1::2]])
 r_length = int(last_r_read.shape[1]/n_gaps)
 last_r_read = last_r_read.reshape(n_gaps, r_length)
 
+############################
+# Plot results
+############################
 plot_2d = True
 if plot_2d:
     data_read_r = []
@@ -57,7 +71,7 @@ if plot_2d:
             titlefont=dict(
                 family='Courier New, monospace',
                 size=18,
-                color='#7f7f7f'
+                color='#666666'
             )
         ),
         yaxis=dict(
@@ -65,14 +79,17 @@ if plot_2d:
             titlefont=dict(
                 family='Courier New, monospace',
                 size=18,
-                color='#7f7f7f'
+                color='#666666'
             )
         )
     )
-    fig_read_r = plotly.graph_objs.Figure(data=data_read_r, layout=layout_read_r)
-    plotly.offline.plot(fig_read_r, filename = 'read_resistance.html')
+    fig_read_r = plotly.graph_objs.Figure(data=data_read_r,
+                                          layout=layout_read_r)
+    plotly.offline.plot(fig_read_r, filename='read_resistance.html')
 
+##########################################################
 # find the simulated resistance closer to de target value
+##########################################################
 sim_read_r = np.zeros([n_gaps, target_levels])
 for g_idx, g in enumerate(last_r_read):
     sim_read_r[g_idx] = np.linspace(np.min(g), np.max(g), target_levels)
@@ -89,6 +106,7 @@ for g_idx, g in enumerate(sim_read_r):
         sim_read_r[g_idx, t_idx] = new_r
         required_loads[g_idx, t_idx] = r_loads[r_idx]
 
+# plot results
 if plot_2d:
     fig_r = plotly.tools.make_subplots(rows=1, cols=2)
 
@@ -106,7 +124,7 @@ if plot_2d:
         fig_r.append_trace(
             plotly.graph_objs.Scatter(
                 x=simple_index,
-                y=sim_read_r[g_idx,:],
+                y=sim_read_r[g_idx, :],
                 mode='lines+markers',
                 name='read_r for initial gap ' + str(initial_gaps[g_idx]),
                 xaxis='x2',
@@ -114,13 +132,14 @@ if plot_2d:
             ), 1, 2)
 
     layout_r = plotly.graph_objs.Layout(
-        title='Load Resistances and simulated Read Resistances for each level',
+        title='Linearizing the ML-write function: quasilineal read_resistance.'
+        '\nLoad Resistances and simulated Read Resistances for each level',
         xaxis1=dict(
             title='Level',
             titlefont=dict(
                 family='Courier New, monospace',
                 size=18,
-                color='#7f7f7f'
+                color='#666666'
             )
         ),
         xaxis2=dict(
@@ -128,7 +147,7 @@ if plot_2d:
             titlefont=dict(
                 family='Courier New, monospace',
                 size=18,
-                color='#7f7f7f'
+                color='#666666'
             )
         ),
         yaxis1=dict(
@@ -136,7 +155,7 @@ if plot_2d:
             titlefont=dict(
                 family='Courier New, monospace',
                 size=18,
-                color='#7f7f7f'
+                color='#666666'
             )
         ),
         yaxis2=dict(
@@ -144,18 +163,18 @@ if plot_2d:
             titlefont=dict(
                 family='Courier New, monospace',
                 size=18,
-                color='#7f7f7f'
+                color='#666666'
             ),
-#             side='right',
-#             overlaying='y'
+            # side='right',
+            # overlaying='y'
         )
     )
+    fig_r.update(layout=layout_r)
+    plotly.offline.plot(fig_r, filename='load_resistances.html')
 
-
-    fig_r.update( layout=layout_r)
-    plotly.offline.plot(fig_r, filename = 'load_resistances.html')
-
+########################################################
 # find read values if load resistors are equidistanced
+########################################################
 eq_distributed_loads = np.zeros(required_loads.shape)
 for g_idx, g in enumerate(required_loads):
     eq_distributed_loads[g_idx] = np.append(
@@ -174,6 +193,7 @@ for g_idx, g in enumerate(eq_distributed_loads):
         real_eq_d_loads[g_idx, t_idx] = new_r
         eq_d_read_r[g_idx, t_idx] = last_r_read[g_idx, r_idx]
 
+# plot
 if plot_2d:
     fig_eq_l_r = plotly.tools.make_subplots(rows=1, cols=2)
 
@@ -199,13 +219,15 @@ if plot_2d:
             ), 1, 2)
 
     layout_eq_l_r = plotly.graph_objs.Layout(
-        title='Equidistanced Load Resistances and corresponding Read Resistances for each level',
+        title='Linearizing the ML-write function: quasilineal read_resistance.'
+        '\nEquidistanced Load Resistances and corresponding'
+        'Read Resistances for each level',
         xaxis1=dict(
             title='Level',
             titlefont=dict(
                 family='Courier New, monospace',
                 size=18,
-                color='#7f7f7f'
+                color='#666666'
             )
         ),
         xaxis2=dict(
@@ -213,7 +235,7 @@ if plot_2d:
             titlefont=dict(
                 family='Courier New, monospace',
                 size=18,
-                color='#7f7f7f'
+                color='#666666'
             )
         ),
         yaxis1=dict(
@@ -221,7 +243,7 @@ if plot_2d:
             titlefont=dict(
                 family='Courier New, monospace',
                 size=18,
-                color='#7f7f7f'
+                color='#666666'
             )
         ),
         yaxis2=dict(
@@ -229,13 +251,12 @@ if plot_2d:
             titlefont=dict(
                 family='Courier New, monospace',
                 size=18,
-                color='#7f7f7f'
+                color='#666666'
             ),
-#             side='right',
-#             overlaying='y'
+            # side='right',
+            # overlaying='y'
         )
     )
-
-
-    fig_eq_l_r.update( layout=layout_eq_l_r)
-    plotly.offline.plot(fig_eq_l_r, filename = 'equidistanced_load_resistances.html')
+    fig_eq_l_r.update(layout=layout_eq_l_r)
+    plotly.offline.plot(fig_eq_l_r,
+                        filename='equidistanced_load_resistances.html')
