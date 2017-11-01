@@ -12,7 +12,7 @@ global 0 vdd! vss!
 include "/opt/technology/tsmc40nm_18/tsmcN40/../models/spectre/toplevel.scs" section=top_localmconly
 
 include "../ommit/arizona_rram_cells.scs"
-include "../ommit/loads_subcircuit.scs"
+include "../ommit/montecarlo/loads_subcircuit.scs"
 include "montecarlo_simulation.scs"
 
 // Parameters
@@ -45,9 +45,7 @@ parameters
 + p_up=5n p_fall=5n p_delay=10n p_write_length=100n
 // write amp nominal
 + p_v_set=1.8 // fom simulations
-// + p_v_set=1.7 // fom simulations
-+ p_v_th=1.6 // fom simulations
-+ p_write_amp=2*p_v_set
++ p_write_amp=1.5*p_v_set
 + p_comp_v_tol = 0.1
 
 // transistor
@@ -57,7 +55,7 @@ parameters
 
 // level
 + p_level=1
-+ p_total_levels=512-1
++ p_total_levels=4-1
 
 // voltage supply
 VDD      ( vdd!     0 ) vsource dc=p_vdd type=dc
@@ -83,7 +81,7 @@ v_aux (n_gate 0) bsource v= v(n_write)>0.5 ? p_vdd : 0
 rram_0 (n_write n_control_0 n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_0
 
 // resistor loads
-rl_0 (n_control_0 n_level) resistive_loads
+rl_0 (n_control_0) resistive_loads mux_level=p_level
 
 // selector
-V_level(n_level 0) vsource type=dc dc=p_level
+// V_level(n_level 0) vsource type=dc dc=p_level

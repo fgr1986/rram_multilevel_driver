@@ -30,14 +30,18 @@ def find_nearest_sorted(sorted_array, value):
 # initial gaps defined in the netlists
 initial_gaps = np.array([1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
 # data from ../stand_alone_simulations/resistive_controlled_scheme/results
-print('Printing data for every gap in ' + str(initial_gaps))
-pre = 'exported_results/1t1r_' 
+print('\n\tPrinting data for every gap in ' + str(initial_gaps) + '\n\n')
+pre = 'exported_results/1t1r_'
 pre_min = '1t1r'
+print('\tCell type: ' + pre_min)
 data_file = 'imported_data/' + pre_min + '_last.csv'
 n_gaps = initial_gaps.shape[0]
 simulated_levels = 512
-target_levels = 32
+target_levels = 4
 r_load_min = 0.5e3
+print('\tSimulated levels (' + str(r_load_min) + '  ohms per level): '
+      + str(simulated_levels))
+print('\tComputed levels: ' + str(target_levels))
 r_loads = np.linspace(r_load_min,
                       simulated_levels*r_load_min, simulated_levels)
 

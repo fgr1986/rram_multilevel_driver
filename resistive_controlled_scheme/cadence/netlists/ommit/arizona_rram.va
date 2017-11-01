@@ -69,9 +69,10 @@ module RRAM(Nt, Nb);
 	parameter real Vread = 0.1; // Read voltage (V)
 	real Iread;     // Read current @Vread (A)
 
-	// fgarcia
+	// fgarcia modification
 	real rram_v;
 	real rram_i;
+	// uncomment for debugging
 	// real rram_r;
 	real rram_g;
 	real rram_temperature;
@@ -121,13 +122,13 @@ module RRAM(Nt, Nb);
 		Iread = I0*exp(-gap/g0)*sinh(Vread/V0);
 		// V(R_out) <+ Vread/Iread;	// Resistance @Vread
 
-		// fgarcia
+		// fgarcia modification
 		rram_v = V(Nt,Nb);
 		rram_i = I(Nt,Nb);
 		rram_r_read = Vread/Iread;
 		rram_g = gap;
 		rram_temperature = temperature;
-		// Limitation on the gap growth
+		// uncomment for debugging
 		// if (abs(V(Nt,Nb))> 0)
 		// begin
 		// 		rram_r = V(Nt,Nb)/I(Nt,Nb);

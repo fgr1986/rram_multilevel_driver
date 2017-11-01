@@ -1,44 +1,43 @@
 simulator lang=spectre
 
-// include "r0_paramset.scs"
-
 // simulation
-parameters fw_firstrun=1 fw_seed=12345 fw_numruns=100
+parameters fw_firstrun=1 fw_seed=12345 fw_numruns=1
 
 
-// Variability is modeled ussing gamma0 parameter, according to
+// Variability is modeled using gamma0 parameter, according to
 // Chen, P., & Yu, S. (2015). Compact Modeling of RRAM Devices and Its Applications in 1T1R and 1S1R Array Design.
 // IEEE Transactions on Electron Devices, 62(12), 4022–4028. https://doi.org/10.1109/TED.2015.2492421
+// Also, a variability in the initial stage p_rram_gap_ini_0 is considered
 
 // memristor variability
-statistics{
-	process{
-		vary p_rram_gap_ini_0 dist=gauss std=1 percent=yes
-		vary p_gamma0 dist=gauss std=0.5 percent=yes
-	}
-}
+// statistics{
+// 	process{
+// 		vary p_rram_gap_ini_0 dist=gauss std=0.5 percent=yes
+// 		vary p_gamma0 dist=gauss std=0.2 percent=yes
+// 	}
+// }
 
 
 // Start of reliability_montecarlo (montecarlo) analysis
-reliability_montecarlo montecarlo variations=all donominal=yes \
-	savefamilyplots=yes firstrun=fw_firstrun seed=fw_seed numruns=fw_numruns \
-	// scalarfile="../monteCarlo/mcdata" \
-	// paramfile="../monteCarlo/mcparam" saveprocessparams=yes \
-	// processparamfile="../monteCarlo/processParam" \
-	// processscalarfile="../monteCarlo/processData" savemismatchparams=yes \
-	// dependencymapfile="../monteCarlo/mismatchdependency" \
-	// dumpdependency=mismatch \
-	// dependencyscalarfile="../monteCarlo/compactmismatchdata" \
-	// dependencyparamfile="../monteCarlo/compactmismatchparam"  \
-	// paramdumpmode=yes savefamilyplots=yes savedatainseparatedir=yes \
-	// wfseparation=yes
-{
+// reliability_montecarlo montecarlo variations=all donominal=yes \
+// 	savefamilyplots=yes firstrun=fw_firstrun seed=fw_seed numruns=fw_numruns \
+// 	// scalarfile="../monteCarlo/mcdata" \
+// 	// paramfile="../monteCarlo/mcparam" saveprocessparams=yes \
+// 	// processparamfile="../monteCarlo/processParam" \
+// 	// processscalarfile="../monteCarlo/processData" savemismatchparams=yes \
+// 	// dependencymapfile="../monteCarlo/mismatchdependency" \
+// 	// dumpdependency=mismatch \
+// 	// dependencyscalarfile="../monteCarlo/compactmismatchdata" \
+// 	// dependencyparamfile="../monteCarlo/compactmismatchparam"  \
+// 	// paramdumpmode=yes savefamilyplots=yes savedatainseparatedir=yes \
+// 	// wfseparation=yes
+// {
 
 	// Start of sensible_nodes_sweep (sweep) analysis
 	// with paramset
 	// rram_sweep sweep paramset=r0_paramset {
 	// no paramset
-	// rram_sweep sweep param=p_level start=0 stop=p_total_levels step=200{
+	rram_sweep sweep param=p_level start=0 stop=p_total_levels step=1{
 	// rram_sweep sweep param=p_tx_p_l start=40n stop=1.5u dec=5{
 		// Start of reliability_framework_tran (tran) analysis
 		reliability_framework_tran tran save=selected stop=p_sim_time
@@ -50,9 +49,9 @@ reliability_montecarlo montecarlo variations=all donominal=yes \
 		export r_read=oceanEval("value(getData(\"rram_0.mem_0:rram_r_read\") 130n)")
 		export g_ini=oceanEval("value(getData(\"rram_0.mem_0:rram_g\") 0n)")
 		export g_end=oceanEval("value(getData(\"rram_0.mem_0:rram_g\") 130n)")
-	// }
+	}
 
-}// End of reliability_montecarlo (montecarlo ) analysis
+// }// End of reliability_montecarlo (montecarlo ) analysis
 
 mcOptions options genmcdep=yes
 
@@ -77,3 +76,38 @@ save n_gate
 
 save rram_0.mem_0:rram_r_read
 save rram_0.mem_0:rram_g
+
+save n_level
+
+save rl_0.n_0
+save rl_0.n_1
+save rl_0.n_2
+save rl_0.n_3
+save rl_0.n_4
+save rl_0.n_5
+save rl_0.n_6
+save rl_0.n_7
+save rl_0.n_8
+save rl_0.n_9
+save rl_0.n_10
+save rl_0.n_11
+save rl_0.n_12
+save rl_0.n_13
+save rl_0.n_14
+save rl_0.n_15
+save rl_0.n_16
+save rl_0.n_17
+save rl_0.n_18
+save rl_0.n_19
+save rl_0.n_20
+save rl_0.n_21
+save rl_0.n_22
+save rl_0.n_23
+save rl_0.n_24
+save rl_0.n_25
+save rl_0.n_26
+save rl_0.n_27
+save rl_0.n_28
+save rl_0.n_29
+save rl_0.n_30
+save rl_0.n_31

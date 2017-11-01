@@ -12,7 +12,7 @@ global 0 vdd! vss!
 include "/opt/technology/tsmc40nm_18/tsmcN40/../models/spectre/toplevel.scs" section=top_localmconly
 
 include "ommit/arizona_rram_cells.scs"
-include "ommit/loads_subcircuit.scs"
+include "ommit/nominal/loads_subcircuit.scs"
 include "nominal_simulation.scs"
 
 // Parameters
@@ -40,29 +40,17 @@ parameters
 + p_rram_gap_ini_1=1.367e-9
 + p_rram_gap_ini_0=1.3e-9
 
-// aux_resistance
-// + p_r0=120k // 1M
-+ p_r0=36k     // 350k
-
 // vdd
 + p_vdd=1.8
 // write pulse
 + p_up=5n p_fall=5n p_delay=10n p_write_length=100n
 // write amp nominal
 + p_v_set=1.8 // fom simulations
-// + p_v_set=1.7 // fom simulations
-+ p_v_th=1.6 // fom simulations
 + p_write_amp=2*p_v_set
-+ p_comp_v_tol = 0.1
-
-// transistor
-+ p_tx_p_l=40n
-// + p_tx_p_w=120n
-+ p_tx_p_w=5u
 
 // level
 + p_level=1
-+ p_total_levels=512-1
++ p_total_levels=1024-1
 
 // voltage supply
 VDD      ( vdd!     0 ) vsource dc=p_vdd type=dc
@@ -92,11 +80,8 @@ rram_3 (n_write n_control_3 n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gamma0=p_g
 rram_4 (n_write n_control_4 n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_4
 
 // resistor loads
-rl_0 (n_control_0 n_level) resistive_loads
-rl_1 (n_control_1 n_level) resistive_loads
-rl_2 (n_control_2 n_level) resistive_loads
-rl_3 (n_control_3 n_level) resistive_loads
-rl_4 (n_control_4 n_level) resistive_loads
-
-// selector
-V_level(n_level 0) vsource type=dc dc=p_level
+rl_0 (n_control_0) resistive_loads mux_level=p_level
+rl_1 (n_control_1) resistive_loads mux_level=p_level
+rl_2 (n_control_2) resistive_loads mux_level=p_level
+rl_3 (n_control_3) resistive_loads mux_level=p_level
+rl_4 (n_control_4) resistive_loads mux_level=p_level
