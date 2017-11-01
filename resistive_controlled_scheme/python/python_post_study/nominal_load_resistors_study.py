@@ -30,9 +30,9 @@ def find_nearest_sorted(sorted_array, value):
 # initial gaps defined in the netlists
 initial_gaps = np.array([1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
 # data from ../stand_alone_simulations/resistive_controlled_scheme/results
-pre = 'exported_results/1t1r_'
+print('Printing data for every gap in ' + str(initial_gaps))
+pre = 'exported_results/1t1r_' 
 pre_min = '1t1r'
-exp_g_idx = 0
 data_file = 'imported_data/' + pre_min + '_last.csv'
 n_gaps = initial_gaps.shape[0]
 simulated_levels = 512
@@ -81,7 +81,7 @@ if plot_2d:
             )
         )
     layout_read_r = plotly.graph_objs.Layout(
-        title='Simulated Read Resistances vs Load Resistances',
+        title=pre_min + ' Simulated Read Resistances vs Load Resistances',
         xaxis=dict(
             title='Load Resistance [ohm]',
             titlefont=dict(
@@ -134,7 +134,7 @@ np.savetxt(pre + "ideal_read_r_for_load_resistances.csv",
 
 # plot results
 if plot_2d:
-    fig_r = plotly.tools.make_subplots(rows=1, cols=2)
+    fig_r = plotly.tools.make_subplots(rows=1, cols=2, print_grid=False)
 
     for g_idx, g in enumerate(required_loads):
         fig_r.append_trace(
@@ -158,7 +158,7 @@ if plot_2d:
             ), 1, 2)
 
     layout_r = plotly.graph_objs.Layout(
-        title='Linearizing the ML-write function: quasilineal read_resistance.'
+        title=pre_min + ' Linearizing the ML-write function: quasilineal read_resistance.'
         '\nLoad Resistances and simulated Read Resistances for each level',
         xaxis1=dict(
             title='Level',
@@ -212,7 +212,6 @@ eq_d_read_r = np.zeros(eq_distributed_loads.shape)
 real_eq_d_loads = np.zeros(eq_distributed_loads.shape)
 
 # read resistance
-print(required_loads.shape)
 for g_idx, g in enumerate(eq_distributed_loads):
     for t_idx, r in enumerate(g):
         new_r, r_idx = find_nearest_sorted(r_loads, r)
@@ -227,7 +226,7 @@ np.savetxt(pre + "equidistanced_read_r_for_load_resistances.csv",
 
 # plot
 if plot_2d:
-    fig_eq_l_r = plotly.tools.make_subplots(rows=1, cols=2)
+    fig_eq_l_r = plotly.tools.make_subplots(rows=1, cols=2, print_grid=False)
 
     for g_idx, g in enumerate(eq_distributed_loads):
         fig_eq_l_r.append_trace(
@@ -251,7 +250,7 @@ if plot_2d:
             ), 1, 2)
 
     layout_eq_l_r = plotly.graph_objs.Layout(
-        title='Linearizing the ML-write function: quasilineal read_resistance.'
+        title=pre_min + ' Linearizing the ML-write function: quasilineal read_resistance.'
         '\nEquidistanced Load Resistances and corresponding'
         'Read Resistances for each level',
         xaxis1=dict(
