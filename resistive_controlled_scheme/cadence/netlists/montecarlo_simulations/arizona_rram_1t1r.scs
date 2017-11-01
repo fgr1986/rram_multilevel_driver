@@ -21,7 +21,7 @@ parameters
 // simulation
 + p_sim_time=30n + p_write_length
 // + p_max_step=10p
-+ p_max_step=1000p
+// + p_max_step=1000p
 // temperature
 + p_T0=300
 + p_temp=(p_T0-273.15) // in celsius
@@ -35,23 +35,13 @@ parameters
 
 + p_rram_gap_ini_0=1.367e-9
 
-// aux_resistance
-// + p_r0=120k // 1M
-+ p_r0=36k     // 350k
-
 // vdd
 + p_vdd=1.8
 // write pulse
 + p_up=5n p_fall=5n p_delay=10n p_write_length=100n
 // write amp nominal
 + p_v_set=1.8 // fom simulations
-+ p_write_amp=1.5*p_v_set
-+ p_comp_v_tol = 0.1
-
-// transistor
-+ p_tx_p_l=40n
-// + p_tx_p_w=120n
-+ p_tx_p_w=5u
++ p_write_amp=2*p_v_set
 
 // level
 + p_level=1
@@ -63,11 +53,6 @@ VSS      ( vss!     0 ) vsource dc=0     type=dc
 
 // write voltage (pulse)
 V0 (n_write 0) vsource type=pulse delay=p_delay val0=0 val1=p_write_amp rise=p_up fall=p_fall width=p_write_length
-
-// set characterization voltage
-// Vcar (n_write 0) vsource type=pulse delay=p_delay val0=0 val1=p_write_amp rise=p_write_length/2 fall=p_write_length/2 width=p_write_length
-// // rram_0 (n_write n_control)  rram_cell_1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini
-// rram_0 (n_write 0 n_sel)  rram_cell_1t1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini
 
 
 ////////////////////////////
@@ -82,6 +67,3 @@ rram_0 (n_write n_control_0 n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gamma0=p_g
 
 // resistor loads
 rl_0 (n_control_0) resistive_loads mux_level=p_level
-
-// selector
-// V_level(n_level 0) vsource type=dc dc=p_level

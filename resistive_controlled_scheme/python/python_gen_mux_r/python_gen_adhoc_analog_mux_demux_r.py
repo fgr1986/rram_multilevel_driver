@@ -124,7 +124,7 @@ fl_loads_scs.write('\t// and ' + str(analog_mux_inputs) + ' levels \n\n')
 fl_loads_scs.write("\tparameters mux_level=0\n")
 for i in range(analog_mux_inputs-1, 0, -1):
     fl_loads_scs.write('\tr_' + str(i) + ' (n_' + str(i)
-                        + ' n_' + str(i-1))
+                       + ' n_' + str(i-1))
 
     # additional terminal
     if(resistor_3t):
