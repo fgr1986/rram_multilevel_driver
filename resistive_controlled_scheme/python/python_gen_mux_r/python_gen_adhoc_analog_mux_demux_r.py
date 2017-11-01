@@ -2,34 +2,13 @@
 # -*- coding: utf-8 -*-
 
 #######################
-# v0.4 6 feb 2017
+# v1.0 1 nov 2017
 #######################
-
-# Ejemplo:
-# `include "constants.vams"
-# `include "disciplines.vams"
-# module analog_mux(n_out, n_in, v_sel);
-# inout n_in;
-# electrical n_in;
-# inout [7:0] n_out;
-# electrical [7:0] n_out;
-# inout v_sel;
-# electrical v_sel;
-# integer select;
-# genvar c;
-# analog begin
-# select = V(v_sel);
-# in = V(n_in);
-# generate c (0,7,1) begin
-# if( c==select ) begin
-# V(n_out[c], n_in) <+ 0;
-# end else begin
-# I(n_out[c], n_in) <+ 0;
-# end
-# end
-# end
-# endmodule
-
+#
+# Similar to python_gen_analog_mux_demux_r.py
+# But uses addhoc resistances read from import_data/files.csv
+#
+#######################
 
 import glob
 import os
@@ -44,17 +23,37 @@ import fnmatch
 import subprocess
 
 # improved system calls
-import random
+import numpy as np
 
 ##############
 # constants
 ##############
-analog_mux_inputs = 512
-generated_files_folder = "exported"
+generated_files_folder = "exported_adhoc"
 analog_mux_file = "analog_mux.va"
 loads_subcircuit = "loads_subcircuit.scs"
-resistor_properties = "resistor r=0.5k"
+
+############################
+# Parameters
+############################
+# To obtain the target resistances/resistive loads
+# initial gaps defined in the netlists
+initial_gaps = np.array([1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
+# data from ../stand_alone_simulations/resistive_controlled_scheme/results
+print('Printing data for every gap in ' + str(initial_gaps))
+pre = 'exported_results/1t1r_'
+g_idx = 0
+pre_min = '1t1r'
+data_file = 'import_data/' + pre_min + '_ideal_load_resistances.csv'
+resistor_properties = "resistor r="
 # "rppolywo_m lr=15.78u wr=2u multi=(1) m=1"
+
+############################
+# Import data
+############################
+full_data = np.genfromtxt(data_file, delimiter=',')
+r_loads = full_data[:, g_idx]
+analog_mux_inputs = r_loads.shape[0]
+print("generating mux/loads for " + str(analog_mux_inputs) + " levels")
 
 ############################
 # preparing folder
@@ -109,7 +108,7 @@ fl_loads_scs.write("simulator lang=spectre\n\n")
 fl_loads_scs.write("ahdl_include \"" + analog_mux_file + "\"\n\n")
 fl_loads_scs.write("//////////////////////////////////\n")
 fl_loads_scs.write("// Resistive loads and analog_mux cell //\n")
-fl_loads_scs.write("// v0.1 24/10/2017              //\n")
+fl_loads_scs.write("// v1.0 01/11/2017              //\n")
 fl_loads_scs.write("//////////////////////////////////\n\n")
 
 fl_loads_scs.write("subckt resistive_loads (to_rram sel)\n\n")
@@ -117,9 +116,14 @@ fl_loads_scs.write("subckt resistive_loads (to_rram sel)\n\n")
 for i in range(analog_mux_inputs-1, 0, -1):
     fl_loads_scs.write("\tr_" + str(i) + " (n_" + str(i)
                        + " n_" + str(i-1)
-                       + " 0) " + resistor_properties + "\n")
-# last resistor
-fl_loads_scs.write("\tr_0 (n_0 0 0) " + resistor_properties + " \n")
+                       + " 0) " + resistor_properties
+                       + str(r_loads[i] - r_loads[i-1])
+                       + "\n")
+# first resistor
+fl_loads_scs.write("\tr_0 (n_0 0 0) "
+                   + resistor_properties
+                   + str(r_loads[0])
+                   + "\n")
 fl_loads_scs.write("\n\n\t// analog_mux connection\n\n")
 # fl_loads_scs.write("\tm_0 (n_\<" + str(analog_mux_inputs-1)
 #                    + "\:0\> to_rram sel)"
