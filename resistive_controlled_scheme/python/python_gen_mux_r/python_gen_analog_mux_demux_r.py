@@ -84,7 +84,7 @@ fl_loads_scs.write("simulator lang=spectre\n\n")
 fl_loads_scs.write("ahdl_include \"" + analog_mux_file + "\"\n\n")
 fl_loads_scs.write("//////////////////////////////////\n")
 fl_loads_scs.write("// Resistive loads and analog_mux cell //\n")
-fl_loads_scs.write("// v0.1 24/10/2017              //\n")
+fl_loads_scs.write("// v1.0 01/11/2017              //\n")
 fl_loads_scs.write("//////////////////////////////////\n\n")
 
 fl_loads_scs.write("subckt resistive_loads (to_rram)\n\n")

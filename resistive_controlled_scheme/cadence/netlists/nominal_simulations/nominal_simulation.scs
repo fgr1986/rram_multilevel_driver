@@ -1,16 +1,9 @@
 simulator lang=spectre
 
-// include "r0_paramset.scs"
-
-// simulation
-// + sim_max_step=0.5ns sim_step=0.3ns + sim_max_step= 1u
-parameters fw_firstrun=1 fw_seed=1 fw_numruns=10
-
 // Start of sensible_nodes_sweep (sweep) analysis
 
 // with paramset
 // rram_sweep sweep paramset=r0_paramset {
-
 // no paramset
 rram_sweep sweep param=p_level start=0 stop=p_total_levels step=1{
 // rram_sweep sweep param=p_tx_p_l start=40n stop=1.5u dec=5{
@@ -19,17 +12,12 @@ rram_sweep sweep param=p_level start=0 stop=p_total_levels step=1{
 		+ method=gear2only annotate=no maxiters=5
 		// + maxstep=p_max_step
 		// + paramset=psettiming
-}
+} // end sweep
 
-// Old options (TVLSI)
-// simulation options
-// simulatorOptions options temp=mT0Celsius genmcdep=yes
-// + tnom=27 scale=1.0 gmin=1e-12 rforce=1 maxnotes=5 maxwarns=5 digits=5 cols=80 pivrel=1e-3
-// + reltol=1e-8 vabstol=1e-9 iabstol=1e-11
-// + reltol=1e-9 vabstol=1e-10 iabstol=1e-12
 
 // New options
 simulatorOptions options temp=p_temp tnom=27 scale=1.0 gmin=1e-12 rforce=1 maxnotes=5 maxwarns=5 digits=5 cols=80
+		// + reltol=1e-9 vabstol=1e-10 iabstol=1e-12
 		// + reltol=1e-8 vabstol=1e-9 iabstol=1e-11
 		// + pivrel=1e-3 reltol=1e-10 vabstol=1e-10 iabstol=1e-13 // used for characterization
 		// + pivrel=1e-3 reltol=1e-10 vabstol=1e-10 iabstol=1e-13
