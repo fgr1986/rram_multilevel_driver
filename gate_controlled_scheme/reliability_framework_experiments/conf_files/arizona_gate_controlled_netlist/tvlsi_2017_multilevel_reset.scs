@@ -1,0 +1,149 @@
+simulator lang=spectre
+global 0 vdd!
+
+// ahdl_include "/opt/technology/rram/arizona_imec/rram.va"
+include "rram_1t1r_cell_custom_parasitics.scs"
+// should be included by the framework
+include "/opt/technology/tsmc40nm_18/tsmcN40/../models/spectre/toplevel.scs" section=top_tt
+//include "/opt/technology/tsmc40nm_25/tsmcN40/../models/spectre/toplevel.scs" section=top_tt
+
+
+parameters
+  + p_sim_time=0.2u
+  + p_T0=300
+  + p_temp=p_T0-273.15
+
+  + p_nchL=40n
+  + p_nchW=600n
+  + p_gate_driver=1.8
+  + p_i=1e-9
+
+  + p_rram_tstep=1p
+  + P_rram_T0=300
+  + P_rram_Vread=0.1
+
+
+  // + p_rram_1r_cells_gap_ini=1.367e-9
+  + p_rram_1r_cells_gap_ini=0.1e-9
+
+
+    // pulses
+    + V_STOP_1=1.8
+    + V_STOP_2=-1.8
+    + V_WIDTH=100n
+    + V_RISE=5n
+    + p_gate=1.8
+
+
+    // voltage
+    // v0 (rram_block_in 0) vsource type=pwl pwlperiod=p_sim_time wave=[ 0 0 p_sim_time_a V_STOP_1 p_sim_time_b 0 p_sim_time_c V_STOP_2 p_sim_time_d 0 ]
+    // v_sel (rram_sel 0) vsource type=dc dc=p_gate
+    v_sel (rram_sel 0) bsource v=p_gate-v(rram_block_out)
+
+    v_sel_driver (rram_sel_driver 0) vsource type=dc dc=p_gate_driver
+
+    v0 (rram_block_in 0) vsource type=pulse val0=0 val1=V_STOP_2 period=5*V_WIDTH rise=V_RISE fall=V_RISE width=V_WIDTH
+
+  // rram
+  rram_0 ( rram_block_in rram_block_out rram_sel ) rram_cell_1t1r nchW=120n rram_gap_ini=p_rram_1r_cells_gap_ini
+
+  // driver
+  // source gate drain bulk
+  txDriver_0 (0 rram_sel_driver rram_block_out 0) nch_mac l=p_nchL w=p_nchW
+
+
+   // default voltages
+   // varying stop voltage
+   // [0 -1.48 -1.55 -1.6 -1.65 -1.7 -1.75 -1.8]
+   // varying gate voltage
+   // 50ns, [40nm, 600nm]: [0 0.42 0.45 0.48 0.51 0.56 0.63 0.7]
+   /////////////////////////////////////////////////////////////////
+   // 100ns, [40nm, 600nm]: [0.38 0.41 0.45 0.48 0.51 0.55 0.6]
+   /////////////////////////////////////////////////////////////////
+   sweep_driver_gate_v sweep param=p_gate_driver values=[0 0.38 0.41 0.45 0.48 0.51 0.55 0.6] {
+     my_tran tran stop=p_sim_time method=trap annotate=no maxiters=5
+   }
+
+  // TX :     L,    W
+  // T1:  Saturation  0.6V
+  // T1A: 1000n, 120n
+  // T1B:   40n, 480n
+  // Other: Common gate  0.6V
+  // T1A: 40n, 200n
+  // T1B: 90n, 160n
+  // Other: Common gate  0.6V
+  // T1A: 40n, 170n
+  // T1B: 170n, 140n
+
+
+  // T2:  Common gate 0.55V
+  // T2A: 40n, 190n
+  // T2B: 70n, 160n
+  // Other
+  // T2A: 40n, 170n
+  // T2B: 40n, 120n
+
+
+
+  // T3:  Common gate 0.51V
+  // T3A: 90n, 200n
+  // T3B: 70n, 140n
+
+
+
+  // T4:  Common gate 0.48V
+  // T4A: 50n,  160n
+  // T4B: 110n, 180n
+  //
+  // other
+  // T4A: 40n, 140n
+  // T4B: 40n, 120n
+
+
+  // T5:  Common gate 0.45V
+  // T5A: 40n, 150n
+  // T5B: 50n, 140n
+  // Other
+  // T5A: 40n, 160n
+  // T5B: 80n, 190n
+  // Other
+  // T5A: 40n, 160n
+  // T5B: 40n, 150n
+
+  // T6:  Common gate 0.41V
+  // T6A: 60n, 170n
+  // T6B: 60n, 170n
+
+  // T7:  Common gate 0.38V
+  // T7A: 120n, 190n
+  // T7B: 50n, 150n
+  // Other
+  // T7A: 80n, 140n
+  // T7B: 110n, 190n
+  //
+  // T7A: 40n, 120n
+  // T7B: 40n, 140n
+
+
+// ANALYSIS
+// by simulation
+
+// Dummy resistance as 'injected node'
+// Rdummy ( dummy_node 0 ) resistor r=1k
+
+
+saveOptions options  save=allpub  saveahdlvars=all
+
+
+
+simulatorOptions options genmcdep=yes reltol=1e-3 vabstol=1e-6 iabstol=1e-12 temp=p_temp tnom=27 scale=1.0 gmin=1e-12 rforce=1 maxnotes=5 maxwarns=5 digits=5 cols=80 pivrel=1e-3
+save rram_block_in
+save rram_sel_driver
+save rram_sel
+save BDriver_0:1
+save txDriver_0:1
+
+save rram_0.mem0:R_out
+save rram_0.mem0:gap
+save rram_0.txN0:1
+save rram_0.aux_mem0_volt
