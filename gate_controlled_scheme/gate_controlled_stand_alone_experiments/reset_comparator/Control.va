@@ -1,0 +1,54 @@
+`include "constants.vams"
+`include "disciplines.vams"
+
+module Control(comp_vin, enable_reset, enable_set);
+
+        inout comp_vin, enable_reset, enable_set;
+        electrical comp_vin, enable_reset, enable_set;
+
+        parameter real m_vdd =  1.8;
+        parameter real m_vss =  0;
+
+        real state;
+        real m_reset_out;
+        real m_set_out;
+
+analog begin
+
+        @(initial_step)  begin
+                state = 0;
+        end
+
+        // state = 0 -> initial
+        // state = 1 -> comparing during reset
+        // state = 2 -> finished
+
+        // outputs
+        if( state==0 )
+          begin
+            m_reset_out =  0;
+            m_set_out = 0;
+          end
+        else if( state==1 )
+          begin
+            m_reset_out =  1.8;
+            m_set_out = 0;
+          end
+        else
+          begin
+            m_reset_out = 0;
+            m_set_out = 1.8;
+          end
+
+          V(enable_reset) <+ m_reset_out;
+          V(enable_set) <+ m_set_out;
+
+        // state
+        if( state==0 && V(comp_vin)>1)
+          begin
+            state =  1;
+          end
+        else if( state==1 && V(comp_vin)<1 )
+          state = 2;
+end
+endmodule
