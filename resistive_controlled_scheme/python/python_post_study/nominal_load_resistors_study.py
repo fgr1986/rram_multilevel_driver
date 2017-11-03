@@ -3,6 +3,7 @@ import plotly.offline
 from plotly.graph_objs import Scatter, Layout
 import numpy as np
 import pandas as pd
+import sys
 
 
 ############################
@@ -31,19 +32,22 @@ def find_nearest_sorted(sorted_array, value):
 initial_gaps = np.array([1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
 # data from ../stand_alone_simulations/resistive_controlled_scheme/results
 print('\n\tPrinting data for every gap in ' + str(initial_gaps) + '\n\n')
-pre = 'exported_results/1t1r_'
-pre_min = '1t1r'
+pre_min = '1r'
 print('\tCell type: ' + pre_min)
-data_file = 'imported_data/' + pre_min + '_last.csv'
+pre = 'exported_results_nominal/' + pre_min + '_'
+data_file = 'imported_data_nominal/' + pre_min + '_last.csv'
 n_gaps = initial_gaps.shape[0]
-simulated_levels = 512
-target_levels = 4
-r_load_min = 0.5e3
+simulated_levels = 1024
+target_levels = 32
+r_load_min = 0.25e3
 print('\tSimulated levels (' + str(r_load_min) + '  ohms per level): '
       + str(simulated_levels))
 print('\tComputed levels: ' + str(target_levels))
 r_loads = np.linspace(r_load_min,
                       simulated_levels*r_load_min, simulated_levels)
+# maximum r_load, to avoid varaibility, per gap
+maximum_r_read = np.array([0.6e6, 0.8e6, 1e6, 1.5e6, 2e6])
+clip_r_read = True
 
 ############################
 # Plotly configuration
@@ -64,12 +68,20 @@ full_data = np.genfromtxt(data_file, delimiter=',')
 last_r_read = np.array([full_data[full_data.shape[0]-1, 1::2]])
 r_length = int(last_r_read.shape[1]/n_gaps)
 last_r_read = last_r_read.reshape(n_gaps, r_length)
+# clip read_resistances to desired ranges
+max_last_r_read_idx = np.full(maximum_r_read.shape,
+                              last_r_read.shape[1]).astype(int)
+if clip_r_read:
+    for g_idx, g in enumerate(last_r_read):
+        max_last_r_read_idx[g_idx] = int(np.argmax(g > maximum_r_read[g_idx]))
 
 # Export computed data for Gnuplot printing
 np.savetxt(pre + "simulated_read_resistance_y.csv",
-           np.transpose(last_r_read), delimiter=",")
+           np.transpose(last_r_read[1:max_last_r_read_idx[g_idx]]),
+           delimiter=",")
 np.savetxt(pre + "simulated_r_loads_x.csv",
-           np.transpose(r_loads), delimiter=",")
+           np.transpose(r_loads[1:max_last_r_read_idx[g_idx]]),
+           delimiter=",")
 
 # Plot results
 plot_2d = True
@@ -78,8 +90,8 @@ if plot_2d:
     for g_idx, g in enumerate(last_r_read):
         data_read_r.append(
             plotly.graph_objs.Scatter(
-                x=r_loads,
-                y=g,
+                x=r_loads[1:max_last_r_read_idx[g_idx]],
+                y=g[1:max_last_r_read_idx[g_idx]],
                 mode='lines+markers',
                 name='read_r for initial gap ' + str(initial_gaps[g_idx])
             )
@@ -107,12 +119,15 @@ if plot_2d:
                                           layout=layout_read_r)
     plotly.offline.plot(fig_read_r, filename=pre + 'read_resistance.html')
 
+
 ##########################################################
 # find the simulated resistance closer to de target value
 ##########################################################
 sim_read_r = np.zeros([n_gaps, target_levels])
 for g_idx, g in enumerate(last_r_read):
-    sim_read_r[g_idx] = np.linspace(np.min(g), np.max(g), target_levels)
+    sim_read_r[g_idx] = np.linspace(np.min(g[1:max_last_r_read_idx[g_idx]]),
+                                    np.max(g[1:max_last_r_read_idx[g_idx]]),
+                                    target_levels)
 
 # required resistor loads
 required_loads = np.zeros(sim_read_r.shape)
@@ -123,10 +138,11 @@ simple_index = np.linspace(1, target_levels, target_levels)
 np.savetxt(pre + "simple_index_x.csv",
            np.transpose(simple_index), delimiter=",")
 
-# find target gaps for each target resistance at v_read
+# find target gaps for each target resistance
+# at v_read [1:max_last_r_read_idx[g_idx]]
 for g_idx, g in enumerate(sim_read_r):
     for t_idx, r in enumerate(g):
-        new_r, r_idx = find_nearest_sorted(last_r_read[g_idx, :], r)
+        new_r, r_idx = find_nearest_sorted(last_r_read[g_idx, 1:max_last_r_read_idx[g_idx]], r)
         sim_read_r[g_idx, t_idx] = new_r
         required_loads[g_idx, t_idx] = r_loads[r_idx]
 

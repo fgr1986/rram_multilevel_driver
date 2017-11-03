@@ -32,7 +32,7 @@ import numpy as np
 # To obtain the target resistances/resistive loads
 # initial gaps defined in the netlists
 initial_gaps = np.array([1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
-g_idx = 1
+g_idx = 0
 pre_min = '1t1r'
 
 ##############
@@ -110,7 +110,7 @@ fl_analog_mux.close()
 fl_loads_scs = open(loads_subcircuit, 'w')
 
 fl_loads_scs.write('simulator lang=spectre\n\n')
-fl_loads_scs.write('ahdl_include \'' + analog_mux_file + '\'\n\n')
+fl_loads_scs.write('ahdl_include \"' + analog_mux_file + '\"\n\n')
 fl_loads_scs.write('//////////////////////////////////\n')
 fl_loads_scs.write('// Resistive loads and analog_mux cell //\n')
 fl_loads_scs.write('// v1.0 01/11/2017              //\n')
