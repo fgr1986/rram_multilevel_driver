@@ -32,9 +32,9 @@ import numpy as np
 # To obtain the target resistances/resistive loads
 # initial gaps defined in the netlists
 initial_gaps = np.array([1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
-g_idx = 0
+g_idx = 1
 pre_min = '1t1r'
-clip_r_read = False
+clip_r_read = True
 
 ##############
 # Files/Folders
@@ -52,10 +52,11 @@ print('\t* Generating modules for ' + pre_min + ' cell, with gap: '
       + str(initial_gaps[g_idx]))
 #import files
 if clip_r_read:
+    print('\t* Notice that r_read is constrained, not in the full range')
     data_file = 'import_data/clip_range_r_read/' + pre_min + '_ideal_load_resistances.csv'
 else:
     data_file = 'import_data/full_range_r_read/' + pre_min + '_ideal_load_resistances.csv'
-    
+
 # resistor parameters
 resistor_properties = 'resistor r='
 resistor_3t = False
