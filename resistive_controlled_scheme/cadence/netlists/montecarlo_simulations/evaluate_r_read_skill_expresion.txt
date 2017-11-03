@@ -1,0 +1,1 @@
+value(getData("rram_0.mem_0:rram_r_read" ?result "tran" ?resultsDir "./arizona_rram_1t1r.raw") 130n)
