@@ -32,10 +32,9 @@ def find_nearest_sorted(sorted_array, value):
 initial_gaps = np.array([1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
 # data from ../stand_alone_simulations/resistive_controlled_scheme/results
 print('\n\tPrinting data for every gap in ' + str(initial_gaps) + '\n\n')
-pre_min = '1r'
-print('\tCell type: ' + pre_min)
-pre = 'exported_results_nominal/' + pre_min + '_'
-data_file = 'imported_data_nominal/' + pre_min + '_last.csv'
+cell = '1r'
+print('\tCell type: ' + cell)
+data_file = 'imported_data_nominal/' + cell + '_last.csv'
 n_gaps = initial_gaps.shape[0]
 simulated_levels = 1024
 target_levels = 32
@@ -46,8 +45,12 @@ print('\tComputed levels: ' + str(target_levels))
 r_loads = np.linspace(r_load_min,
                       simulated_levels*r_load_min, simulated_levels)
 # maximum r_load, to avoid varaibility, per gap
-maximum_r_read = np.array([0.6e6, 0.8e6, 1e6, 1.5e6, 2e6])
+maximum_r_read = np.array([0.6e6, 0.7e6, 0.8e6, 1e6, 1e6])
 clip_r_read = True
+if clip_r_read:
+    pre = 'exported_results_nominal/clip_range_r_read/' + cell + '_'
+else:
+    pre = 'exported_results_nominal/full_range_r_read/' + cell + '_'
 
 ############################
 # Plotly configuration
@@ -77,10 +80,10 @@ if clip_r_read:
 
 # Export computed data for Gnuplot printing
 np.savetxt(pre + "simulated_read_resistance_y.csv",
-           np.transpose(last_r_read[1:max_last_r_read_idx[g_idx]]),
+           np.transpose(last_r_read),
            delimiter=",")
 np.savetxt(pre + "simulated_r_loads_x.csv",
-           np.transpose(r_loads[1:max_last_r_read_idx[g_idx]]),
+           np.transpose(r_loads),
            delimiter=",")
 
 # Plot results
@@ -90,14 +93,14 @@ if plot_2d:
     for g_idx, g in enumerate(last_r_read):
         data_read_r.append(
             plotly.graph_objs.Scatter(
-                x=r_loads[1:max_last_r_read_idx[g_idx]],
-                y=g[1:max_last_r_read_idx[g_idx]],
+                x=r_loads[0:max_last_r_read_idx[g_idx]],
+                y=g[0:max_last_r_read_idx[g_idx]],
                 mode='lines+markers',
                 name='read_r for initial gap ' + str(initial_gaps[g_idx])
             )
         )
     layout_read_r = plotly.graph_objs.Layout(
-        title=pre_min + ' Simulated Read Resistances vs Load Resistances',
+        title=cell + ' Simulated Read Resistances vs Load Resistances',
         xaxis=dict(
             title='Load Resistance [ohm]',
             titlefont=dict(
@@ -125,8 +128,8 @@ if plot_2d:
 ##########################################################
 sim_read_r = np.zeros([n_gaps, target_levels])
 for g_idx, g in enumerate(last_r_read):
-    sim_read_r[g_idx] = np.linspace(np.min(g[1:max_last_r_read_idx[g_idx]]),
-                                    np.max(g[1:max_last_r_read_idx[g_idx]]),
+    sim_read_r[g_idx] = np.linspace(np.min(g[0:max_last_r_read_idx[g_idx]]),
+                                    np.max(g[0:max_last_r_read_idx[g_idx]]),
                                     target_levels)
 
 # required resistor loads
@@ -142,7 +145,7 @@ np.savetxt(pre + "simple_index_x.csv",
 # at v_read [1:max_last_r_read_idx[g_idx]]
 for g_idx, g in enumerate(sim_read_r):
     for t_idx, r in enumerate(g):
-        new_r, r_idx = find_nearest_sorted(last_r_read[g_idx, 1:max_last_r_read_idx[g_idx]], r)
+        new_r, r_idx = find_nearest_sorted(last_r_read[g_idx, 0:max_last_r_read_idx[g_idx]], r)
         sim_read_r[g_idx, t_idx] = new_r
         required_loads[g_idx, t_idx] = r_loads[r_idx]
 
@@ -178,7 +181,7 @@ if plot_2d:
             ), 1, 2)
 
     layout_r = plotly.graph_objs.Layout(
-        title=pre_min + ' Linearizing the ML-write function: quasilineal read_resistance.'
+        title=cell + ' Linearizing the ML-write function: quasilineal read_resistance.'
         '\nLoad Resistances and simulated Read Resistances for each level',
         xaxis1=dict(
             title='Level',
@@ -270,7 +273,7 @@ if plot_2d:
             ), 1, 2)
 
     layout_eq_l_r = plotly.graph_objs.Layout(
-        title=pre_min + ' Linearizing the ML-write function: quasilineal read_resistance.'
+        title=cell + ' Linearizing the ML-write function: quasilineal read_resistance.'
         '\nEquidistanced Load Resistances and corresponding'
         'Read Resistances for each level',
         xaxis1=dict(
