@@ -34,7 +34,7 @@ initial_gaps = np.array([1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
 print('\n\tPrinting data for every gap in ' + str(initial_gaps) + '\n\n')
 cell = '1r'
 print('\tCell type: ' + cell)
-data_file = 'imported_data_nominal/' + cell + '_last.csv'
+data_file = '../../cadence/results/nominal_results/' + cell + '_last.csv'
 n_gaps = initial_gaps.shape[0]
 simulated_levels = 1024
 target_levels = 32
