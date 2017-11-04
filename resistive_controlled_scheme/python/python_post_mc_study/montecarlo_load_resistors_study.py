@@ -12,11 +12,21 @@ import pandas as pd
 initial_gaps = np.array([1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
 # data from ../stand_alone_simulations/resistive_controlled_scheme/results
 print('\n\tPrinting data for every gap in ' + str(initial_gaps) + '\n\n')
-cell = '1r'
-g_idx = 4
+cell = '1t1r'
+g_idx = 1
 print('\tCell type: ' + cell + ', g: ' + str(initial_gaps[g_idx]))
+
 pre = 'exported_results_montecarlo/' + cell + '_g_' + str(g_idx) + '_'
-data_file = 'imported_data_montecarlo/mc_' + cell + '_g_' + str(g_idx) + '_32l_last_r_read.csv'
+clip_r_read = True
+if clip_r_read:
+    pre = 'exported_results_montecarlo/clip_range_r_read/' + cell + '_g_' + str(g_idx) + '_'
+    data_file = '../../cadence/results/mc_results/mc_clip_range_r_read/mc_'
+    + cell + '_g_' + str(g_idx) + '_32l_last_r_read.csv'
+else:
+    pre = 'exported_results_montecarlo/full_range_r_read/'
+    + cell + '_g_' + str(g_idx) + '_'
+    data_file = '../../cadence/results/mc_results/mc_full_resistance_range/mc_'
+    + cell + '_g_' + str(g_idx) + '_32l_last_r_read.csv'
 
 ############################
 # Plotly configuration

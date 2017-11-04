@@ -33,11 +33,13 @@ parameters
 // + p_rram_gap_ini_0=0.2e-9
 // + p_rram_gap_ini_1=0.1367e-9
 
-+ p_rram_gap_ini_4=1.7e-9
-+ p_rram_gap_ini_3=1.6e-9
-+ p_rram_gap_ini_2=1.5e-9
-+ p_rram_gap_ini_1=1.367e-9
-+ p_rram_gap_ini_0=1.3e-9
+
+// + p_rram_gap_ini_5=1.7e-9
+// + p_rram_gap_ini_4=1.6e-9
+// + p_rram_gap_ini_3=1.5e-9
+// + p_rram_gap_ini_2=1.367e-9
+// + p_rram_gap_ini_1=1.3e-9
++ p_rram_gap_ini_0=1.2e-9
 
 // vdd
 + p_vdd=1.8
@@ -67,14 +69,16 @@ v_aux (n_gate 0) bsource v= v(n_write)>0.5 ? p_vdd : 0
 
 // 1T1R with parasitics
 rram_0 (n_write n_control_0 n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_0
-rram_1 (n_write n_control_1 n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_1
-rram_2 (n_write n_control_2 n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_2
-rram_3 (n_write n_control_3 n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_3
-rram_4 (n_write n_control_4 n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_4
+// rram_1 (n_write n_control_1 n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_1
+// rram_2 (n_write n_control_2 n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_2
+// rram_3 (n_write n_control_3 n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_3
+// rram_4 (n_write n_control_4 n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_4
+// rram_5 (n_write n_control_5 n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_5
 
 // resistor loads
 rl_0 (n_control_0) resistive_loads mux_level=p_level
-rl_1 (n_control_1) resistive_loads mux_level=p_level
-rl_2 (n_control_2) resistive_loads mux_level=p_level
-rl_3 (n_control_3) resistive_loads mux_level=p_level
-rl_4 (n_control_4) resistive_loads mux_level=p_level
+// rl_1 (n_control_1) resistive_loads mux_level=p_level
+// rl_2 (n_control_2) resistive_loads mux_level=p_level
+// rl_3 (n_control_3) resistive_loads mux_level=p_level
+// rl_4 (n_control_4) resistive_loads mux_level=p_level
+// rl_5 (n_control_5) resistive_loads mux_level=p_level

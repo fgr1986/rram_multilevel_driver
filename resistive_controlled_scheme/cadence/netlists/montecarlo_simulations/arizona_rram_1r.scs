@@ -12,7 +12,7 @@ global 0 vdd! vss!
 include "/opt/technology/tsmc40nm_18/tsmcN40/../models/spectre/toplevel.scs" section=top_localmconly
 
 include "../ommit/arizona_rram_cells.scs"
-include "../ommit/montecarlo/clip_range_r_read/1r_g_idx_1_loads_subcircuit.scs"
+include "../ommit/montecarlo/clip_range_r_read/1r_g_idx_0_loads_subcircuit.scs"
 include "montecarlo_simulation.scs"
 
 // Parameters
@@ -31,9 +31,10 @@ parameters
 // Roff->Ron For set (3.68M)
 // + p_rram_gap_ini=1.7e-9
 // Roff->Ron For set (1M)
-+ p_rram_gap_ini_0b=1.367e-9
+// + p_rram_gap_ini_0b=1.367e-9
 // + p_rram_gap_ini_0b=1.7e-9
-// + p_rram_gap_ini_0b=1.3e-9
+// + p_rram_gap_ini_0b=1.177e-9
++ p_rram_gap_ini_0b=1.3e-9
 + p_rram_gap_ini_0=max(0.1e-9, min(p_rram_gap_ini_0b, 1.7e-9))
 
 // vdd
