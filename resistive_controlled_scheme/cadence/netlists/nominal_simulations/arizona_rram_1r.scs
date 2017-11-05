@@ -34,11 +34,11 @@ parameters
 // + p_rram_gap_ini_1=0.1367e-9
 // + p_rram_gap_ini_0b=1.177e-9
 
-// + p_rram_gap_ini_5=1.7e-9
-// + p_rram_gap_ini_4=1.6e-9
-// + p_rram_gap_ini_3=1.5e-9
-// + p_rram_gap_ini_2=1.367e-9
-// + p_rram_gap_ini_1=1.3e-9
++ p_rram_gap_ini_5=1.7e-9
++ p_rram_gap_ini_4=1.6e-9
++ p_rram_gap_ini_3=1.5e-9
++ p_rram_gap_ini_2=1.367e-9
++ p_rram_gap_ini_1=1.3e-9
 + p_rram_gap_ini_0=1.2e-9
 
 // vdd
@@ -64,20 +64,22 @@ V0 (n_write 0) vsource type=pulse delay=p_delay val0=0 val1=p_write_amp rise=p_u
 // Write circuit
 ////////////////////////////
 // Memristor
+
 // 1R no parasitics
 // rram_0 (n_write n_control_0)  rram_cell_1r_no_parasitics rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini_0
+
 // 1R with parasitics
 rram_0 (n_write n_control_0)  rram_cell_1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_0
-// rram_1 (n_write n_control_1)  rram_cell_1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_1
-// rram_2 (n_write n_control_2)  rram_cell_1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_2
-// rram_3 (n_write n_control_3)  rram_cell_1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_3
-// rram_4 (n_write n_control_4)  rram_cell_1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_4
-// rram_5 (n_write n_control_5)  rram_cell_1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_5
+rram_1 (n_write n_control_1)  rram_cell_1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_1
+rram_2 (n_write n_control_2)  rram_cell_1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_2
+rram_3 (n_write n_control_3)  rram_cell_1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_3
+rram_4 (n_write n_control_4)  rram_cell_1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_4
+rram_5 (n_write n_control_5)  rram_cell_1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_5
 
 // resistor loads
 rl_0 (n_control_0) resistive_loads mux_level=p_level
-// rl_1 (n_control_1) resistive_loads mux_level=p_level
-// rl_2 (n_control_2) resistive_loads mux_level=p_level
-// rl_3 (n_control_3) resistive_loads mux_level=p_level
-// rl_4 (n_control_4) resistive_loads mux_level=p_level
-// rl_5 (n_control_5) resistive_loads mux_level=p_level
+rl_1 (n_control_1) resistive_loads mux_level=p_level
+rl_2 (n_control_2) resistive_loads mux_level=p_level
+rl_3 (n_control_3) resistive_loads mux_level=p_level
+rl_4 (n_control_4) resistive_loads mux_level=p_level
+rl_5 (n_control_5) resistive_loads mux_level=p_level
