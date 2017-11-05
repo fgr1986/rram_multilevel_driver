@@ -29,12 +29,12 @@ def find_nearest_sorted(sorted_array, value):
 ############################
 # To obtain the target resistances/resistive loads
 # initial gaps defined in the netlists
-initial_gaps = np.array([1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
+initial_gaps = np.array([1.2e-9, 1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
 # data from ../stand_alone_simulations/resistive_controlled_scheme/results
 print('\n\tPrinting data for every gap in ' + str(initial_gaps) + '\n\n')
 cell = '1r'
 print('\tCell type: ' + cell)
-data_file = '../../cadence/results/nominal_results/' + cell + '_last.csv'
+data_file = '../../cadence/results/nominal_results/nominal_g_0-5_'+ cell + '_last.csv'
 n_gaps = initial_gaps.shape[0]
 simulated_levels = 1024
 target_levels = 32
@@ -45,8 +45,8 @@ print('\tComputed levels: ' + str(target_levels))
 r_loads = np.linspace(r_load_min,
                       simulated_levels*r_load_min, simulated_levels)
 # maximum r_load, to avoid varaibility, per gap
-maximum_r_read = np.array([0.6e6, 0.7e6, 0.8e6, 1e6, 1e6])
-clip_r_read = True
+maximum_r_read = np.array([0.5e6, 0.6e6, 0.7e6, 0.8e6, 1e6, 1e6])
+clip_r_read = False
 if clip_r_read:
     pre = 'exported_results_nominal/clip_range_r_read/' + cell + '_'
 else:
