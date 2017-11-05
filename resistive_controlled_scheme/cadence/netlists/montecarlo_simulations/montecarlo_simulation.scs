@@ -13,6 +13,7 @@ statistics{
 	process{
 		vary p_rram_gap_ini_0b dist=gauss std=0.5 percent=yes
 		vary p_gamma0 dist=gauss std=0.05 percent=yes
+		// vary p_r0 dist=gauss std=2 percent=yes
 	}
 }
 

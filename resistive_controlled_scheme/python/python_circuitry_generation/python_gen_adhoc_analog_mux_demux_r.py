@@ -32,7 +32,7 @@ import numpy as np
 # To obtain the target resistances/resistive loads
 # initial gaps defined in the netlists
 initial_gaps = np.array([1.2e-9, 1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
-pre_min = '1t1r'
+pre_min = '1r'
 clip_r_read = False
 
 ##############
@@ -50,7 +50,7 @@ if clip_r_read:
 else:
     data_file = '../python_post_nominal_study/exported_results_nominal/full_range_r_read/' + pre_min + '_ideal_load_resistances.csv'
 # resistor parameters
-resistor_properties = 'resistor r='
+resistor_properties = 'resistor r=p_r0*'
 resistor_3t = False
 # "rppolywo_m lr=15.78u wr=2u multi=(1) m=1"
 # resistor_3t = True
@@ -61,6 +61,17 @@ resistor_3t = False
 ############################
 print('import data from: ' + data_file)
 full_data = np.genfromtxt(data_file, delimiter=',')
+
+############################
+# preparing folder
+############################
+# folder where python is executed
+executing_path = os.path.abspath('.')
+# create final folder
+if not os.path.exists(generated_files_folder):
+    os.makedirs(generated_files_folder)
+# change folder
+os.chdir(generated_files_folder)
 
 # for each gap
 for g_idx, gap in enumerate(initial_gaps):
@@ -75,17 +86,6 @@ for g_idx, gap in enumerate(initial_gaps):
     r_loads = full_data[:, g_idx]
     analog_mux_inputs = r_loads.shape[0]
     print('\t* Generating mux/loads for ' + str(analog_mux_inputs) + ' levels')
-
-    ############################
-    # preparing folder
-    ############################
-    # folder where python is executed
-    executing_path = os.path.abspath('.')
-    # create final folder
-    if not os.path.exists(generated_files_folder):
-        os.makedirs(generated_files_folder)
-    # change folder
-    os.chdir(generated_files_folder)
 
     ############################
     # exporting files
