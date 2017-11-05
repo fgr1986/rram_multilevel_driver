@@ -4,7 +4,7 @@
 module analog_mux(n_out, n_in);
 
 	// optimized for 1t1rcell, 
-	// inital gaps at 1.6e-09 
+	// inital gaps at 1.7e-09 
 	// and 32 levels 
 
 	parameter level=0;
