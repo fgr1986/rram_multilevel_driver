@@ -21,7 +21,7 @@ resistive_controlled_scheme...[root]
       * python_circuitry_generation.......[Scripts to automate muxes/loads generation]
       * python_post_mc_study..............[Scripts to automate MC results analysis]
       * python_post_nominal_study.........[Scripts to automate nominal/levels results analysis]
-      * python_pre_study..................[Scripts to analyze the RRAM model]
+      * python_RRAM_model_study...........[Scripts to analyze the RRAM model]
   * LICENSE
   * README
 ```
@@ -32,9 +32,8 @@ Developers and contact information:
 Pai-Yu Chen, Shimeng Yu, Arizona State University
 For technical questions, address to Pai-Yu Chen, pchen72@asu.edu
 For logistic questions, address to Prof. Shimeng Yu, shimengy@asu.edu
-//
+
 Extracted from manual:
-//
 Copyright of the model is maintained by the developers, and the model is distributed under the
 terms of the Creative Commons Attribution-NonCommercial 4.0 International Public License
 http://creativecommons.org/licenses/by-nc/4.0/legalcode. If you use this model in your work, you are
