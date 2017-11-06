@@ -21,9 +21,16 @@ simulatorOptions options temp=p_temp tnom=27 scale=1.0 gmin=1e-12 rforce=1 maxno
 		// + pivrel=1e-3 reltol=1e-10 vabstol=1e-10 iabstol=1e-13 // used for characterization
 		// + pivrel=1e-3 reltol=1e-10 vabstol=1e-10 iabstol=1e-13
 
+
+/////////////////
+//Save options //
+/////////////////
 saveOptions options save=selected saveahdlvars=selected
 
-// save statements
+////////////////////
+//Save statements //
+////////////////////
+
 save n_write
 save n_gate
 

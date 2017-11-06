@@ -1,7 +1,7 @@
 simulator lang=spectre
 
 // simulation
-parameters fw_firstrun=1 fw_seed=12345 fw_numruns=1000
+parameters fw_firstrun=1 fw_seed=12345 fw_numruns=100
 
 // Variability is modeled using gamma0 parameter, according to
 // Chen, P., & Yu, S. (2015). Compact Modeling of RRAM Devices and Its Applications in 1T1R and 1S1R Array Design.
@@ -20,21 +20,17 @@ statistics{
 
 // Start of reliability_montecarlo (montecarlo) analysis
 reliability_montecarlo montecarlo variations=process donominal=yes \
-	savefamilyplots=yes firstrun=fw_firstrun seed=fw_seed numruns=fw_numruns \
-	// scalarfile="../monteCarlo/mcdata" \
-	// paramfile="../monteCarlo/mcparam" saveprocessparams=yes \
+	savefamilyplots=no \ //set to yes if you want to save the transients
+	firstrun=fw_firstrun seed=fw_seed numruns=fw_numruns \
+	scalarfile="../monteCarlo/mc_data" \ //exported data file
+	paramfile="../monteCarlo/mc_param"
+	// saveprocessparams=yes \
 	// processparamfile="../monteCarlo/processParam" \
-	// processscalarfile="../monteCarlo/processData" savemismatchparams=yes \
-	// dependencymapfile="../monteCarlo/mismatchdependency" \
-	// dumpdependency=mismatch \
-	// dependencyscalarfile="../monteCarlo/compactmismatchdata" \
-	// dependencyparamfile="../monteCarlo/compactmismatchparam"  \
-	// paramdumpmode=yes savefamilyplots=yes savedatainseparatedir=yes \
-	// wfseparation=yes
+	// processscalarfile="../monteCarlo/processData" savemismatchparams=yes
 {
 
 	// Start of sensible_nodes_sweep (sweep) analysis
-	rram_sweep sweep param=p_level start=0 stop=p_total_levels step=1{
+	rram_sweep sweep param=p_level start=0 stop=p_total_levels step=16{
 	// rram_sweep sweep param=p_tx_p_l start=40n stop=1.5u dec=5{
 		// Start of reliability_framework_tran (tran) analysis
 		reliability_framework_tran tran save=selected stop=p_sim_time
@@ -43,7 +39,8 @@ reliability_montecarlo montecarlo variations=process donominal=yes \
 			// + paramset=psettiming
 
 		// export in p_sim_time
-		// export r_read=oceanEval("value(getData(\"rram_0.mem_0:rram_r_read\"))")
+
+		// Perform file handle setup
 		export r_read=oceanEval("value(getData(\"rram_0.mem_0:rram_r_read\") 130n)")
 		// export g_ini=oceanEval("value(getData(\"rram_0.mem_0:rram_g\") 0n)")
 		// export g_end=oceanEval("value(getData(\"rram_0.mem_0:rram_g\") 130n)")
@@ -64,14 +61,20 @@ simulatorOptions options temp=p_temp tnom=27 scale=1.0 gmin=1e-12 rforce=1 maxno
 		// + pivrel=1e-3 reltol=1e-10 vabstol=1e-10 iabstol=1e-13 // used for characterization
 		// + pivrel=1e-3 reltol=1e-10 vabstol=1e-10 iabstol=1e-13
 
+
+/////////////////
+//Save options //
+/////////////////
 saveOptions options save=selected saveahdlvars=selected
 
-// save statements
-save n_write
-save n_gate
+////////////////////
+//Save statements //
+////////////////////
+// save n_write
+// save n_gate
 
 save rram_0.mem_0:rram_r_read
-// save rram_0.mem_0:rram_g
+save rram_0.mem_0:rram_g
 
 // save rl_0.n_0
 // save rl_0.n_1

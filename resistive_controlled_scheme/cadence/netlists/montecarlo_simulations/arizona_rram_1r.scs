@@ -37,9 +37,13 @@ parameters
 + p_rram_gap_ini_0b=1.2e-9
 + p_rram_gap_ini_0=max(0.1e-9, min(p_rram_gap_ini_0b, 1.7e-9))
 
+// level
++ p_level=100
++ p_total_levels=32-1 // for sweep
+
 // resistances
 // p_r0 adds variability
-// + p_r0=1
++ p_r0=1
 
 // vdd
 + p_vdd=1.8
@@ -47,11 +51,8 @@ parameters
 + p_up=5n p_fall=5n p_delay=10n p_write_length=100n
 // write amp nominal
 + p_v_set=1.8 // fom simulations
-+ p_write_amp=2*p_v_set
++ p_write_amp=p_level<p_total_levels ? 2*p_v_set : 0
 
-// level
-+ p_level=100
-+ p_total_levels=32-1 // for sweep
 
 // voltage supply
 VDD      ( vdd!     0 ) vsource dc=p_vdd type=dc
