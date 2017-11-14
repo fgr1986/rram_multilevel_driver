@@ -1,17 +1,17 @@
 ////////////////////////////
 // Single rram experiment //
-// v0.1 28/09/2017        //
+// v1.0 06/11/2017        //
 ////////////////////////////
 
 simulator lang=spectre
 global 0 vdd! vss!
 
-// Including parsed model. Original: '/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs'
-// top_localmconly top_tt
-// include "/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs" section=top_localmconly
+// technology files
 include "/opt/technology/tsmc40nm_18/tsmcN40/../models/spectre/toplevel.scs" section=top_localmconly
 
-include "ommit/arizona_rram_cells.scs"
+// RRAM files
+include "../ommit/arizona_rram_cells.scs"
+// simulation files
 include "characterization_simulation.scs"
 
 // Parameters
@@ -31,7 +31,7 @@ parameters
 // + p_rram_gap_ini=1.367e-9
 // + p_rram_gap_ini_0=0.2e-9
 // + p_rram_gap_ini_1=0.1367e-9
-+ p_rram_gap_ini_0=1.3e-9
++ p_rram_gap_ini_0=1.7e-9
 
 // vdd
 + p_vdd=1.8
@@ -47,5 +47,5 @@ VSS      ( vss!     0 ) vsource dc=0     type=dc
 
 // set characterization voltage
 Vcar (n_write 0) vsource type=pulse delay=p_delay val0=0 val1=p_write_amp rise=p_write_length/2 fall=p_write_length/2 width=p_write_length
-// rram_0 (n_write n_control)  rram_cell_1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini_0
+// RRAM
 rram_0 (n_write 0 n_sel)  rram_cell_1t1r rram_T0=p_T0 rram_gap_ini=p_rram_gap_ini_0
