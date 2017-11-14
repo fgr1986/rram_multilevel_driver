@@ -7,28 +7,13 @@ from plotly.graph_objs import Scatter, Layout
 import numpy as np
 import pandas as pd
 
-
-def find_nearest(array, value):
-    idx = (np.abs(array-value)).argmin()
-    return array[idx]
-
-
-def find_nearest_sorted(sorted_array, value):
-    idx = np.searchsorted(sorted_array, value, side="left")
-    if (idx > 0 and (
-        idx == len(sorted_array)
-        or abs(value - sorted_array[idx-1]) < abs(value-sorted_array[idx]))):
-        return sorted_array[idx-1], idx-1
-    else:
-        return sorted_array[idx], idx
-
 # constants
 p_kb = 1.3806503e-23 # Boltzmann's constant (J/K)
 p_q = 1.6e-19  # electron charge(C)
 
 # Device parameters
 # taken from stanford's model
-p_Rth = 5e5 # 5e5  # unit: K/W   effective thermal resistance
+p_Rth = 2e5 # 5e5  # unit: K/W   effective thermal resistance
 # arizona's model
 # p_tstep = 5e-12 #for temp
 # p_Rth = p_tstep/3.1825e-16 # unit: K/W
@@ -72,10 +57,8 @@ compatible_r = target_r
 g_step = 1e-11
 v_step = 1e-2
 
-plot_3d_r = True
-plot_3d_g = True
-plot_r0 = True
-plot_r_loads = True
+plot_3d_r = False # True
+plot_3d_g = False #True
 # configure plotly
 # creates .plotly/.config and ./plotly/.credentials
 
@@ -84,6 +67,8 @@ plotly.tools.set_config_file(world_readable=False,
 # plotly.tools.set_config_file(world_readable=True,
 #                            sharing='public')
 
+expo = 'exported_data/'
+export_temp_dep = False
 voltages_number = int((v_max - v_min)/v_step + 1)
 gaps_number = int((p_gap_max - p_gap_min)/g_step + 1)
 v_m = np.array([np.linspace(v_min, v_max, voltages_number)])
@@ -143,7 +128,7 @@ if plot_3d_r:
         title='Read resistance: gap vs read_voltage'
     )
     fig_r = plotly.graph_objs.Figure(data=data_3d_r, layout=layout_3d_r)
-    plotly.offline.plot(fig_r, filename = 'read_resistance_3d.html')
+    plotly.offline.plot(fig_r, filename = expo + 'read_resistance_3d.html')
 
     data_3d_i = [
         plotly.graph_objs.Surface(
@@ -157,7 +142,7 @@ if plot_3d_r:
         title='RRAM current: gap vs read_voltage'
     )
     fig_i = plotly.graph_objs.Figure(data=data_3d_i, layout=layout_3d_i)
-    plotly.offline.plot(fig_i, filename = 'eq_current_3d.html')
+    plotly.offline.plot(fig_i, filename = expo + 'eq_current_3d.html')
 
 
 #################
@@ -201,7 +186,7 @@ if plot_3d_g:
         title='gap_ddt with temp constant: gap vs read_voltage'
     )
     fig_gddt = plotly.graph_objs.Figure(data=data_3d_gddt, layout=layout_3d_gddt)
-    plotly.offline.plot(fig_gddt, filename = 'gap_ddt.html')
+    plotly.offline.plot(fig_gddt, filename = expo + 'gap_ddt.html')
 
 
 ###########################
@@ -236,7 +221,7 @@ if plot_3d_g:
         title='temperature: gap vs read_voltage'
     )
     fig_t = plotly.graph_objs.Figure(data=data_3d_t, layout=layout_3d_t)
-    plotly.offline.plot(fig_t, filename = 'temperature.html')
+    plotly.offline.plot(fig_t, filename = expo + 'temperature.html')
 
 gap_ddt_aux_1 = np.exp(-p_q*p_Eag/p_kb/temperature)
 print('gap_ddt_aux_1 shape: ' + str(gap_ddt_aux_1.shape))
@@ -275,4 +260,29 @@ if plot_3d_g:
         title='gap_ddt_2 (variable temperature): gap vs read_voltage'
     )
     fig_t = plotly.graph_objs.Figure(data=data_3d_t, layout=layout_3d_t)
-    plotly.offline.plot(fig_t, filename = 'gap_ddt_2.html')
+    plotly.offline.plot(fig_t, filename = expo + 'gap_ddt_2.html')
+
+if export_temp_dep:
+    # only 3d data
+    np.savetxt(expo + 'gap_ddt2.csv', gap_ddt_2, delimiter=',')
+    # for gnuplot
+    file = open(expo + 'gap_ddt2.data', 'w')
+    y_decim = 3
+    x_decim = 5
+    for y_idx, y in enumerate(v_m[0, ::y_decim]):
+            for x_idx, x in enumerate(gaps[0, ::x_decim]):
+                    file.write(str(y) + ' ' + str(x) + ' ' + str(gap_ddt_2[x_idx*x_decim, y_idx*y_decim]) + '\n')
+            file.write('\n')
+    file.close()
+else:
+    # only 3d data
+    np.savetxt(expo + 'gap_ddt.csv', gap_ddt, delimiter=',')
+    # for gnuplot
+    file = open(expo + 'gap_ddt.data', 'w')
+    y_decim = 3
+    x_decim = 5
+    for y_idx, y in enumerate(v_m[0, ::y_decim]):
+            for x_idx, x in enumerate(gaps[0, ::x_decim]):
+                    file.write(str(y) + ' ' + str(x) + ' ' + str(gap_ddt[x_idx*x_decim, y_idx*y_decim]) + '\n')
+            file.write('\n')
+    file.close()
