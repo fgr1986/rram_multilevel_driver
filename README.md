@@ -6,7 +6,7 @@ The present framework provides the circuit designer with the design
 and software tools to ensure the reliable programming of MLC RRAMs.
 
 Valid for both 1T1R and 1R schemes, we provide the configurable
-circuit design and post-simulation scripts to easily program RRAM cells into the desired multilevel value. 
+circuit design and post-simulation scripts to easily program RRAM cells into the desired multilevel value.
 
 # Project structure
 
@@ -47,3 +47,22 @@ http://creativecommons.org/licenses/by-nc/4.0/legalcode. If you use this model i
 requested to cite [1] in the reference
 [1] P.-Y. Chen, S. Yu, “Compact modeling of RRAM devices and its applications in 1T1R and 1S1R
 array design,” IEEE Trans. Electron Devices, vol. 62, no. 12, pp. 4022-4028, 2015.
+
+# From the paper submitted to IEEE
+
+	Memristor crossbar arrays naturally accelerates
+	neural networks applications by carrying out
+	parallel multiply-add operations.
+	Due to the abrupt SET operation characterizing most
+	RRAM devices, on-chip training usually requires either from
+	iterative write/read stages, huge and variations-sensitive circuitry, or both,
+	in order to achieve multilevel capabilities.
+	This paper presents a novel architecture to achieve
+	multilevel capabilities with a short and fixed operation duration.
+	We rely on an ad-hoc scheme to self-control the abrupt SET,
+	choking the writing stimulus as the cell addresses the desired level.
+	We validated the proposal against thorough simulations
+	using RRAM cells fitting extremely fast physical devices
+	and a commercial $40$$nm$ CMOS technology, both exhibiting variability.
+	In every case the proposed architecture allowed progressive and almost-linear resistive
+	levels in each 1T1R and 1R crossbars structures.
