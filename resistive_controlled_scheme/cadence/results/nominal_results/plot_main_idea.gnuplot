@@ -1,6 +1,6 @@
 # plots the transient of different r_read
 
-set term svg enhanced size 1500,1000 fname 'Times' fsize 35
+set term svg enhanced size 1500,800 fname 'Times' fsize 35
 set output "different_responses.svg"
 set grid
 set format x "%g"
@@ -32,13 +32,19 @@ set datafile separator ","
 # data is, by colums: X, g_0_r_read_level_0, X, g_0_r_read_level_1...., g_1_r_read_level_0...
 # 1024 levels for each cell
 
-plot 'nominal_g_0-5_1r_all.csv' u (1e9*($1)):(($4196)/1e3)  every 20  w lp ls 1 notitle, \
-    'nominal_g_0-5_1r_all.csv' u (1e9*($1)):(($4496)/1e3)  every 20  w lp ls 2 notitle, \
-    'nominal_g_0-5_1r_all.csv' u (1e9*($1)):(($4696)/1e3)  every 20  w lp ls 3 notitle, \
-    'nominal_g_0-5_1r_all.csv' u (1e9*($1)):(($4896)/1e3)  every 20  w lp ls 4 notitle, \
-    'nominal_g_0-5_1r_all.csv' u (1e9*($1)):(($5096)/1e3)  every 20  w lp ls 5 notitle, \
+set multiplot layout 1, 2
 
+set title "Lower Initial HRS"
+plot 'nominal_g_0-5_1r_all.csv' u (1e9*($1)):(($200)/1e3)  every 30  w lp ls 1 notitle, \
+    'nominal_g_0-5_1r_all.csv' u (1e9*($1)):(($800)/1e3)  every 30  w lp ls 2 notitle, \
+    'nominal_g_0-5_1r_all.csv' u (1e9*($1)):(($1000)/1e3)  every 30  w lp ls 3 notitle, \
 
+set title "Higher Initial HRS"
+plot 'nominal_g_0-5_1r_all.csv' u (1e9*($1)):(($10440)/1e3)  every 30  w lp ls 1 notitle, \
+    'nominal_g_0-5_1r_all.csv' u (1e9*($1)):(($11040)/1e3)  every 30  w lp ls 2 notitle, \
+    'nominal_g_0-5_1r_all.csv' u (1e9*($1)):(($11240)/1e3)  every 30  w lp ls 3 notitle, \
+
+unset multiplot
 unset output
 
 quit

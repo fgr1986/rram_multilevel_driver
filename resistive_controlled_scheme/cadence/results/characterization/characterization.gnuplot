@@ -5,9 +5,14 @@ set tics nomirror
 
 
 # color definitions
-set style line 1  lc rgb '#8e0200' lt 1 lw 1 pt 6 ps 1 # ---red
-set style line 2  lc rgb '#007ea7' lt 1 lw 2 pt 7 # -- remaining blues and greens
-set style line 3  lc rgb '#0042ad' lt 1 lw 2 pt 8
+# set style line 1  lc rgb '#8e0200' lt 1 lw 1 pt 6 ps 1 # ---red
+# set style line 2  lc rgb '#007ea7' lt 1 lw 2 pt 7 # -- remaining blues and greens
+# set style line 3  lc rgb '#0042ad' lt 1 lw 2 pt 8
+set style line 1 lt 1 lw 4 pt 7 ps 0.5 lc rgb '#0072bd' # blue ps variable
+set style line 2 lt 1 lw 4 pt 7 ps 0.5 lc rgb '#ff0000' # other colors
+set style line 3 lt 1 lw 4 pt 7 ps 0.5 lc rgb '#ff7800' # other colors
+set style line 4 lt 1 lw 4 pt 7 ps 0.5 lc rgb '#4ec000' # other colors
+set style line 5 lt 1 lw 4 pt 7 ps 0.5 lc rgb '#a049c0' # other colors
 set style fill solid
 
 set term svg noenhanced size 1200,1400 fname 'Times' fsize 30
@@ -31,8 +36,8 @@ set datafile separator ","
 
 # number of tics
 
-plot 'set_characterization.data' u (1e9*($1)):($2) every 30 w lp ls 2 ps 0.5  axes x1y1 title 'SET', \
-	'reset_characterization.data' u (1e9*($1)):($2) every 30 w lp ls 1 ps 0.5  axes x1y1 title 'RESET'
+plot 'set_characterization.data' u (1e9*($1)):($2) every 30 w lp ls 1 ps 0.5  axes x1y1 title 'SET', \
+	'reset_characterization.data' u (1e9*($1)):($2) every 30 w lp ls 2 ps 0.5  axes x1y1 title 'RESET'
 
 set ylabel "CF's Length [nm]"
 # set key top right
