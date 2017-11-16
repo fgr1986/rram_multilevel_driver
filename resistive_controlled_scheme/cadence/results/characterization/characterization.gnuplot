@@ -14,7 +14,7 @@ set term svg noenhanced size 1200,1400 fname 'Times' fsize 30
 set output "characterization.svg"
 set xlabel "time [ns]"
 set ylabel "Voltage [V]"
-set title "Abrupt SET Example"
+set title "Abrupt SET & gradual RESET  HfO2 Example"
 # set y2tics
 set key top left # right
 
@@ -34,16 +34,17 @@ set datafile separator ","
 plot 'set_characterization.data' u (1e9*($1)):($2) every 30 w lp ls 2 ps 0.5  axes x1y1 title 'SET', \
 	'reset_characterization.data' u (1e9*($1)):($2) every 30 w lp ls 1 ps 0.5  axes x1y1 title 'RESET'
 
-set ylabel "CF's Gap [nm]"
+set ylabel "CF's Length [nm]"
 # set key top right
 # set xrange [10:18]
 
-set ytics 0,0.3,2
-plot 'set_characterization.data' u (1e9*($1)):(1e9*($4)) every 30 w lp ls 1 ps 0.5  axes x1y1 title 'SET', \
-	'reset_characterization.data' u (1e9*($1)):(1e9*($4)) every 30 w lp ls 2 ps 0.5  axes x1y1 title 'RESET'
+set ytics 0,0.3,5
+# set yrange[0:5]
+plot 'set_characterization.data' u (1e9*($1)):(5-1e9*($4)) every 30 w lp ls 1 ps 0.5  axes x1y1 title 'SET', \
+	'reset_characterization.data' u (1e9*($1)):(5-1e9*($4)) every 30 w lp ls 2 ps 0.5  axes x1y1 title 'RESET'
 
 
-
+unset yrange
 set ylabel "Current [mA]"
 # number of tics
 

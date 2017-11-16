@@ -162,7 +162,7 @@ gap_aux_1 = np.exp(-p_q*p_Eag/p_kb/temperature)
 gap_1 = gap_aux_1*np.exp( np.dot( gamma.T, v_m*p_a0/p_L*p_q/p_kb/temperature ) )
 gap_2 = gap_aux_1*np.exp( np.dot(-gamma.T, v_m*p_a0/p_L*p_q/p_kb/temperature ) )
 gap_ddt = -p_Vel0*( gap_1 - gap_2 )
-gap_ddt_th = 2500
+gap_ddt_th = 1e6 #float("inf") #2500
 gap_ddt[gap_ddt > gap_ddt_th] = gap_ddt_th
 gap_ddt[gap_ddt < -gap_ddt_th] = -gap_ddt_th
 print('gap_ddt shape: ' + str(gap_ddt.shape))

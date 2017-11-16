@@ -3,6 +3,7 @@ set grid
 # set border 4095
 set format x "%g"
 set format y "%g"
+set format z "%g"
 set format cb "%g"
 
 # color definitions
@@ -45,21 +46,24 @@ set grid
 
 # set cbrange [0:100]
 # set zrange [0:100.00001]
-# set view 120,60
-set view 60,110
+set view 120,60
+# set view 60,110
 
 # set palette defined ( 0 "#C1DAE8", 1e-19 "#fffaef", 50 "#ffd35a", 100 "#ed2c29")
 set palette defined ( 0 "#ed2c29", 10 "#ffd35a", 50 "#fffaef", 100 "#C1DAE8")
 
 set term svg noenhanced size 1200,900 fname 'Times' fsize 25
 
-set title "gap evolution speed"
+# set logscale z
+set format z "%2.0te%L"
+set format cb "%2.0te%L" 
+set title "dCF/dt"
 set xlabel "Cell Voltage [V]"
-set ylabel "CF gap [nm]"
-set zlabel "gap evolution speed[m/s]" rotate by 90
+set ylabel "CF's length [nm]"
+set zlabel "dCF / dt.  CF evolution speed[m/s]" rotate by 90
 
-set output "gap_ddt2.svg"
-splot 'exported_data/gap_ddt.data' u ($1):(1e9*($2)):3 notitle linecolor rgb '#333333' linewidth 0.3 w pm3d
+set output "cf_ddt.svg"
+splot 'exported_data/gap_ddt.data' u ($1):(5 - 1e9*($2)):(abs($3)) notitle linecolor rgb '#333333' linewidth 0.3 w pm3d
 # splot 'exported_data/gap_ddt2.data' u ($1):(1e9*($2)):3 notitle  w pm3d
 unset output
 
