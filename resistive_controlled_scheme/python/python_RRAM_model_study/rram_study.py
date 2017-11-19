@@ -6,6 +6,7 @@ import plotly.offline
 from plotly.graph_objs import Scatter, Layout
 import numpy as np
 import pandas as pd
+import os
 
 # constants
 p_kb = 1.3806503e-23 # Boltzmann's constant (J/K)
@@ -78,6 +79,13 @@ print('v_m shape: ' + str(v_m.shape))
 print('gaps shape: ' + str(gaps.shape))
 print('XX shape: ' + str(XX.shape))
 print('YY shape: ' + str(YY.shape))
+
+############################
+# preparing folder
+############################
+# create final folder
+if not os.path.exists(expo):
+    os.makedirs(expo)
 
 ##################################
 # current and resistances

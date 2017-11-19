@@ -19,11 +19,20 @@ print('\tCell type: ' + cell + ', g: ' + str(initial_gaps[g_idx]))
 pre = 'exported_results_montecarlo/' + cell + '_g_' + str(g_idx) + '_'
 clip_r_read = False
 if clip_r_read:
-    pre = 'exported_results_montecarlo/clip_range_r_read/' + cell + '_g_' + str(g_idx) + '_'
+    generated_files_folder = 'exported_results_montecarlo/clip_range_r_read/'
+    pre = generated_files_folder + cell + '_g_' + str(g_idx) + '_'
     data_file = '../../cadence/results/mc_results/mc_clip_range_r_read/mc_' + cell + '_g_' + str(g_idx) + '_32l_last_r_read.csv'
 else:
-    pre = 'exported_results_montecarlo/full_range_r_read/' + cell + '_g_' + str(g_idx) + '_'
+    generated_files_folder = 'exported_results_montecarlo/full_range_r_read/'
+    pre = generated_files_folder + cell + '_g_' + str(g_idx) + '_'
     data_file = '../../cadence/results/mc_results/mc_full_resistance_range/mc_' + cell + '_g_' + str(g_idx) + '_32l_last_r_read.csv'
+
+############################
+# preparing folder
+############################
+# create final folder
+if not os.path.exists(generated_files_folder):
+    os.makedirs(generated_files_folder)
 
 ############################
 # Plotly configuration
