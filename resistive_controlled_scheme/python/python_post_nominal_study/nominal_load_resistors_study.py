@@ -33,7 +33,7 @@ def find_nearest_sorted(sorted_array, value):
 initial_gaps = np.array([1.2e-9, 1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
 # data from ../stand_alone_simulations/resistive_controlled_scheme/results
 print('\n\tPrinting data for every gap in ' + str(initial_gaps) + '\n\n')
-cell = '1t1r'
+cell = '1r'
 print('\tCell type: ' + cell)
 data_file = '../../cadence/results/nominal_results/nominal_g_0-5_'+ cell + '_last.csv'
 n_gaps = initial_gaps.shape[0]
