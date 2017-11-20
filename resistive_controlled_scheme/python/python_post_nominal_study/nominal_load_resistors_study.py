@@ -88,12 +88,18 @@ if clip_r_read:
         max_last_r_read_idx[g_idx] = int(np.argmax(g > maximum_r_read[g_idx]))
 
 # Export computed data for Gnuplot printing
-np.savetxt(pre + "simulated_read_resistance_y.csv",
-           np.transpose(last_r_read),
-           delimiter=",")
-np.savetxt(pre + "simulated_r_loads_x.csv",
-           np.transpose(r_loads),
-           delimiter=",")
+file = open(pre + 'simulated_read_resistance.data', 'w')
+# for x_idx, x in enumerate(r_loads):
+#         file.write(str(x) + ', ')
+#         for r in last_r_read[:, x_idx]:
+#                 file.write(str(r) + ', ')
+#         file.write('\n')
+for x_idx, x in enumerate(np.transpose(last_r_read)):
+    file.write(str(r_loads[x_idx]))
+    for r in x:
+        file.write(', ' + str(r))
+    file.write('\n')
+file.close()
 
 # Plot results
 plot_2d = True

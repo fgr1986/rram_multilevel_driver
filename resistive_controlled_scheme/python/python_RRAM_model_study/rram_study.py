@@ -279,7 +279,9 @@ if export_temp_dep:
     x_decim = 5
     for y_idx, y in enumerate(v_m[0, ::y_decim]):
             for x_idx, x in enumerate(gaps[0, ::x_decim]):
-                    file.write(str(y) + ' ' + str(x) + ' ' + str(gap_ddt_2[x_idx*x_decim, y_idx*y_decim]) + '\n')
+                    file.write(str(y) + ' ' + str(x) + ' ' +
+                               str(gap_ddt_2[x_idx*x_decim, y_idx*y_decim]) +
+                               '\n')
             file.write('\n')
     file.close()
 else:
@@ -291,6 +293,9 @@ else:
     x_decim = 5
     for y_idx, y in enumerate(v_m[0, ::y_decim]):
             for x_idx, x in enumerate(gaps[0, ::x_decim]):
-                    file.write(str(y) + ' ' + str(x) + ' ' + str(gap_ddt[x_idx*x_decim, y_idx*y_decim]) + '\n')
+                    file.write(str(y) + ' ' + str(x) + ' ' +
+                               str(gap_ddt[x_idx * x_decim, y_idx * y_decim]) +
+                               '\n')
             file.write('\n')
+
     file.close()
