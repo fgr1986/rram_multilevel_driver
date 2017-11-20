@@ -160,7 +160,8 @@ np.savetxt(pre + "simple_index_x.csv",
 # at v_read [1:max_last_r_read_idx[g_idx]]
 for g_idx, g in enumerate(sim_read_r):
     for t_idx, r in enumerate(g):
-        new_r, r_idx = find_nearest_sorted(last_r_read[g_idx, 0:max_last_r_read_idx[g_idx]], r)
+        new_r, r_idx = find_nearest_sorted(last_r_read[g_idx,
+                                           0:max_last_r_read_idx[g_idx]], r)
         sim_read_r[g_idx, t_idx] = new_r
         required_loads[g_idx, t_idx] = r_loads[r_idx]
 
