@@ -1,0 +1,1011 @@
+<?xml version="1.0"?>
+<root>
+	<reliability_framework_target_version>v3.3.3</reliability_framework_target_version>
+	<cadence_version>Spectre 12.1.1.164.isr15 64bit -- 26 Oct 2013</cadence_version>
+	<!-- New in version 2.3.1 -->
+	<!-- Traditional -->
+	<max_parallel_scenario_instances>1</max_parallel_scenario_instances>
+	<max_parallel_profile_instances>4</max_parallel_profile_instances>
+	<max_parallel_montecarlo_instances>1</max_parallel_montecarlo_instances>
+	<spectre_run_command>
+		<!-- +rtsf  RTSF is a PSF extension that can plot extremely large
+		datasets (where signals have a large number of data points, for example 10 million) within
+		seconds. RTSF is applicable to the psfbin, psfbinf, and psfxl formats-->
+		<spectre_example_command>screen -dmS spectreSim$j spectre +log $log_file -f psfascii -r $sim_folder $netlist +error +warn > $standard_log.log</spectre_example_command>
+		<pre_spectre_command>screen -dmS</pre_spectre_command>
+		<spectre_command>spectre ++aps=conservative +mt=16 -64 -f psfascii +error +warn +lqt 120 +lqs 10</spectre_command>
+		<!-- <spectre_command>spectre ++aps=conservative +mt=16 -64 -f psfascii +error +warn +lqt 0</spectre_command> -->
+		<!-- <spectre_command>spectre +mt=16 -64 -f psfascii +error +warn +lqt 120 +lqs 10 +lqt 0</spectre_command> -->
+		<spectre_command_log_arg>+log</spectre_command_log_arg>
+		<spectre_command_folder_arg>-r</spectre_command_dir_arg>
+		<post_spectre_command> > </post_spectre_command>
+	</spectre_run_command>
+	<primitives>
+		<primitive>
+			<primitive_name>bsource</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>a2d</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>angelov</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>assert</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>atft</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>b3soipd</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bend</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bend2</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bht</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bht0</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bit</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bjt</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bjt301*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bjt500*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bjt500t*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bjt503*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bjt504*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bjt504t*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bjt3500*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bjt3500t*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bjtd504*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bjtd504t*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bjtd3500*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bjtd3500t*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bsim1</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bsim2</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bsim3</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bsim3v3</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bsim4</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bsim6</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bsimcmg</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bsimimg</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>bsimsoi</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>capacitor</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>capq</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>cccs</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>ccvs</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>cktrom</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>conductor</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>core</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>corner</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>cross</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>curve</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>d2a</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>dcblock</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>dcfeed</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>delay</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>delta_gate</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>dielectric</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>dio500*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>diode</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>diode_cmc</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>ekv</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>ekv3</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>ekv3_nqs</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>ekv3_r4</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>ekv3_rf</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>ekv3_s</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>fourier</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>fracpole</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>gaas</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>hbt</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>hisim2</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>hisim_diode</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>hisim_hv</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>hisim_igbt</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>hvmos</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>ibis_buffer</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>igbt0</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>inductor</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>intcap*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>iprobe</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>isource</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>iswitch</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>jfet</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>jfet100</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>juncap*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>juncap200*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>juncap_eldo*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>ldmos</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>loc</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos0</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos1</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos2</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos3</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos15*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos30*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos40*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos40t*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos705*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos902*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos903*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos903c*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos903e*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos903t*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos1000*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos1100*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos1100e*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos1101e*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos1101et*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos1102e*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos1102et*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos2001*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos2001e*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos2001et*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos2001t*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos2002*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos2002e*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos2002et*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos2002t*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos3002*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos3100*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos3100t*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos11010*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos11010t*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos11011*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos11011t*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos11020*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos11020t*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos11021*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mos11021t*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mosvar</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>msline</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mtline</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>mutual_inductor</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>nodcap*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>node</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>nport</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>ovcheck*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>paramtest</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>pattern</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>pcccs</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>pccvs</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>phy_res</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>port</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>print</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>psitft</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>psp102*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>psp102e*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>psp103*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>psp103t*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>psp1020*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>psp1021*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>pspnqs102e*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>pspnqs103*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>pspnqs1020*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>pspnqs1021*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>pvccs</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>pvcvs</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>quantity</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>r2</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>r3</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>rcnet_opt</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>rcnet_opt_C</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>rcnet_opt_R</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>rdiff*</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>relay</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>resistor</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>rlck_matrix</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>scccs</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>sccvs</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>spmos</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>stackup</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>step</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>svccs</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>svcvs</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>switch</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>tee</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>tline</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>tom2</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>tom3</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>tom3v1</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>transformer</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>utsoi2</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>vbic</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>vccs</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>vcvs</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>vsource</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>vswitch</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>winding</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>zcccs</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>zccvs</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>zvccs</primitive_name>
+		</primitive>
+		<primitive>
+			<primitive_name>zvcvs</primitive_name>
+		</primitive>
+	</primitives>
+	<analyses>
+		<statement name="dc">
+			<master_name>dc</master_name>
+			<advanced_analysis>false</advanced_analysis>
+			<description>DC analysis</description>
+		</statement>
+		<statement name="ac">
+			<master_name>ac</master_name>
+			<advanced_analysis>false</advanced_analysis>
+			<description>AC analysis</description>
+		</statement>
+		<statement name="noise">
+			<master_name>noise</master_name>
+			<advanced_analysis>false</advanced_analysis>
+			<description>Noise Analysis</description>
+		</statement>
+		<statement name="xf">
+			<master_name>xf</master_name>
+			<advanced_analysis>false</advanced_analysis>
+			<description>Transfer function analysis</description>
+		</statement>
+		<statement name="sp">
+			<master_name>sp</master_name>
+			<advanced_analysis>false</advanced_analysis>
+			<description>S-parameter analysis </description>
+		</statement>
+		<statement name="tran">
+			<master_name>tran</master_name>
+			<advanced_analysis>false</advanced_analysis>
+			<description>Transient analysis</description>
+		</statement>
+		<statement name="tdr">
+			<master_name>tdr</master_name>
+			<advanced_analysis>false</advanced_analysis>
+			<description>Time-domain reflectometer analysis</description>
+		</statement>
+		<statement name="pz">
+			<master_name>pz</master_name>
+			<advanced_analysis>false</advanced_analysis>
+			<description>Pole Zero analysis</description>
+		</statement>
+		<statement name="envlp">
+			<master_name>envlp</master_name>
+			<advanced_analysis>false</advanced_analysis>
+			<description>Envelope analysis</description>
+		</statement>
+		<statement name="HB">
+			<master_name>HB</master_name>
+			<advanced_analysis>false</advanced_analysis>
+			<description>Harmonic Balance Steady State analysis</description>
+		</statement>
+		<statement name="sens">
+			<master_name>sens</master_name>
+			<advanced_analysis>false</advanced_analysis>
+			<description>Sensitivity analysis</description>
+		</statement>
+		<statement name="fourier">
+			<master_name>fourier</master_name>
+			<advanced_analysis>false</advanced_analysis>
+			<description>Fourier analysis</description>
+		</statement>
+		<statement name="dcmatch">
+			<master_name>dcmatch</master_name>
+			<advanced_analysis>false</advanced_analysis>
+			<description>DC Match analysis</description>
+		</statement>
+		<statement name="stb">
+			<master_name>stb</master_name>
+			<advanced_analysis>false</advanced_analysis>
+			<description>Stability analysis</description>
+		</statement>
+		<statement name="sweep">
+			<master_name>sweep</master_name>
+			<advanced_analysis>true</advanced_analysis>
+			<description>Sweep analysis</description>
+		</statement>
+		<statement name="montecarlo">
+			<master_name>montecarlo</master_name>
+			<advanced_analysis>true</advanced_analysis>
+			<description>Montecarlo analysis</description>
+		</statement>
+	</analyses>
+	<control_statements>
+		<statement name="correlate">
+			<master_name>correlate</master_name>
+			<advanced_control_statement>false</advanced_control_statement>
+			<special_syntax_control_statement>true</special_syntax_control_statement>
+			<description>Specifies a correlation between parameters.</description>
+		</statement>
+		<statement name="truncate">
+			<master_name>truncate</master_name>
+			<advanced_control_statement>false</advanced_control_statement>
+			<special_syntax_control_statement>true</special_syntax_control_statement>
+			<description>Truncates the specified variation.</description>
+		</statement>
+		<statement name="vary">
+			<master_name>vary</master_name>
+			<advanced_control_statement>false</advanced_control_statement>
+			<special_syntax_control_statement>true</special_syntax_control_statement>
+			<description>Specifies a variation.</description>
+		</statement>
+		<statement name="process">
+			<master_name>process</master_name>
+			<advanced_control_statement>true</advanced_control_statement>
+			<special_syntax_control_statement>true</special_syntax_control_statement>
+			<description>Specifies process variations.</description>
+		</statement>
+		<statement name="mismatch">
+			<master_name>mismatch</master_name>
+			<advanced_control_statement>true</advanced_control_statement>
+			<special_syntax_control_statement>true</special_syntax_control_statement>
+			<description>Specifies mismatch variations.</description>
+		</statement>
+		<statement name="statistics">
+			<master_name>statistics</master_name>
+			<advanced_control_statement>true</advanced_control_statement>
+			<special_syntax_control_statement>true</special_syntax_control_statement>
+			<description>Specifies process or mismatch variations.</description>
+		</statement>
+		<statement name="alter">
+			<master_name>alter</master_name>
+			<advanced_control_statement>false</advanced_control_statement>
+			<special_syntax_control_statement>false</special_syntax_control_statement>
+			<description>Alter individual parameters</description>
+		</statement>
+		<statement name="altergroup">
+			<master_name>altergroup</master_name>
+			<advanced_control_statement>true</advanced_control_statement>
+			<special_syntax_control_statement>false</special_syntax_control_statement>
+			<description>Alter multiple parameters</description>
+		</statement>
+		<statement name="assert">
+			<master_name>assert</master_name>
+			<advanced_control_statement>false</advanced_control_statement>
+			<special_syntax_control_statement>false</special_syntax_control_statement>
+			<description>Cheks safety operating conditions</description>
+		</statement>
+		<statement name="check">
+			<master_name>check</master_name>
+			<advanced_control_statement>false</advanced_control_statement>
+			<special_syntax_control_statement>false</special_syntax_control_statement>
+			<description>Cheks safety values for parameters</description>
+		</statement>
+		<statement name="checklimit">
+			<master_name>checklimit</master_name>
+			<advanced_control_statement>false</advanced_control_statement>
+			<special_syntax_control_statement>false</special_syntax_control_statement>
+			<description>Cheks safety values for parameters</description>
+		</statement>
+		<statement name="ic">
+			<master_name>ic</master_name>
+			<advanced_control_statement>false</advanced_control_statement>
+			<special_syntax_control_statement>false</special_syntax_control_statement>
+			<description>Initial conditions (transient)</description>
+		</statement>
+		<statement name="nodeset">
+			<master_name>nodeset</master_name>
+			<advanced_control_statement>false</advanced_control_statement>
+			<special_syntax_control_statement>false</special_syntax_control_statement>
+			<description>Initial conditions</description>
+		</statement>
+		<statement name="info">
+			<master_name>info</master_name>
+			<advanced_control_statement>false</advanced_control_statement>
+			<special_syntax_control_statement>false</special_syntax_control_statement>
+			<description>Initial conditions</description>
+		</statement>
+		<statement name="options">
+			<master_name>options</master_name>
+			<advanced_control_statement>false</advanced_control_statement>
+			<special_syntax_control_statement>false</special_syntax_control_statement>
+			<description>Initial parameters for the simulation that are not specified in the environment variables</description>
+		</statement>
+		<statement name="paramset">
+			<master_name>paramset</master_name>
+			<advanced_control_statement>true</advanced_control_statement>
+			<special_syntax_control_statement>false</special_syntax_control_statement>
+			<description>For the sweep analysis only, the paramset statement allows you to specify a list of parameters and their values. This can be referred by a sweep analysis to sweep the set of parameters over the values specified. For each iteration of the sweep, the netlist parameters are set to the values specified by a row. The values have to be numbers, and the parameters' names have to be defined in the input file (netlist) before they are used. The paramset statement is allowed only in the top level of the input file.</description>
+		</statement>
+		<statement name="save">
+			<master_name>save</master_name>
+			<advanced_control_statement>false</advanced_control_statement>
+			<special_syntax_control_statement>true</special_syntax_control_statement>
+			<description>You can save signals for individual nodes and components or save groups of signals.</description>
+		</statement>
+		<statement name="print">
+			<master_name>print</master_name>
+			<advanced_control_statement>false</advanced_control_statement>
+			<special_syntax_control_statement>true</special_syntax_control_statement>
+			<description>Print signal and instance data to an output file.</description>
+		</statement>
+		<statement name="set">
+			<master_name>set</master_name>
+			<advanced_control_statement>false</advanced_control_statement>
+			<special_syntax_control_statement>false</special_syntax_control_statement>
+			<description>Modifies any options statement parameters already set at the begining of the netlist but temperature.</description>
+		</statement>
+		<statement name="shell">
+			<master_name>shell</master_name>
+			<advanced_control_statement>false</advanced_control_statement>
+			<special_syntax_control_statement>false</special_syntax_control_statement>
+			<description>The shell analysis passes a command to the operating system command interpreter given in the SHELL environment variable.</description>
+		</statement>
+	</control_statements>
+	<keywords>
+		<keyword>
+			<keyword_name>simulator</keyword_name>
+			<type>Netlist KeyWord</type>
+		</keyword>
+		<keyword>
+			<keyword_name>M_1_PI</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>M_2_PI</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>M_2_SQRTPI</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>M_DEGPERRAD</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>M_E</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>M_LN10</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>M_LN2</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>M_LOG10E</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>M_LOG2E</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>M_PI</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>M_PI_2</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>M_PI_4</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>M_SQRT1_2</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>M_SQRT2</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>M_TWO_PI</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>P_C</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>P_CELSIUS0</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>P_EPS0</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>P_H</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>P_K</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>P_Q</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>P_U0</keyword_name>
+			<type>Mathematical Constant</type>
+		</keyword>
+		<keyword>
+			<keyword_name>altergroup</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>correlate</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>else</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>end</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>ends</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>export</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>for</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>function</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>global</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>ic</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>if</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>inline</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>invisible</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>library</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>local</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>march</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>model</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>nodeset</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>parameters</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>paramset</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>plot</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>print</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>prot</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>pwr</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>real</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>return</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>save</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>sens</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>statistics</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>subckt</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>to</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>truncate</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>unprot</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+		<keyword>
+			<keyword_name>vary</keyword_name>
+			<type>Netlist Keyword</type>
+		</keyword>
+	</keywords>
+</root>

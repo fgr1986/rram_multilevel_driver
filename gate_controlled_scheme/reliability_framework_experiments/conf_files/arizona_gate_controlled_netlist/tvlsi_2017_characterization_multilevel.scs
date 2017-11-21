@@ -1,0 +1,62 @@
+simulator lang=spectre
+global 0 vdd!
+
+// ahdl_include "/opt/technology/rram/arizona_imec/rram.va"
+include "rram_1r_cell_custom_parasitics.scs"
+include "rram_1t1r_cell_custom_parasitics.scs"
+// should be included by the framework
+include "/opt/technology/tsmc40nm_18/tsmcN40/../models/spectre/toplevel.scs" section=top_tt
+//include "/opt/technology/tsmc40nm_25/tsmcN40/../models/spectre/toplevel.scs" section=top_tt
+
+
+// abs(getData("rram_block_in" ?result "tran" ?resultsDir "./tvlsi_2017_characterization_multilevel.raw") / getData("rram_0.mem0:R_out" ?result "tran" ?resultsDir "./tvlsi_2017_characterization_multilevel.raw"))
+
+parameters
+  + p_T0=300
+  + p_temp=p_T0-273.15
+
+  + p_rram_tstep=100p
+  + P_rram_T0=300
+  + P_rram_Vread=0.1
+
+  + p_sim_time=2u
+  // characterization
+  + p_sim_time_a=p_sim_time/4
+  + p_sim_time_b=p_sim_time*2/4
+  + p_sim_time_c=p_sim_time*3/4
+  + p_sim_time_d=p_sim_time*4/4
+
+  // pulses
+
+  + p_rram_1r_cells_gap_ini=1.7e-9
+  // + p_rram_1r_cells_gap_ini=0.5e-9
+
+  + V_STOP_1=4
+  + V_STOP_2=-4
+  + p_gate=2.5
+
+
+  // voltage
+  v0 (rram_block_in 0) vsource type=pwl pwlperiod=p_sim_time wave=[ 0 0 p_sim_time_a V_STOP_1 p_sim_time_b 0 p_sim_time_c V_STOP_2 p_sim_time_d 0 ]
+
+  // rram
+  rram_0 ( rram_block_in 0 ) rram_cell_1r
+
+
+// ANALYSIS
+// by simulation
+
+// Dummy resistance as 'injected node'
+// Rdummy ( dummy_node 0 ) resistor r=1k
+
+
+saveOptions options  save=allpub  saveahdlvars=all
+
+my_tran tran stop=p_sim_time method=trap annotate=no maxiters=5
+
+simulatorOptions options genmcdep=yes reltol=1e-3 vabstol=1e-6 iabstol=1e-12 temp=p_temp tnom=27 scale=1.0 gmin=1e-12 rforce=1 maxnotes=5 maxwarns=5 digits=5 cols=80 pivrel=1e-3
+save rram_block_in
+save rram_0.mem0:R_out
+save rram_0.mem0:gap
+save rram_0.txN0:1
+save rram_0.aux_mem0_volt

@@ -1,0 +1,584 @@
+<?xml version="1.0"?>
+
+<!-- Values -->
+<!-- Non default values (value_min, value_max, value step, etc)
+should be in an exponential based format -->
+<!--  -->
+<!-- Time -->
+<!-- metric time is needed!!! -->
+<!--  -->
+<!-- Montecarlo iterations -->
+<!-- SimulationParameter montecarlo_iterations should be set -->
+<!--  -->
+<!-- Save options should be set to selected -->
+<!-- saveOptions -->
+<!--  -->
+<!-- simulatorOptions are to be configured -->
+<!-- defaults: -->
+<!-- simulatorOptions options reltol=1e-3 vabstol=1e-6 iabstol=1e-12 temp=27  pivrel=1e-3 \
+    tnom=27 scalem=1.0 scale=1.0 gmin=1e-12 rforce=1 maxnotes=5 maxwarns=5 \
+    digits=5 cols=80 pivrel=1e-3 -->
+<!-- Extra convergence: -->
+<!--
+	<parameter>
+		<name>reltol</name>
+		<value>1e-9</value>
+	</parameter>
+	<parameter>
+		<name>vabstol</name>
+		<value>1e-12</value>
+	</parameter>
+	<parameter>
+		<name>iabstol</name>
+		<value>1e-18</value>
+	</parameter> -->
+<!-- Other convergence parameters such as those bellow can be configured		 -->
+	<!-- Dynamic accuracy -->
+	<!-- pset1 paramset {
+		time   p_sim_max_step
+		0      1e-11
+		100e-9 2e-13
+	} -->
+<!-- <parameter>
+	<name>pset1</name>
+	<value>pset1</value>
+</parameter> -->
+<!-- Fixed -->
+		<!-- <parameter>
+			<name>maxstep</name>
+			<value>p_sim_max_step</value>
+		</parameter> -->
+		<!-- <parameter>
+			<name>method</name>
+			<value>trap</value>
+		</parameter> -->
+<!--  -->
+<!-- Montecarlo analyses require:
+	<parameter>
+		<name>savefamilyplots</name>
+		<value>yes</value>
+	</parameter>
+	<parameter>
+		<name>firstrun</name>
+		<value>p_firstrun</value>
+	</parameter>
+	<parameter>
+		<name>numruns</name>
+		<value>1</value>
+	</parameter> -->
+
+	<!-- Other parameters such as temperature, simulation length etc can also
+	interact with the simulation_analysis_modes definition -->
+
+<!-- Radiation sources children only allows (analog) models, instances,
+transistors, simple statements and subcircuits -->
+<!-- Statement types allowed
+static const int kInstanceStatement = 0;
+static const int kModelStatement = 1;
+static const int kAnalogModelStatement = 2;
+static const int kSubcircuitStatement = 3;
+static const int kTransistorStatement = 8;
+static const int kSimpleStatement = 11; -->
+<root>
+	<reliability_framework_target_version>v3.3.4</reliability_framework_target_version>
+	<!-- experiment title -->
+	<experiment_title>Multilevel 1R RRAM Memory</experiment_title>
+	<!-- New in 3.1.2 -->
+	<save_injection_sources>false</save_injection_sources>
+	<!-- new in 3.0.0 -->
+	<!-- delete individual spectre transient files  just when each simulation finishes-->
+	<delete_spectre_transients>false</delete_spectre_transients>
+	<!-- new in 3.0.0 -->
+	<!-- save all processed transient files -->
+	<delete_processed_transients>false</delete_processed_transients>
+	<!-- deletes spectre folder, called for each scenario from spectre_handler-->
+	<!-- or after each profile is completed-->
+	<delete_spectre_folders>false</delete_spectre_folders>
+	<!-- new in 3.0.1 -->
+	<!-- explicit export -->
+	<export_processed_metrics>false</export_processed_metrics>
+	<!-- generate scatter plots -->
+	<plot_scatters>false</plot_scatters>
+	<!-- generate single transient plots -->
+	<plot_transients>false</plot_transients>
+	<!-- generate last iteration transient plots -->
+	<plot_last_transients>false</plot_last_transients>
+	<!-- new in 3.2.0 -->
+	<!-- generate critical parameter value binary search plots -->
+	<plot_critical_parameter_value_evolution>false</plot_critical_parameter_value_evolution>
+	<!-- Generates metric errors log files -->
+	<export_metric_errors>false</export_metric_errors>
+	<!-- latex/plain text experiment summary-->
+	<!-- <latex_summary>false</latex_summary> -->
+	<!-- <summary_file_path>../experiments/tns_bandgap/conf_files/summary.tex</summary_file_path> -->
+	<!-- Enables/Disables pdflatex output -->
+	<!-- <show_pdflatex_output>false</show_pdflatex_output> -->
+	<!-- import generated csv in latex file-->
+	<!-- <import_csv>false</import_csv> -->
+	<!-- -1 = no interpolation
+	0 = auto
+	1...N = interpolation ratio -->
+	<interpolate_plots_ratio>-1</interpolate_plots_ratio>
+	<!-- Analysis names should not have neither special characters nor spaces -->
+	<simulation_analysis_modes>
+		<montecarlo_n_d_parameters_sweep_analysis>
+			<analysis_statement>
+				<statement>
+					<name>sensible_nodes_montecarlo</name>
+					<master_name>montecarlo</master_name>
+					<advanced_analysis>true</advanced_analysis>
+					<!-- Main_transient property sets if the analysis is the main analysis given by our application -->
+					<main_transient>false</main_transient>
+					<description>Montecarlo</description>
+					<parameters>
+						<!-- New params -->
+						<!-- Fgarcia, ommited when using statistics, (see fgarcia_1 ) -->
+						<parameter>
+							<name>variations</name>
+							<value>all</value>
+							<!-- <value>mismatch</value> -->
+							<!-- <value>process</value> -->
+							<!-- <value>all</value> -->
+						</parameter>
+						<parameter>
+							<name>donominal</name>
+							<value>no</value>
+						</parameter>
+						<!-- save variability params -->
+						<!-- <parameter>
+							<name>scalarfile</name>
+							<value>"../monteCarlo/mcData"</value>
+						</parameter>
+						<parameter>
+							<name>paramfile</name>
+							<value>"../monteCarlo/mcparam"</value>
+						</parameter>
+						<parameter>
+							<name>processparamfile</name>
+							<value>"../monteCarlo/processParam"</value>
+						</parameter>
+						<parameter>
+							<name>processscalarfile</name>
+							<value>"../monteCarlo/processData"</value>
+						</parameter>
+						<parameter>
+							<name>mismatchparamfile</name>
+							<value>"../monteCarlo/mismatchparam"</value>
+						</parameter>
+						<parameter>
+							<name>mismatchscalarfile</name>
+							<value>"../monteCarlo/mismatchdata"</value>
+						</parameter>
+						<parameter>
+							<name>dumpdependency</name>
+							<value>mismatch</value>
+						</parameter>
+						<parameter>
+							<name>dependencymapfile</name>
+							<value>"../monteCarlo/mismatchdependency"</value>
+						</parameter>
+						<parameter>
+							<name>saveprocessparams</name>
+							<value>yes</value>
+						</parameter> -->
+						<!-- needed to compute post-analysis -->
+						<parameter>
+							<name>savefamilyplots</name>
+							<value>yes</value>
+						</parameter>
+						<!-- New in v2.9.2_beta, introduced for novel scheme
+						it should match my_firstrun -kFirstRunParamName- -->
+						<!-- Number of montecarlo runs -->
+						<parameter>
+							<name>firstrun</name>
+							<value>fw_firstrun</value>
+						</parameter>
+						<!-- New in v3.3.0, introduced for novel scheme
+						it should match my_firstrun -kFirstRunParamName- -->
+						<!-- Seed (to be able to reproduce a given scenario) -->
+						<parameter>
+							<name>seed</name>
+							<value>fw_seed</value>
+						</parameter>
+						<!-- Number of montecarlo runs -->
+						<!-- New in v2.9.2_beta, should be 1- -->
+						<parameter>
+							<name>numruns</name>
+							<value>fw_numruns</value>
+						</parameter>
+					</parameters>
+					<children>
+						<statement>
+							<name>reliability_framework_tran</name>
+							<master_name>tran</master_name>
+							<advanced_analysis>false</advanced_analysis>
+							<!-- Main_transient property sets if the analysis is the main analysis given by our application -->
+							<main_transient>true</main_transient>
+							<description>Sensible nodes detection analysis: basic transient</description>
+							<parameters>
+								<parameter>
+									<name>save</name>
+									<value>selected</value>
+								</parameter>
+								<!-- required for convergence reasons -->
+								<!-- <parameter>
+									<name>strobeperiod</name>
+									<value>p_strobeperiod</value>
+								</parameter>
+								<parameter>
+									<name>strobeoutput</name>
+									<value>strobeonly</value>
+								</parameter> -->
+								<!-- <parameter>
+									<name>outputstart</name>
+									<value>10n</value>
+								</parameter> -->
+								<parameter>
+									<name>stop</name>
+									<value>p_sim_time</value>
+								</parameter>
+								<!-- fgarcia -->
+								<!-- <parameter>
+									<name>paramset</name>
+									<value>pset1</value>
+								</parameter> -->
+								<!-- <parameter>
+									<name>maxstep</name>
+									<value>p_sim_max_step</value>
+								</parameter> -->
+								<parameter>
+									<name>method</name>
+									<value>gear2only</value>
+								</parameter>
+								<parameter>
+									<name>annotate</name>
+									<value>no</value>
+								</parameter>
+								<parameter>
+									<name>maxiters</name>
+									<value>5</value>
+								</parameter>
+							</parameters>
+						</statement>
+					</children>
+				</statement>
+			</analysis_statement>
+			<control_statements>
+				<!-- fgarcia_1, for providing stats -->
+				<!-- fgarcia_1 -->
+				<!-- <statement>
+					<master_name>statistics</master_name>
+					<name>statistics_1</name>
+					<advanced_control_statement>true</advanced_control_statement>
+					<special_syntax_control_statement>true</special_syntax_control_statement>
+					<description>Process and mismatch example</description>
+					<children>
+						<statement>
+							<master_name>process</master_name>
+							<name>process_g0</name>
+							<advanced_control_statement>true</advanced_control_statement>
+							<special_syntax_control_statement>true</special_syntax_control_statement>
+							<description>Specifies g0 process variations.</description>
+							<children>
+								<statement>
+									<master_name>vary</master_name>
+									<name>p_g0</name>
+									<advanced_control_statement>false</advanced_control_statement>
+									<special_syntax_control_statement>true</special_syntax_control_statement>
+									<description>Specifies the rram g0.</description>
+									<parameters>
+										<parameter>
+											<name>dist</name>
+											<value>gauss</value>
+										</parameter>
+										<parameter>
+											<name>std</name>
+											<value>5</value>
+										</parameter>
+										<parameter>
+											<name>percent</name>
+											<value>yes</value>
+										</parameter>
+									</parameters>
+								</statement>
+							</children>
+						</statement>
+						<statement>
+							<master_name>mismatch</master_name>
+							<name>mismatch_g0</name>
+							<advanced_control_statement>true</advanced_control_statement>
+							<special_syntax_control_statement>true</special_syntax_control_statement>
+							<description>Specifies g0 process variations.</description>
+							<children>
+								<statement>
+									<master_name>vary</master_name>
+									<name>p_g0</name>
+									<advanced_control_statement>false</advanced_control_statement>
+									<special_syntax_control_statement>true</special_syntax_control_statement>
+									<description>Specifies the rram g0.</description>
+									<parameters>
+										<parameter>
+											<name>dist</name>
+											<value>gauss</value>
+										</parameter>
+										<parameter>
+											<name>std</name>
+											<value>10</value>
+										</parameter>
+										<parameter>
+											<name>percent</name>
+											<value>yes</value>
+										</parameter>
+									</parameters>
+								</statement>
+							</children>
+						</statement>
+					</children>
+				</statement> -->
+				<!-- fgarcia, end off comment -->
+				<!-- fgarcia simulation options -->
+				<statement>
+					<master_name>options</master_name>
+					<name>simulatorOptions</name>
+					<advanced_control_statement>false</advanced_control_statement>
+					<special_syntax_control_statement>false</special_syntax_control_statement>
+					<description>transient analysis options</description>
+					<parameters>
+						<!-- <parameter>
+							<name>reltol</name>
+							<value>1e-9</value>
+						</parameter>
+						<parameter>
+							<name>vabstol</name>
+							<value>1e-12</value>
+						</parameter>
+						<parameter>
+							<name>iabstol</name>
+							<value>1e-18</value>
+						</parameter> -->
+						<parameter>
+							<name>reltol</name>
+							<value>1e-4</value>
+						</parameter>
+						<parameter>
+							<name>vabstol</name>
+							<value>1e-7</value>
+						</parameter>
+						<parameter>
+							<name>iabstol</name>
+							<value>1e-11</value>
+						</parameter>
+						<parameter>
+							<name>temp</name>
+							<value>p_temp</value>
+						</parameter>
+						<parameter>
+							<name>tnom</name>
+							<value>27</value>
+						</parameter>
+						<parameter>
+							<name>scale</name>
+							<value>1.0</value>
+						</parameter>
+						<parameter>
+							<name>gmin</name>
+							<value>1e-12</value>
+						</parameter>
+						<parameter>
+							<name>rforce</name>
+							<value>1</value>
+						</parameter>
+						<parameter>
+							<name>maxnotes</name>
+							<value>5</value>
+						</parameter>
+						<parameter>
+							<name>maxwarns</name>
+							<value>5</value>
+						</parameter>
+						<parameter>
+							<name>digits</name>
+							<value>5</value>
+						</parameter>
+						<parameter>
+							<name>cols</name>
+							<value>80</value>
+						</parameter>
+						<!-- <parameter>
+							<name>pivrel</name>
+							<value>1e-6</value>
+						</parameter> -->
+						<parameter>
+							<name>pivrel</name>
+							<value>1e-3</value>
+						</parameter>
+					</parameters>
+				</statement>
+				<!-- save=selected is required -->
+				<!-- If you set save=selected, the Spectre simulator saves the voltages in the save statement.
+				If the save statement does not contain any voltage values, Spectre issues the above warning
+				and changes the save option default to lvlpub. This saves all node voltages. -->
+				<statement>
+					<master_name>options</master_name>
+					<name>saveOptions</name>
+					<advanced_control_statement>false</advanced_control_statement>
+					<special_syntax_control_statement>false</special_syntax_control_statement>
+					<description>transient analysis saving options</description>
+					<parameters>
+						<parameter>
+							<name>save</name>
+							<value>selected</value>
+						</parameter>
+						<parameter>
+							<name>saveahdlvars</name>
+							<value>selected</value>
+						</parameter>
+					</parameters>
+				</statement>
+				<!-- fgarcia, end off comment -->
+			</control_statements>
+		</montecarlo_n_d_parameters_sweep_analysis>
+	</simulation_analysis_modes>
+	<processed_metrics>
+		<!-- Metrics are either signals or single values extracted using ocean -->
+		<metric>
+			<metric_name>time</metric_name>
+			<!-- new in v3.0.1 -->
+			<metric_transient_magnitude>true</metric_transient_magnitude>
+			<metric_analyzable>false</metric_analyzable>
+			<magnitude_plottable>false</magnitude_plottable>
+			<magnitude_plottable_in_golden>false</magnitude_plottable_in_golden>
+		</metric>
+		<!-- new in v3.0.1 -->
+		<!-- Automatically inserts the oceanEval expression -->
+		<!-- New in v3.3.0: values below '0' are not considered -->
+		<!-- metric_error_margin_up: max deviation OVER golden
+		metric_error_margin_down: max deviation BELOW golden -->
+		<!-- only in endurance/tid eval!!! -->
+		<!-- <metric>
+			<metric_name>RRAM0.auxRout</metric_name>
+			<metric_transient_magnitude>true</metric_transient_magnitude>
+			<metric_analyzable>false</metric_analyzable>
+			<magnitude_plottable>true</magnitude_plottable>
+			<magnitude_plottable_in_golden>false</magnitude_plottable_in_golden>
+		</metric> -->
+		<!-- to void save=lvlpub -->
+		<metric>
+			<metric_name>n_plus</metric_name>
+			<metric_transient_magnitude>true</metric_transient_magnitude>
+			<metric_analyzable>false</metric_analyzable>
+			<magnitude_plottable>true</magnitude_plottable>
+			<magnitude_plottable_in_golden>false</magnitude_plottable_in_golden>
+		</metric>
+		<metric>
+			<metric_name>n_control</metric_name>
+			<metric_transient_magnitude>true</metric_transient_magnitude>
+			<metric_analyzable>false</metric_analyzable>
+			<magnitude_plottable>true</magnitude_plottable>
+			<magnitude_plottable_in_golden>false</magnitude_plottable_in_golden>
+		</metric>
+		<metric>
+			<metric_name>rram_0.mem0:rram_current</metric_name>
+			<metric_transient_magnitude>true</metric_transient_magnitude>
+			<metric_analyzable>false</metric_analyzable>
+			<magnitude_plottable>true</magnitude_plottable>
+			<magnitude_plottable_in_golden>false</magnitude_plottable_in_golden>
+		</metric>
+		<metric>
+			<metric_name>rram_0.mem0:rram_voltage</metric_name>
+			<metric_transient_magnitude>true</metric_transient_magnitude>
+			<metric_analyzable>false</metric_analyzable>
+			<magnitude_plottable>true</magnitude_plottable>
+			<magnitude_plottable_in_golden>false</magnitude_plottable_in_golden>
+		</metric>
+		<magnitude>
+			<magnitude_name>rram_0.mem0:w</magnitude_name>
+			<magnitude_plottable>true</magnitude_plottable>
+			<magnitude_plottable_in_golden>true</magnitude_plottable_in_golden>
+			<magnitude_analyzable>true</magnitude_analyzable>
+			<!-- Allow punctual errors -->
+			<magnitude_analyze_error_in_time>true</magnitude_analyze_error_in_time>
+			<!-- new feature in 2.2.4
+			Time window definition in which the magnitude is analyzed -->
+			<magnitude_analyze_error_in_time_window>true</magnitude_analyze_error_in_time_window>
+			<magnitude_analyzable_time_window_t0>5e-6</magnitude_analyzable_time_window_t0>
+			<magnitude_analyzable_time_window_tf>6e-6</magnitude_analyzable_time_window_tf>
+			<!-- Binary ones error detection -->
+			<magnitude_abs_error_margin_ones>0.5e-10</magnitude_abs_error_margin_ones>
+			<magnitude_error_time_span_ones>5e-10</magnitude_error_time_span_ones>
+			<magnitude_error_threshold_ones>1.6e-9</magnitude_error_threshold_ones>
+			<magnitude_ommit_upper_threshold>false</magnitude_ommit_upper_threshold>
+			<!-- Zeros error detection -->
+			<magnitude_abs_error_margin_zeros>0.5e-10</magnitude_abs_error_margin_zeros>
+			<magnitude_error_time_span_zeros>5e-10</magnitude_error_time_span_zeros>
+			<magnitude_error_threshold_zeros>1.4e-9</magnitude_error_threshold_zeros>
+			<magnitude_ommit_lower_threshold>false</magnitude_ommit_lower_threshold>
+			<!-- Default error detection,
+			also for analog devices -->
+			<magnitude_abs_error_margin_default>0.5e-10</magnitude_abs_error_margin_default>
+			<magnitude_error_time_span_default>5e-10</magnitude_error_time_span_default>
+		</magnitude>
+	</processed_metrics>
+	<!-- Simulation Parameters are shared between sources.-->
+	<!-- Standard Parameters are specified in each radiation source subcircuit -->
+	<!--simulation_parameter_value_change_mode:-->
+	<!--0. lineal increments in both sweep and critical value modes.-->
+	<!--1. X(n) = 10^( (log10(b)-log10(a))/(N-1)*index ), a < b in both critical value and sweep modes. -->
+	<!--2. X(n) = b - 10^( (log10(b)-log10(a))/(N-1)*index ), a < b in both critical value and sweep modes. -->
+	<simulation_parameters>
+		<!-- new in 2.9.2_beta -->
+		<!-- required by montecarlo_critical_parameter_n_d_parameters_sweep_analysis -->
+		<simulation_parameter>
+			<simulation_parameter_name>fw_montecarlo_iterations</simulation_parameter_name>
+			<simulation_parameter_default_value>1</simulation_parameter_default_value>
+			<simulation_parameter_fixed>true</simulation_parameter_fixed>
+			<simulation_parameter_golden_fixed>true</simulation_parameter_golden_fixed>
+		</simulation_parameter>
+		<!--  -->
+		<simulation_parameter>
+			<simulation_parameter_name>p_gate_driver</simulation_parameter_name>
+			<simulation_parameter_fixed>false</simulation_parameter_fixed>
+			<!-- new in 2.2.5 -->
+			<simulation_parameter_golden_fixed>true</simulation_parameter_golden_fixed>
+			<!-- in golden this is 0 -->
+			<simulation_parameter_default_value>1.8</simulation_parameter_default_value>
+			<simulation_parameter_value_stop_percentage>1</simulation_parameter_value_stop_percentage>
+			<!-- <simulation_parameter_value_stop_percentage>1</simulation_parameter_value_stop_percentage> -->
+			<simulation_parameter_sweep_steps>31</simulation_parameter_sweep_steps>
+			<simulation_parameter_value_min>0</simulation_parameter_value_min>
+			<simulation_parameter_value_max>1.8</simulation_parameter_value_max>
+			<simulation_parameter_value_change_mode>0</simulation_parameter_value_change_mode>
+			<simulation_parameter_allow_find_critical_value>false</simulation_parameter_allow_find_critical_value>
+		</simulation_parameter>
+		<simulation_parameter>
+			<simulation_parameter_name>p_V_STOP_1</simulation_parameter_name>
+			<simulation_parameter_fixed>false</simulation_parameter_fixed>
+			<!-- new in 2.2.5 -->
+			<simulation_parameter_golden_fixed>true</simulation_parameter_golden_fixed>
+			<!-- in golden this is 0 -->
+			<simulation_parameter_default_value>0</simulation_parameter_default_value>
+			<simulation_parameter_value_stop_percentage>1</simulation_parameter_value_stop_percentage>
+			<!-- <simulation_parameter_value_stop_percentage>1</simulation_parameter_value_stop_percentage> -->
+			<simulation_parameter_sweep_steps>31</simulation_parameter_sweep_steps>
+			<simulation_parameter_value_min>0</simulation_parameter_value_min>
+			<simulation_parameter_value_max>1.8</simulation_parameter_value_max>
+			<simulation_parameter_value_change_mode>0</simulation_parameter_value_change_mode>
+			<simulation_parameter_allow_find_critical_value>false</simulation_parameter_allow_find_critical_value>
+		</simulation_parameter>
+		<simulation_parameter>
+			<simulation_parameter_name>p_rram_1r_cells_gap_ini</simulation_parameter_name>
+			<simulation_parameter_fixed>false</simulation_parameter_fixed>
+			<!-- new in 2.2.5 -->
+			<simulation_parameter_golden_fixed>false</simulation_parameter_golden_fixed>
+			<!-- in golden this is 0 -->
+			<simulation_parameter_default_value>1.367e-9</simulation_parameter_default_value>
+			<simulation_parameter_value_stop_percentage>1</simulation_parameter_value_stop_percentage>
+			<!-- <simulation_parameter_value_stop_percentage>1</simulation_parameter_value_stop_percentage> -->
+			<simulation_parameter_sweep_steps>5</simulation_parameter_sweep_steps>
+			<simulation_parameter_value_min>0.1e-9</simulation_parameter_value_min>
+			<simulation_parameter_value_max>1.367e-9</simulation_parameter_value_max>
+			<simulation_parameter_value_change_mode>0</simulation_parameter_value_change_mode>
+			<simulation_parameter_allow_find_critical_value>false</simulation_parameter_allow_find_critical_value>
+		</simulation_parameter>
+	</simulation_parameters>
+</root>

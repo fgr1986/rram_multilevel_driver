@@ -1,0 +1,50 @@
+//////////////////////////
+// Single rram 1T1R cell //
+// v0.2 27/06/2017     //
+//////////////////////////
+
+simulator lang=spectre
+
+ahdl_include "/opt/technology/rram/arizona_imec/rram.va"
+
+/////////////////////////////////////////////
+// Subcircuit and Parameters
+/////////////////////////////////////////////
+
+subckt rram_1t1r_nch_11_cell (plus minus sel)
+
+	parameters
+
+  // rram
+  + rram_tstep=10p
+  + rram_T0=300
+  + rram_Vread=0.1
+
+  // initial value
+  // LRS
+  // + rram_gap_ini=0.1e-9
+  // HRS
+  + rram_gap_ini=1.367e-9
+
+  // parasitic components
+	+ rram_R1=10 rram_Rh=1e15 rram_Cp=0.1f rram_R2=10
+
+
+  // transistor
+	// 1.1V
+  + nchL=40n nchW=120n
+
+	// Parasitic elements
+	R1 (plus mid1) resistor r=rram_R1
+	Rh (mid1 mid2) resistor r=rram_Rh
+	Cp (mid1 mid2) capacitor c=rram_Cp
+
+  mem0 (mid1 mid2) RRAM T0=rram_T0 gap_ini=rram_gap_ini tstep=rram_tstep Vread=rram_Vread
+	R2 (mid2 minus) resistor r=rram_R2
+
+  // source gate drain bulk
+  txN0 (minus sel mid2 0) nch_mac l=nchL w=nchW m=1 nf=1
+
+  aux_mem0_volt ( aux_mem0_volt 0 ) bsource v=v(mid1, mid2)
+
+ends rram_1t1r_nch_11_cell

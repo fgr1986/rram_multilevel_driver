@@ -1,0 +1,110 @@
+simulator lang=spectre
+global 0 vdd!
+
+include "ommit/rram_1t1r_cell_custom_parasitics.scs"
+// should be included by the framework
+// include "/opt/technology/tsmc40nm_18/tsmcN40/../models/spectre/toplevel.scs" section=top_tt
+// include "/opt/technology/tsmc40nm_25/tsmcN40/../models/spectre/toplevel.scs" section=top_tt
+
+parameters
+  + p_sim_time=0.12u
+  + p_T0=300
+  + p_temp=p_T0-273.15
+
+  + p_nchL=40n
+  + p_nchW=180n
+  // + p_gate_driver=1.8
+
+  + p_rram_tstep=10p
+  + P_rram_T0=300
+  + P_rram_Vread=0.1
+
+
+  // + p_rram_1r_cells_gap_ini=1.367e-9
+  // + p_rram_1r_cells_gap_ini=0.1e-9
+
+  // pulses
+  // + p_V_STOP_1=1.8
+  + V_WIDTH=100n
+  + V_RISE=5n
+  + p_gate=1.8
+
+
+  // voltage
+  v_sel (rram_sel 0) bsource v=p_gate
+  v_sel_driver (rram_sel_driver 0) vsource type=dc dc=p_gate_driver
+
+  v0 (rram_block_in 0) vsource type=pulse val0=0 val1=p_V_STOP_1 period=5*V_WIDTH rise=V_RISE fall=V_RISE width=V_WIDTH
+
+  // rram
+  rram_0 ( rram_block_in rram_block_out rram_sel ) rram_cell_1t1r nchW=120n rram_gap_ini=p_rram_1r_cells_gap_ini
+
+  // driver
+  // set for V_WIDTH=50n
+  // source gate drain bulk
+  txDriver_0 (0 rram_sel_driver rram_block_out 0) nch_mac l=p_nchL w=p_nchW
+
+  // //  // sweep_driver_l sweep param=p_nchW values=[120n 240n 360n 480n 600n 720n] {
+  // //   // default w
+  // //   // 0 0.625 0.67 0.725 0.79 0.88 1 1.2 1.7
+  // //   /////////////////////////////////////////////////////////////////
+  // //   // More linealized
+  // //   /////////////////////////////////////////////////////////////////
+  // //   // 100ns, [40nm, 180n]: [ 0 0.8 0.85 0.88 0.9 0.915  0.95 1.8 ]
+  // //   /////////////////////////////////////////////////////////////////
+  // //   // Less Linealized
+  // //   // 50ns, [40nm, 240n]: [ 0 0.755 0.795 0.818 0.831 0.842 0.875 1.8 ]
+  // //   // 100ns, [40nm, 1200nm]: [ 0 0.595 0.61 0.62 0.626 0.635 0.66 1.8 ]
+  // //   sweep_driver_gate_v sweep param=p_gate_driver values= [ 0 0.8 0.85 0.88 0.9 0.915  0.95 1.8 ] {
+  // //     my_tran tran stop=p_sim_time method=trap annotate=no maxiters=5
+  // //   }
+  // //  // }
+
+    // V1!!!!!!!!!!!!!
+    //
+    // T0:  Saturation  1.8V
+
+        // V1!!!!!!!!!!!!!
+    // TX :     L,    W
+    // T1:  Saturation  0.95V
+    // T1A: 40n, 200n
+    // T1B: 100n, 170n
+    //
+    // T1A: 60n, 170n
+    // T1B: 120n, 120n
+
+
+    // T2:  Saturation 0.915V
+    // T2A: 60n, 170n
+    // T2B: 120n, 170n
+
+    // T3:  Saturation 0.9V
+    // T3A: 40n, 120n
+    // T3B: 40n, 120n
+
+
+    // T4:  Saturation 0.88V
+    // T4A: 120n,  130n
+    // T4B:   80n, 140n
+    //
+    // T4A: 120n,  140n
+    // T4B:   40n, 120n
+
+
+    // T5:  Saturation 0.85V
+    // T5A: 100n, 170n
+    // T5B: 40n, 200n
+    //
+    // T5A: 120n, 120n
+    // T5B: 60n, 170n
+
+    // V1!!!!!!!!!!!!!
+    // T6:  Saturation!!!!!!!!! 0.8V
+    // T6A: 160n, 180n
+    // T6B: 40n, 190n
+
+// ANALYSIS
+// by simulation
+
+// Dummy resistance as 'injected node'
+// Rdummy ( dummy_node 0 ) resistor r=1k

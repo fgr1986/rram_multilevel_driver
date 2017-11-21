@@ -1,0 +1,76 @@
+simulator lang=spectre
+global 0 vdd!
+
+
+// should be included by the framework
+// include "/opt/technology/tsmc40nm_18/tsmcN40/../models/spectre/toplevel.scs" section=top_tt
+include "/opt/technology/tsmc40nm_18/tsmcN40/../models/spectre/toplevel.scs" section=top_globalmc_localmc
+
+// ahdl_include "Control.va"
+// include "rram_1t1r_nch_11_cell_custom_parasitics.scs"
+include "reset_comparator_module.scs"
+
+parameters
+  + p_sim_time=0.2u
+  + p_T0=300
+  + p_temp=p_T0-273.15
+
+  + p_gate_driver=0.8
+  + p_i=1e-9
+
+  + p_rram_tstep=1p
+  + P_rram_T0=300
+  + P_rram_Vread=0.1
+
+
+  // + p_gap_ini=1.367e-9
+  + p_gap_ini=0.1e-9
+
+    // pulses
+    + V_STOP_1=1.8
+    + V_STOP_2=-1.8
+    + v_reset_width=50n
+    + v_set_width=100n
+    + V_RISE=5n
+    + p_gate=1.8
+
+    + p_pI=8u
+
+  ///////////////
+  // VDD
+  ///////////////
+  V_VDD (vdd! 0) vsource dc=1.8 type=dc
+
+  ///////////////
+  // comparator
+  ///////////////
+  reset_comparator_module_0 ( vin1 vin2 comp_vout ) reset_comparator_module pI=p_pI
+  // voltage
+  Vref (vin1 0) vsource dc=-17.5m type=dc
+  C0 (comp_vout 0) capacitor c=10f
+  V2 (vin2 0) vsource dc=-17.5m type=sine freq=20M ampl=10m
+
+
+
+  // Start of sensible_nodes_montecarlo (montecarlo) analysis
+  //sensible_nodes_montecarlo montecarlo variations=all donominal=no savefamilyplots=yes firstrun=1 seed=1 numruns=50 {
+  sensible_nodes_montecarlo montecarlo variations=process donominal=no savefamilyplots=yes firstrun=1 seed=1 numruns=1000 {
+      my_tran tran stop=p_sim_time method=trap annotate=no maxiters=5
+  }
+  // End of sensible_nodes_montecarlo (montecarlo ) analysis
+
+
+saveOptions options  save=allpub  saveahdlvars=all
+
+simulatorOptions options genmcdep=yes reltol=1e-3 vabstol=1e-6 iabstol=1e-12 temp=p_temp tnom=27 scale=1.0 gmin=1e-12 rforce=1 maxnotes=5 maxwarns=5 digits=5 cols=80 pivrel=1e-3
+save rram_block_in
+save rram_sel
+save reset_sel_driver
+
+save BDriver_0:1
+save txDriver_0:1
+
+save rram_0.mem0:R_out
+save rram_0.mem0:gap
+save rram_0.txN0:1
+save rram_0.aux_mem0_volt
