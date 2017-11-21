@@ -59,6 +59,7 @@ levels = full_data.shape[0]
 print('\tInput data shape (no headers): '+ str(full_data.shape))
 # Plot results
 plot_2d = True
+plot_matplotlib = False
 if plot_2d:
     # data
     r_read_traces = []
@@ -71,13 +72,12 @@ if plot_2d:
                 opacity=0.75
             )
         )
-        hist, bins = np.histogram(full_data[l_idx, 1:])
-        #print(bins.shape)
-
-        width = 0.7 * (bins[1] - bins[0])
-        center = (bins[:-1] + bins[1:]) / 2
-        plt.bar(center, hist, align='center', width=width)
-    plt.show()
+        if plot_matplotlib:
+            plt.hist(full_data[l_idx, 1:])
+            plt.xlabel('Read Resistance at 0.1V [KOhms]')
+            plt.ylabel('# of occurrences')
+    if plot_matplotlib:
+        plt.show()
     # layout
     layout = plotly.graph_objs.Layout(
         bargroupgap=0.3,
@@ -91,7 +91,7 @@ if plot_2d:
 
 # Export computed data for Gnuplot printing
 np.savetxt(pre + "raw.data",
-           np.transpose(full_data), delimiter=",")
+        np.transpose(full_data[:,1:]), delimiter=",")
 
 ############################
 # r_read vs r_load cdf

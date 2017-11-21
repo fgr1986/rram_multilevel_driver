@@ -59,15 +59,4 @@ plot for [i=1:64:2] input_file u (1e-3*column(i)):(column(i+1)):color(i) w lp ls
 unset output
 
 
-# call histogram function
-binwidth = 4
-binstart = -98
-load 'hist.fct'
-
-set term svg noenhanced size 1800,1000 fname 'Times' fsize 35
-set output "hist.svg"
-input_file = 'exported_results_montecarlo/full_range_r_read/1r_g_2_raw.data'
-plot  i 0 @hist ls 1
-
-
 quit
