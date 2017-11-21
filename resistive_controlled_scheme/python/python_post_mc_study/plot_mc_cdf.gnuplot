@@ -8,13 +8,18 @@ set tics nomirror
 # set style line 1  lc rgb '#8e0200' lt 1 lw 1 pt 6 ps 1 # ---red
 # set style line 2  lc rgb '#007ea7' lt 1 lw 2 pt 7 # -- remaining blues and greens
 # set style line 3  lc rgb '#0042ad' lt 1 lw 2 pt 8
-set style line 1 lt 1 lw 4 pt 6 ps 0.1 lc rgb '#0072bd' # blue ps variable
-set style line 2 lt 1 lw 4 pt 7 ps 0.5 lc rgb '#ff0000' # other colors
-set style line 3 lt 1 lw 4 pt 7 ps 0.5 lc rgb '#ff7800' # other colors
-set style line 4 lt 1 lw 4 pt 7 ps 0.5 lc rgb '#4ec000' # other colors
-set style line 5 lt 1 lw 4 pt 7 ps 0.5 lc rgb '#a049c0' # other colors
-set style line 6 lt 1 lw 4 pt 7 ps 0.5 lc rgb '#8e0200' # other colors
+# set style line 1 lt 1 lw 4 pt 6 ps 0.3 lc rgb '#0072bd' # blue ps variable
+# set style line 2 lt 1 lw 4 pt 7 ps 0.5 lc rgb '#ff0000' # other colors
+# set style line 3 lt 1 lw 4 pt 7 ps 0.5 lc rgb '#ff7800' # other colors
+# set style line 4 lt 1 lw 4 pt 7 ps 0.5 lc rgb '#4ec000' # other colors
+# set style line 5 lt 1 lw 4 pt 7 ps 0.5 lc rgb '#a049c0' # other colors
+# set style line 6 lt 1 lw 4 pt 7 ps 0.5 lc rgb '#8e0200' # other colors
+
+load 'moreland.pal'
+set style line 1 lt 1 lw 4 pt 6 ps 0.5 lc palette
 set style fill solid
+
+unset colorbox
 
 set format x "%g"
 set format y "%g"
@@ -44,8 +49,9 @@ set ylabel "CDF"
 set title 'CDF under RRAM/CMOS variability'
 input_file = 'exported_results_montecarlo/full_range_r_read/1r_g_2_cdf.data'
 
-# plot for [i=1:2:31] "numbers.dat" using (column(2*(i-1)+1)):(column(2*i))
-plot for [i=1:64:2] input_file u (1e-3*column(i)):(column(i+1)) w lp ls 1 ps 0.5  axes x1y1 notitle
+
+color(x) = x>180?360-x:x
+plot for [i=1:64:2] input_file u (1e-3*column(i)):(column(i+1)):color(i) w lp ls 1 axes x1y1 notitle
  
 
 unset output
