@@ -67,12 +67,12 @@ set output "hist.svg"
 ############################
 ## Requires gnuplot 5.2!!
 ###########################
-array maxes[31]
-array mines[31]
-array widths[31]
+array maxes[32]
+array mines[32]
+array widths[32]
 n=10 # number of intervals
 set term svg noenhanced #size 1800,1000 fname 'Times' #fsize 35
-do for [i=1:31]{
+do for [i=1:32]{
 	
 	set output '/dev/null'
 	set autoscale xmin
@@ -92,7 +92,7 @@ set output "hist.svg"
 hist(x,width)=width*floor(x/width)+width/2.0
 color(x) = x>180?360-x:x
 set boxwidth widths[15]*0.9
-plot for[i=1:31] input_file u (hist(column(i+0),widths[i])):(1.0) smooth freq w boxes ls i notitle
+plot for[i=1:32] input_file u (hist(column(i+0),widths[i])):(1.0) smooth freq w boxes ls i notitle
 
 unset output
 quit
