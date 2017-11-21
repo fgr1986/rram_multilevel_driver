@@ -100,11 +100,6 @@ if plot_cdf:
         y_vals=np.arange(len(sorted_data))/float(len(sorted_data)-1)
         cdf_data.append(sorted_data)
         cdf_data.append(y_vals)
-        # # Export computed data for Gnuplot printing
-        # file = open(pre + 'cdf_' + str(l_idx) + '.data', 'w')
-        # for x_idx, x in enumerate(sorted_data):
-        #     file.write(str(x) + ', ' + str(yvals[x_idx]) + '\n')
-        # file.close()
 
         # add plotly trace
         r_read_traces.append(plotly.graph_objs.Scatter(
