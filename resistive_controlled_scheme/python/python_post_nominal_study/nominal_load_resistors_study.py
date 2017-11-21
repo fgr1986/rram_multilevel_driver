@@ -33,9 +33,9 @@ def find_nearest_sorted(sorted_array, value):
 initial_gaps = np.array([1.2e-9, 1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
 # data from ../stand_alone_simulations/resistive_controlled_scheme/results
 print('\n\tPrinting data for every gap in ' + str(initial_gaps) + '\n\n')
-cell = '1r'
+cell = '1t1r'
 print('\tCell type: ' + cell)
-data_file = '../../cadence/results/nominal_results/nominal_g_0-5_'+ cell + '_last.csv'
+data_file = '../../cadence/results/nominal_results/nominal_g_0-5_' + cell + '_last.csv'
 n_gaps = initial_gaps.shape[0]
 simulated_levels = 1024
 target_levels = 32
@@ -153,7 +153,7 @@ required_loads = np.zeros(sim_read_r.shape)
 simple_index = np.linspace(1, target_levels, target_levels)
 
 # export computed index
-np.savetxt(pre + "simple_index_x.csv",
+np.savetxt(pre + "simple_index_x.data",
            np.transpose(simple_index), delimiter=",")
 
 # find target gaps for each target resistance
@@ -166,9 +166,9 @@ for g_idx, g in enumerate(sim_read_r):
         required_loads[g_idx, t_idx] = r_loads[r_idx]
 
 # Export computed data for Gnuplot printing
-np.savetxt(pre + "ideal_load_resistances.csv",
+np.savetxt(pre + "ideal_load_resistances.data",
            np.transpose(required_loads), delimiter=",")
-np.savetxt(pre + "ideal_read_r_for_load_resistances.csv",
+np.savetxt(pre + "ideal_read_r_for_load_resistances.data",
            np.transpose(sim_read_r), delimiter=",")
 
 # plot results
@@ -258,9 +258,9 @@ for g_idx, g in enumerate(eq_distributed_loads):
         eq_d_read_r[g_idx, t_idx] = last_r_read[g_idx, r_idx]
 
 # Export computed data for Gnuplot printing
-np.savetxt(pre + "equidistanced_load_resistances.csv",
+np.savetxt(pre + "equidistanced_load_resistances.data",
            np.transpose(eq_distributed_loads), delimiter=",")
-np.savetxt(pre + "equidistanced_read_r_for_load_resistances.csv",
+np.savetxt(pre + "equidistanced_read_r_for_load_resistances.data",
            np.transpose(eq_d_read_r), delimiter=",")
 
 # plot

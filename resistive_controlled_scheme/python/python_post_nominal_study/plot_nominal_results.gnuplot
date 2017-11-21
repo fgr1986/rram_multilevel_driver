@@ -41,8 +41,8 @@ set datafile separator ","
 
 set term svg noenhanced size 1400,1800 fname 'Times' fsize 35
 set output "read_resistances.svg"
-set xlabel "Load resistance [kOhms]"
-set ylabel "Read resistance  at 0.1V [kOhms]"
+set xlabel "Load resistance [KOhms]"
+set ylabel "Read resistance  at 0.1V [KOhms]"
 
 set multiplot layout 3,1
 

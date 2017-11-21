@@ -52,7 +52,7 @@ set xrange[0:30]
 unset key
 # unset key
 set xlabel "Level"
-set ylabel "Load Resistance [kOhms]"
+set ylabel "Load Resistance [KOhms]"
 set title '1R cell Used R_LOAD'
 plot 'exported_results_nominal/full_range_r_read/1r_equidistanced_load_resistances.data' u (1e-3*($1)) w lp ls 1 ps 0.5  axes x1y1, \
 		'exported_results_nominal/full_range_r_read/1r_equidistanced_load_resistances.data' u (1e-3*($2)) w lp ls 2 ps 0.5  axes x1y1, \
@@ -62,7 +62,7 @@ plot 'exported_results_nominal/full_range_r_read/1r_equidistanced_load_resistanc
 		'exported_results_nominal/full_range_r_read/1r_equidistanced_load_resistances.data' u (1e-3*($6)) w lp ls 6 ps 0.5  axes x1y1
 
 set xlabel "Level"
-set ylabel "Read Resistance at .1V [kOhms]"
+set ylabel "Read Resistance at .1V [KOhms]"
 set title '1R cell Achieved Read Resistance'
 plot 'exported_results_nominal/full_range_r_read/1r_equidistanced_read_r_for_load_resistances.data' u (1e-3*($1)) w lp ls 1 ps 0.5  axes x1y1, \
 		'exported_results_nominal/full_range_r_read/1r_equidistanced_read_r_for_load_resistances.data' u (1e-3*($2)) w lp ls 2 ps 0.5  axes x1y1, \
@@ -72,7 +72,7 @@ plot 'exported_results_nominal/full_range_r_read/1r_equidistanced_read_r_for_loa
 		'exported_results_nominal/full_range_r_read/1r_equidistanced_read_r_for_load_resistances.data' u (1e-3*($6)) w lp ls 6 ps 0.5  axes x1y1
 
 set xlabel "Level"
-set ylabel "Load Resistance [kOhms]"
+set ylabel "Load Resistance [KOhms]"
 set title '1T1R cell Used R_LOAD'
 plot 'exported_results_nominal/full_range_r_read/1t1r_equidistanced_load_resistances.data' u (1e-3*($1)) w lp ls 1 ps 0.5  axes x1y1 , \
 		'exported_results_nominal/full_range_r_read/1t1r_equidistanced_load_resistances.data' u (1e-3*($2)) w lp ls 2 ps 0.5  axes x1y1 , \
@@ -83,7 +83,7 @@ plot 'exported_results_nominal/full_range_r_read/1t1r_equidistanced_load_resista
 
 
 set xlabel "Level"
-set ylabel "Read Resistance at .1V [kOhms]"
+set ylabel "Read Resistance at .1V [KOhms]"
 set title '1T1R cell Achieved Read Resistance'
 plot 'exported_results_nominal/full_range_r_read/1t1r_equidistanced_read_r_for_load_resistances.data' u (1e-3*($1)) w lp ls 1 ps 0.5  axes x1y1, \
 			'exported_results_nominal/full_range_r_read/1t1r_equidistanced_read_r_for_load_resistances.data' u (1e-3*($2)) w lp ls 2 ps 0.5  axes x1y1, \
