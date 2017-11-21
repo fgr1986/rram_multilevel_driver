@@ -3,6 +3,7 @@ import plotly.offline
 from plotly.graph_objs import Scatter, Layout
 import numpy as np
 import pandas as pd
+import os
 
 ############################
 # Parameters
@@ -44,7 +45,7 @@ plotly.tools.set_config_file(world_readable=False,
 # Import data
 ############################
 full_data = np.genfromtxt(data_file, delimiter=',')
-print(full_data.shape)
+print('Input data shape (with headers): ' + str(full_data.shape))
 # remove headers
 full_data = full_data[1:]
 # full_data = full_data[1::2]
@@ -54,7 +55,7 @@ full_data = full_data[1:]
 # r_read vs r_load
 ############################
 levels = full_data.shape[0]
-print(full_data.shape)
+print('Input data shape (no headers): '+ str(full_data.shape))
 # Plot results
 plot_2d = True
 if plot_2d:
@@ -78,3 +79,40 @@ if plot_2d:
     fig_read_r = plotly.graph_objs.Figure(data=r_read_traces,
                                           layout=layout)
     plotly.offline.plot(fig_read_r, filename=pre + 'histogram.html')
+
+
+
+
+############################
+# r_read vs r_load
+############################
+levels = full_data.shape[0]
+# Plot results
+plot_2d = True
+if plot_2d:
+    # data
+    r_read_traces = []
+    for l_idx, l in enumerate(full_data):
+        # hist, bin_edges = np.histogram(full_data[l_idx, 1:], normed=True)
+        # cumsum = np.cumsum(hist)
+        
+        sorted_data = np.sort(full_data[l_idx, 1:])
+        yvals=np.arange(len(sorted_data))/float(len(sorted_data)-1)
+
+        r_read_traces.append(plotly.graph_objs.Scatter(
+            x=sorted_data, #[i for i in range(len(cumsum))],
+            y=yvals, #10*cumsum/np.linalg.norm(cumsum),
+            #marker=dict(color='rgb(150, 25, 120)'
+            name='l_' + str(l_idx),
+            )
+        )
+    # layout
+    layout = plotly.graph_objs.Layout(
+        # bargroupgap=0.3,
+        # barmode='overlay'
+    )
+
+    # layout = go.Layout(barmode='overlay')
+    fig_read_r = plotly.graph_objs.Figure(data=r_read_traces,
+                                          layout=layout)
+    plotly.offline.plot(fig_read_r, filename=pre + 'cdf.html')
