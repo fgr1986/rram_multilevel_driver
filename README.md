@@ -8,6 +8,15 @@ and software tools to ensure the reliable programming of MLC RRAMs.
 Valid for both 1T1R and 1R schemes, we provide the configurable
 circuit design and post-simulation scripts to easily program RRAM cells into the desired multilevel value.
 
+# Requirements
+* Cadence Spectre Circuit Simulator
+* Python 3.5+
+	* Pandas
+	* Numpy
+	* Plotly
+	* Matplotlib
+* Gnuplot 5.2+
+
 # Project structure
 
 Folders
@@ -47,6 +56,11 @@ http://creativecommons.org/licenses/by-nc/4.0/legalcode. If you use this model i
 requested to cite [1] in the reference
 [1] P.-Y. Chen, S. Yu, “Compact modeling of RRAM devices and its applications in 1T1R and 1S1R
 array design,” IEEE Trans. Electron Devices, vol. 62, no. 12, pp. 4022-4028, 2015.
+
+# CMOS Technology
+A commertial 40nm technology was used.
+Substitute it with the most convinient one, but take into account that
+results may vary depending on it. You must rerun the whole methodology.
 
 # From the paper submitted to IEEE
 
