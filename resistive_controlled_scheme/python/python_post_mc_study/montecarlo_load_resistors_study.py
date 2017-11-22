@@ -1,5 +1,7 @@
 # import plotly.plotly as py
 import plotly.offline
+import matplotlib.pyplot as plt
+
 from plotly.graph_objs import Scatter, Layout
 import numpy as np
 import pandas as pd
@@ -13,7 +15,7 @@ import os
 initial_gaps = np.array([1.2e-9, 1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
 # data from ../stand_alone_simulations/resistive_controlled_scheme/results
 print('\n\tPrinting data for every gap in ' + str(initial_gaps) + '\n\n')
-cell = '1r'
+cell = '1t1r'
 g_idx = 2
 print('\tCell type: ' + cell + ', g: ' + str(initial_gaps[g_idx]))
 
@@ -50,17 +52,19 @@ print('\tInput data shape (with headers): ' + str(full_data.shape))
 full_data = full_data[1:]
 
 
-############################
-# r_read vs r_load
-############################
+#############################
+# r_read vs r_load histogram
+#############################
 levels = full_data.shape[0]
 print('\tInput data shape (no headers): '+ str(full_data.shape))
 # Plot results
 plot_2d = True
+plot_matplotlib = False
 if plot_2d:
     # data
     r_read_traces = []
     for l_idx, l in enumerate(full_data):
+        # full_data[l_idx, 1] is an integer with the level
         r_read_traces.append(
             plotly.graph_objs.Histogram(
                 x=full_data[l_idx, 1:],
@@ -68,6 +72,12 @@ if plot_2d:
                 opacity=0.75
             )
         )
+        if plot_matplotlib:
+            plt.hist(full_data[l_idx, 1:])
+            plt.xlabel('Read Resistance at 0.1V [KOhms]')
+            plt.ylabel('# of occurrences')
+    if plot_matplotlib:
+        plt.show()
     # layout
     layout = plotly.graph_objs.Layout(
         bargroupgap=0.3,
@@ -79,11 +89,12 @@ if plot_2d:
                                           layout=layout)
     plotly.offline.plot(fig_read_r, filename=pre + 'histogram.html')
 
-
-
+# Export computed data for Gnuplot printing
+np.savetxt(pre + "raw.data",
+        np.transpose(full_data[:,1:]), delimiter=",")
 
 ############################
-# r_read vs r_load
+# r_read vs r_load cdf
 ############################
 levels = full_data.shape[0]
 # Plot results
@@ -100,11 +111,6 @@ if plot_cdf:
         y_vals=np.arange(len(sorted_data))/float(len(sorted_data)-1)
         cdf_data.append(sorted_data)
         cdf_data.append(y_vals)
-        # # Export computed data for Gnuplot printing
-        # file = open(pre + 'cdf_' + str(l_idx) + '.data', 'w')
-        # for x_idx, x in enumerate(sorted_data):
-        #     file.write(str(x) + ', ' + str(yvals[x_idx]) + '\n')
-        # file.close()
 
         # add plotly trace
         r_read_traces.append(plotly.graph_objs.Scatter(
