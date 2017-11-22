@@ -21,6 +21,12 @@ circuit design and post-simulation scripts to easily program RRAM cells into the
 	* Matplotlib
 * Gnuplot 5.2+
 
+# Netlist Simulation
+Netlists have been designed to be simulated with Cadence Spectre.
+Adecuarte the technology paths and then run the simulation with:
+
+		spectre ++aps=conservative ++parasitics arizona_rram_1t1r.scs
+
 # Project structure
 
 Folders
