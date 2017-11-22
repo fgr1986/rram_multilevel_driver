@@ -85,27 +85,29 @@ do for [i=1:32]{
 	# print widths[i]
 }
 
-set term svg noenhanced size 1800,1000 font 'Times,35' # fname 'Times' #fsize 35
-set output "hist.svg"
-
+set term svg noenhanced size 1200,1200 font 'Times,25' # fname 'Times' #fsize 35
+set output "1t1r_clip_range_hist.svg"
+unset title
 #function used to map a value to the intervals
 hist(x,width)=width*floor(1e-3*x/width)+width/2.0
 color(x) = x>180?360-x:x
 # set boxwidth widths[15]*0.9
-plot for[i=1:32] input_file u (hist(column(i+0),widths[i])):(1.0) smooth freq w boxes ls i notitle
-
+set multiplot layout 3,1
+do for[g=0:2]{
+	input_file = 'exported_results_montecarlo/clip_range_r_read/1t1r_g_'.g.'_raw.data'
+	plot for[i=1:32] input_file u (hist(column(i+0),widths[i])):(1.0) smooth freq w boxes ls i notitle
+}
+unset multiplot
 # set xrange [mines[1]:maxes[32]]
 unset output
 
+
+set term svg noenhanced size 1800,1000 font 'Times,35' # fname 'Times' #fsize 35
 unset xrange
 set output "hist_detail.svg"
 set multiplot layout 2,2
 
-# plot input_file u (hist($5,widths[5])):(1.0) smooth freq w boxes ls 5 notitle
-# plot input_file u (hist($10,widths[15])):(1.0) smooth freq w boxes ls 10 notitle
-# plot input_file u (hist($20,widths[20])):(1.0) smooth freq w boxes ls 20 notitle
-# plot input_file u (hist($25,widths[25])):(1.0) smooth freq w boxes ls 25 notitle
-
+# input_file = 'exported_results_montecarlo/clip_range_r_read/1t1r_g_'.g.'_raw.data'
 set boxwidth 0.1
 do for[i=10:25:5]{
 	set boxwidth widths[i]*0.9

@@ -16,11 +16,11 @@ initial_gaps = np.array([1.2e-9, 1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
 # data from ../stand_alone_simulations/resistive_controlled_scheme/results
 print('\n\tPrinting data for every gap in ' + str(initial_gaps) + '\n\n')
 cell = '1t1r'
-g_idx = 1
+g_idx = 2
 print('\tCell type: ' + cell + ', g: ' + str(initial_gaps[g_idx]))
 
 pre = 'exported_results_montecarlo/' + cell + '_g_' + str(g_idx) + '_'
-clip_r_read = True
+clip_r_read = False
 if clip_r_read:
     generated_files_folder = 'exported_results_montecarlo/clip_range_r_read/'
     pre = generated_files_folder + cell + '_g_' + str(g_idx) + '_'

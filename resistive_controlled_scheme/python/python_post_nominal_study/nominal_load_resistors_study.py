@@ -268,6 +268,7 @@ if plot_2d:
     fig_eq_l_r = plotly.tools.make_subplots(rows=1, cols=2, print_grid=False)
 
     for g_idx, g in enumerate(eq_distributed_loads):
+        print('g_' + str(g_idx) + ' Initial HRS=' + str(eq_d_read_r[g_idx, 0]))
         fig_eq_l_r.append_trace(
             plotly.graph_objs.Scatter(
                 x=simple_index,
