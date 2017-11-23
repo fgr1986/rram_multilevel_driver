@@ -12,7 +12,7 @@ global 0 vdd! vss!
 include "/opt/technology/tsmc40nm_18/tsmcN40/../models/spectre/toplevel.scs" section=top_localmconly
 
 include "../ommit/arizona_rram_cells.scs"
-include "../ommit/montecarlo/clip_range_r_read/1t1r_g_idx_0_loads_subcircuit.scs"
+include "../ommit/montecarlo/full_range_r_read/1t1r_g_idx_5_loads_subcircuit.scs"
 include "montecarlo_simulation.scs"
 
 // Parameters
@@ -28,15 +28,19 @@ parameters
 
 // rram initial state
 + p_gamma0=16.5
-// Roff->Ron For set (3.68M)
-// + p_rram_gap_ini=1.7e-9
-// Roff->Ron For set (1M)
-// + p_rram_gap_ini_0b=1.367e-9
-// + p_rram_gap_ini_0b=1.7e-9
-// + p_rram_gap_ini_0b=1.177e-9
-+ p_rram_gap_ini_0b=1.3e-9
-+ p_rram_gap_ini_0=max(0.1e-9, min(p_rram_gap_ini_0b, 1.7e-9))
 
+// Initial state
++ p_rram_gap_ini_0b = p_gap_idx<1 ? 1.2e-9 :
+			+ p_gap_idx<2 ? 1.3e-9 :
+			+ p_gap_idx<3 ? 1.367e-9 :
+			+ p_gap_idx<4 ? 1.5e-9 :
+			+ p_gap_idx<5 ? 1.6e-9 :
+			+ 1.7e-9
+// check boundaries
++ p_rram_gap_ini_0 = max(0.1e-9, min(p_rram_gap_ini_0b, 1.7e-9))
+// clip resistance range or full range
++ p_clip=0
++ p_gap_idx=5
 // level
 + p_level=32
 + p_total_levels=32-1 // for sweep
@@ -51,7 +55,8 @@ parameters
 + p_up=5n p_fall=5n p_delay=10n p_write_length=100n
 // write amp nominal
 + p_v_set=1.8 // fom simulations
-+ p_write_amp=p_level<p_total_levels ? 2*p_v_set : 0
+// V_write
++ p_write_amp= p_level<p_total_levels ? 2*p_v_set : (p_clip<1 ? 0 : 2*p_v_set)
 
 
 // voltage supply
