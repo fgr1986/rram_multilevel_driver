@@ -20,32 +20,32 @@ g_idx = 2
 print('\tCell type: ' + cell + ', g: ' + str(initial_gaps[g_idx]))
 
 pre = 'exported_results_montecarlo/' + cell + '_g_' + str(g_idx) + '_'
-clip_r_read = False
-exported_from_viva = False
-if exported_from_viva:
-    if clip_r_read:
-        generated_files_folder = 'exported_results_montecarlo/clip_range_r_read/'
-        pre = generated_files_folder + cell + '_g_' + str(g_idx) + '_'
-        data_file = '../../cadence/results/mc_results/mc_clip_range_r_read/mc_' + cell + '_g_' + str(g_idx) + '_32l_last_r_read.csv'
-    else:
-        generated_files_folder = 'exported_results_montecarlo/full_range_r_read/'
-        pre = generated_files_folder + cell + '_g_' + str(g_idx) + '_'
-        data_file = '../../cadence/results/mc_results/mc_full_resistance_range/mc_' + cell + '_g_' + str(g_idx) + '_32l_last_r_read.csv'
-else:  # exported from MC directly
+clip_r_read = True
+# exported from spectre using oceanExport
+# or by contrary using viv
+exported_from_spectre = True
+cadence_results_folder = '../../cadence/results/mc_results/'
+if exported_from_spectre:
     levels = 32
     mc_sims = 1000
     if clip_r_read:
         generated_files_folder = 'exported_results_montecarlo/clip_range_r_read/'
         pre = generated_files_folder + cell + '_g_' + str(g_idx) + '_'
-        data_file = '../../cadence/results/mc_results/mc_clip_range_r_read/mc_' + cell + '_g_' + str(g_idx) + '_32l_mc_data'
+        data_file = cadence_results_folder + 'from_spectre/clip_range_mc_' + cell + '_g_' + str(g_idx) + '/mc_data'
     else:
         generated_files_folder = 'exported_results_montecarlo/full_range_r_read/'
         pre = generated_files_folder + cell + '_g_' + str(g_idx) + '_'
-        data_file = '../../cadence/results/mc_results/mc_full_resistance_range/mc_' + cell + '_g_' + str(g_idx) + '_32l_last_mc_data'
-        data_file = '/home/fgarcia/Desktop/mc_data'
-        levels = 3
-        mc_sims = 100
-
+        data_file = cadence_results_folder + 'from_spectre/full_range_mc_' + cell + '_g_' + str(g_idx) + '/mc_data'
+else:  # exported from VIVA
+    print('\tALERT: this mode, importing data from VIVA will be deprecated')
+    if clip_r_read:
+        generated_files_folder = 'exported_results_montecarlo/clip_range_r_read/'
+        pre = generated_files_folder + cell + '_g_' + str(g_idx) + '_'
+        data_file = cadence_results_folder + 'from_viva/mc_clip_range_r_read/mc_' + cell + '_g_' + str(g_idx) + '_32l_last_r_read.csv'
+    else:
+        generated_files_folder = 'exported_results_montecarlo/full_range_r_read/'
+        pre = generated_files_folder + cell + '_g_' + str(g_idx) + '_'
+        data_file = cadence_results_folder + 'from_viva/mc_full_resistance_range/mc_' + cell + '_g_' + str(g_idx) + '_32l_last_r_read.csv'
 ############################
 # preparing folder
 ############################
@@ -63,7 +63,16 @@ plotly.tools.set_config_file(world_readable=False,
 # Import data
 ############################
 
-if exported_from_viva:
+if exported_from_spectre:
+    # format: 1 column of M_mc X L_levels
+    # level_0_m_0_r_read, ....
+    # level_1_m_0_r_read, ...
+    # level_N-1_m_0_r_read, .....
+    # level_0_m_1_r_read, ....
+    full_data = np.genfromtxt(data_file)
+    # reshape towards a LxMC matrix
+    full_data = np.reshape(full_data, (levels, mc_sims), order='F')
+else:
     # format:
     # header r_read_m0, r_read_m1...................
     # level_0_r_read_m_0, ....
@@ -75,17 +84,7 @@ if exported_from_viva:
     full_data = full_data[:, 1:]
     # set levels
     levels = full_data.shape[0]
-else:
-    # format: 1 column of M_mc X L_levels
-    # level_0_m_0_r_read, ....
-    # level_1_m_0_r_read, ...
-    # level_N-1_m_0_r_read, .....
-    # level_0_m_1_r_read, ....
-    full_data = np.genfromtxt(data_file)
-    full_data = np.reshape(full_data, (levels, mc_sims), order='F')
-    np.savetxt("/home/fgarcia/Desktop/raw.data",
-               np.transpose(full_data), delimiter=",")
-    # exit()
+
 
 #############################
 # r_read vs r_load histogram
