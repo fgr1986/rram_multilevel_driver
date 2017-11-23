@@ -10,7 +10,7 @@ circuit design and post-simulation scripts to easily program RRAM cells into the
 
 ## TODO
 * Clean crossbar autogeneration script
-* 1t1r MC
+* 1t1r MC (cliped g_3-5)
 
 # Requirements
 * Cadence Spectre Circuit Simulator
