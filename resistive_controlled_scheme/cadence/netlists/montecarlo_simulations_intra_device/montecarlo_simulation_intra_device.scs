@@ -1,7 +1,7 @@
 simulator lang=spectre
 
 // simulation
-parameters fw_firstrun=1 fw_seed=12345 fw_numruns=10 p_rram_seed=1
+parameters fw_firstrun=1 fw_seed=12345 fw_numruns=200 p_rram_seed=1
 
 // Variability is modeled using gamma0 parameter, according to
 // Chen, P., & Yu, S. (2015). Compact Modeling of RRAM Devices and Its Applications in 1T1R and 1S1R Array Design.
@@ -13,7 +13,7 @@ rram_iter sweep param=p_rram_seed start=0 stop=fw_numruns step=1
 {
 
 	// Start of sensible_nodes_sweep (sweep) analysis
-	rram_sweep sweep param=p_level start=0 stop=p_total_levels step=16
+	rram_sweep sweep param=p_level start=0 stop=p_total_levels step=8
 	{
 	// rram_sweep sweep param=p_tx_p_l start=40n stop=1.5u dec=5{
 		// Start of reliability_framework_tran (tran) analysis
