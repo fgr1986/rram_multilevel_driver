@@ -9,9 +9,9 @@ ahdl_include "1t1r_g_idx_1_analog_mux.va"
 
 subckt resistive_loads (to_rram)
 
-	// optimized for 1t1rcell,
-	// inital gaps at 1.3e-09
-	// and 32 levels
+	// optimized for 1t1rcell, 
+	// inital gaps at 1.3e-09 
+	// and 32 levels 
 
 	parameters mux_level=0
 	r_31 (n_31 n_30) resistor r=p_r0*1500.0
@@ -50,10 +50,10 @@ subckt resistive_loads (to_rram)
 
 	// analog_mux connection
 
-	m_0 (n_31 n_30
-		+ n_29 n_28 n_27 n_26 n_25 n_24 n_23 n_22 n_21 n_20
-		+ n_19 n_18 n_17 n_16 n_15 n_14 n_13 n_12 n_11 n_10
-		+ n_9 n_8 n_7 n_6 n_5 n_4 n_3 n_2 n_1 n_0
+	m_0 (n_31 n_30 
+		+ n_29 n_28 n_27 n_26 n_25 n_24 n_23 n_22 n_21 n_20 
+		+ n_19 n_18 n_17 n_16 n_15 n_14 n_13 n_12 n_11 n_10 
+		+ n_9 n_8 n_7 n_6 n_5 n_4 n_3 n_2 n_1 n_0 
 		+  to_rram) analog_mux level=mux_level
 
 ends resistive_loads
