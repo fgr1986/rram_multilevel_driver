@@ -74,9 +74,9 @@ module RRAM(Nt, Nb);
 	parameter integer rram_t_variab = 0;
 	parameter integer rram_seed=0;
 	integer i_seed;
-	// parameter gap_sigma=0.05*abs(gap_max-gap_min)/100; // gap_random = gaus*v/4 = mean=0, std=gap_sigma,
-	parameter gap_ddt_sigma=1/100;
-	// real gap_random;
+	// gap_ddt = gap_ddt + gaus = mean=0, std=gap_ddt_sigma,
+	parameter real gap_ddt_sigma=5e-4;
+	real aux_rand;
 	// outputs
 	real rram_v;
 	real rram_i;
@@ -107,14 +107,12 @@ module RRAM(Nt, Nb);
 		gap_ddt = -Vel0*( exp(-q*Eag/kb/temperature)*exp(gamma*a0/L*q*V(Nt,Nb)/kb/temperature) - exp(-q*Ear/kb/temperature)*exp(-gamma*a0/L*q*V(Nt,Nb)/kb/temperature) );
 		// fgarcia
 		// variability
-		// gap_random = 0;
-		if (rram_t_variab>0 && abs(V(Nt, Nb))<1e-4)
+		if (rram_t_variab>0 && abs(V(Nt, Nb))>1e-4)
 		begin
-			// gap_random = $rdist_normal( i_seed ,0 ,gap_sigma* abs(V(Nt,Nb)/4));
-			gap_ddt = gap_ddt*$rdist_normal( i_seed, 1 ,gap_ddt_sigma);
+			aux_rand = $rdist_normal( i_seed, 0.0, gap_ddt_sigma );
+			gap_ddt = gap_ddt + aux_rand;
 		end
 		// integrate
-		// gap = gap + gap_ddt*dt + gap_random;
 		gap = gap + gap_ddt*dt;
 
 		// Limitation on the gap growth
