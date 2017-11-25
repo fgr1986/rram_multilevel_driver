@@ -12,7 +12,7 @@ global 0 vdd! vss!
 include "/opt/technology/tsmc40nm_18/tsmcN40/../models/spectre/toplevel.scs" section=top_localmconly
 
 include "../ommit/arizona_rram_cells.scs"
-include "../ommit/montecarlo/clip_range_r_read/1t1r_g_idx_0_loads_subcircuit.scs"
+include "../ommit/montecarlo/clip_range_r_read/1t1r_g_idx_5_loads_subcircuit.scs"
 include "montecarlo_simulation.scs"
 
 // Parameters
@@ -28,7 +28,8 @@ parameters
 
 // rram initial state
 + p_gamma0=16.5
-
++ p_rram_seed=0
++ p_rram_variab=1
 // Initial state
 + p_rram_gap_ini_0b = p_gap_idx<1 ? 1.2e-9 :
 			+ p_gap_idx<2 ? 1.3e-9 :
@@ -39,8 +40,8 @@ parameters
 // check boundaries
 + p_rram_gap_ini_0 = max(0.1e-9, min(p_rram_gap_ini_0b, 1.7e-9))
 // clip resistance range or full range
-+ p_clip=1
-+ p_gap_idx=0
++ p_clip=0
++ p_gap_idx=5
 // level
 + p_level=32
 + p_total_levels=32-1 // for sweep
@@ -75,7 +76,7 @@ V0 (n_write 0) vsource type=pulse delay=p_delay val0=0 val1=p_write_amp rise=p_u
 v_aux (n_gate 0) bsource v= v(n_write)>0.5 ? p_vdd : 0
 
 // 1T1R with parasitics
-rram_0 (n_write n_control_0 n_gate)  rram_cell_1t1r rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_0
+rram_0 (n_write n_control_0 n_gate)  rram_cell_1t1r rram_variab=p_rram_variab rram_seed=p_rram_seed rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_0
 
 // resistor loads
 rl_0 (n_control_0) resistive_loads mux_level=p_level

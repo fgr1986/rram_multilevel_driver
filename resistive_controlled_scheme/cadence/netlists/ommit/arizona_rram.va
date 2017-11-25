@@ -72,10 +72,10 @@ module RRAM(Nt, Nb);
 	// fgarcia modification
 	// transient's variability
 	parameter integer rram_t_variab = 0;
-	parameter integer rram_seed=0;
+	parameter integer rram_t_seed=0;
 	integer i_seed;
 	// gap_ddt = gap_ddt + gaus = mean=0, std=gap_ddt_sigma,
-	parameter real gap_ddt_sigma=5e-4;
+	parameter real gap_ddt_sigma=3e-4; // 5e-4
 	real aux_rand;
 	// outputs
 	real rram_v;
@@ -93,7 +93,7 @@ module RRAM(Nt, Nb);
 			temperature = T0;
 			gap = gap_ini;
 			// fgarcia variability
-			i_seed = rram_seed;
+			i_seed = rram_t_seed;
 		end
 
 		$bound_step(tstep);	// Bound the time step

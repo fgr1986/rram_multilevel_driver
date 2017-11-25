@@ -18,6 +18,7 @@ subckt rram_cell_1t1r (plus minus sel)
 	// for variability
 	+ rram_gamma0=16.5
 	+ rram_variab=0
+	+ rram_seed=0
 	// LRS
 	// + rram_gap_ini=0.1e-9
 	// HRS
@@ -41,7 +42,7 @@ subckt rram_cell_1t1r (plus minus sel)
 	ext_R2 (mid2 tx_drain) resistor r=rram_R2
 
 	// memristor
-	mem_0 (mid1 mid2) RRAM T0=rram_T0 gap_ini=rram_gap_ini tstep=rram_tstep Vread=rram_Vread gamma0=rram_gamma0 rram_seed=p_rram_seed rram_t_variab=rram_variab
+	mem_0 (mid1 mid2) RRAM T0=rram_T0 gap_ini=rram_gap_ini tstep=rram_tstep Vread=rram_Vread gamma0=rram_gamma0 rram_t_seed=rram_seed rram_t_variab=rram_variab
 
 	// tx
 	tx_0 (minus sel tx_drain 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
@@ -62,6 +63,8 @@ subckt rram_cell_1r (plus minus)
 
 	// for variability
 	+ rram_gamma0=16.5
+	+ rram_variab=0
+	+ rram_seed=0
 
 	// LRS
 	// + rram_gap_ini=0.1e-9
@@ -81,7 +84,7 @@ subckt rram_cell_1r (plus minus)
 	ext_R2 (mid2 minus) resistor r=rram_R2
 
 	// memristor
-	mem_0 (mid1 mid2) RRAM T0=rram_T0 gap_ini=rram_gap_ini tstep=rram_tstep Vread=rram_Vread gamma0=rram_gamma0
+	mem_0 (mid1 mid2) RRAM T0=rram_T0 gap_ini=rram_gap_ini tstep=rram_tstep Vread=rram_Vread gamma0=rram_gamma0 rram_t_seed=rram_seed rram_t_variab=rram_variab
 
 ends rram_cell_1r
 
@@ -99,11 +102,13 @@ subckt rram_cell_1r_no_parasitics (plus minus)
 
 	// for variability
 	+ rram_gamma0=16.5
+	+ rram_variab=0
+	+ rram_seed=0
 
 	// LRS
 	// + rram_gap_ini=0.1e-9
 	// HRS
 	+ rram_gap_ini=1.367e-9
 
-	mem_0 (plus minus) RRAM T0=rram_T0 gap_ini=rram_gap_ini tstep=rram_tstep Vread=rram_Vread gamma0=rram_gamma0
+	mem_0 (plus minus) T0=rram_T0 gap_ini=rram_gap_ini tstep=rram_tstep Vread=rram_Vread gamma0=rram_gamma0 rram_t_seed=rram_seed rram_t_variab=rram_variab
 ends rram_cell_1r
