@@ -8,13 +8,16 @@ parameters fw_firstrun=1 fw_seed=12345 fw_numruns=1000
 // IEEE Transactions on Electron Devices, 62(12), 4022–4028. https://doi.org/10.1109/TED.2015.2492421
 // Also, a variability in the initial stage p_rram_gap_ini_0 is considered
 
-// memristor variability
+// memristor intra/inter device variability
+// load resistance Variability
+// memristor initial state variability
+// CMOS variability by pdk
 statistics{
 	process{
 		vary p_rram_gap_ini_0b dist=gauss std=0.5 percent=yes
 		vary p_gamma0 dist=gauss std=0.05 percent=yes
 		vary p_r0 dist=gauss std=2 percent=yes
-		vary p_rram_seed dist=gauss std=100 percent=yes
+		vary p_rram_seed dist=gauss std=500 percent=yes
 	}
 }
 

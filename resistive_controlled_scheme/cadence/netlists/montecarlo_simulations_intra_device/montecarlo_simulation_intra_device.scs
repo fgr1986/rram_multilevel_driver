@@ -8,10 +8,23 @@ parameters fw_firstrun=1 fw_seed=12345 fw_numruns=1000
 // IEEE Transactions on Electron Devices, 62(12), 4022–4028. https://doi.org/10.1109/TED.2015.2492421
 // Also, a variability in the initial stage p_rram_gap_ini_0 is considered
 
-// iterate internal rram_sweep
-rram_iter sweep param=p_rram_seed start=0 stop=fw_numruns step=1
-+ scalarfile="../iter_sweep/mc_data"  //exported data file
-+ paramfile="../iter_sweep/mc_param"
+// memristor intra-device variability
+statistics{
+	process{
+		vary p_rram_seed dist=gauss std=500 percent=yes
+	}
+}
+
+
+// Start of reliability_montecarlo (montecarlo) analysis
+reliability_montecarlo montecarlo variations=process donominal=yes
+	+ savefamilyplots=no  //set to yes if you want to save the transients
+	+ firstrun=fw_firstrun seed=fw_seed numruns=fw_numruns
+	+ scalarfile="../monteCarlo/mc_data"  //exported data file
+	+ paramfile="../monteCarlo/mc_param"
+	// saveprocessparams=yes \
+	// processparamfile="../monteCarlo/processParam" \
+	// processscalarfile="../monteCarlo/processData" savemismatchparams=yes
 {
 
 	// Start of sensible_nodes_sweep (sweep) analysis

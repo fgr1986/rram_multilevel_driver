@@ -12,7 +12,8 @@ global 0 vdd! vss!
 include "/opt/technology/tsmc40nm_18/tsmcN40/../models/spectre/toplevel.scs" section=top_localmconly
 
 include "../ommit/arizona_rram_cells.scs"
-include "../ommit/montecarlo/clip_range_r_read/1t1r_g_idx_5_loads_subcircuit.scs"
+// include "../ommit/montecarlo/clip_range_r_read/1t1r_g_idx_5_loads_subcircuit.scs"
+include "../ommit/montecarlo/full_range_r_read/1t1r_g_idx_5_loads_subcircuit.scs"
 include "montecarlo_simulation.scs"
 
 // Parameters
