@@ -16,11 +16,11 @@ initial_gaps = np.array([1.2e-9, 1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
 # data from ../stand_alone_simulations/resistive_controlled_scheme/results
 print('\n\tPrinting data for every gap in ' + str(initial_gaps) + '\n\n')
 cell = '1t1r'
+clip_r_read = True
 for g_idx in np.arange(initial_gaps.shape[0]):
     print('\tCell type: ' + cell + ', g: ' + str(initial_gaps[g_idx]))
 
     pre = 'exported_results_montecarlo/' + cell + '_g_' + str(g_idx) + '_'
-    clip_r_read = False
     # exported from spectre using oceanExport
     cadence_results_folder = '../../cadence/results/mc_results/from_spectre/'
     exp_folder = 'exported_results_montecarlo/'
