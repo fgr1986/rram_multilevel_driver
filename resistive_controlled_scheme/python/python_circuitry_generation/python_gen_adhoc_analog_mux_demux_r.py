@@ -6,7 +6,7 @@
 #######################
 #
 # Similar to python_gen_analog_mux_demux_r.py
-# But uses addhoc resistances read from import_data/files.csv
+# But uses addhoc resistances read from import_data/files.data
 #
 #######################
 
@@ -32,8 +32,8 @@ import numpy as np
 # To obtain the target resistances/resistive loads
 # initial gaps defined in the netlists
 initial_gaps = np.array([1.2e-9, 1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
-pre_min = '1r'
-clip_r_read = False
+pre_min = '1t1r'
+clip_r_read = True
 
 ##############
 # Files/Folders
@@ -46,9 +46,9 @@ else:
 # import files
 if clip_r_read:
     print('\t* Notice that r_read is constrained, not in the full range')
-    data_file = '../python_post_nominal_study/exported_results_nominal/clip_range_r_read/' + pre_min + '_ideal_load_resistances.csv'
+    data_file = '../python_post_nominal_study/exported_results_nominal/clip_range_r_read/' + pre_min + '_ideal_load_resistances.data'
 else:
-    data_file = '../python_post_nominal_study/exported_results_nominal/full_range_r_read/' + pre_min + '_ideal_load_resistances.csv'
+    data_file = '../python_post_nominal_study/exported_results_nominal/full_range_r_read/' + pre_min + '_ideal_load_resistances.data'
 # resistor parameters
 resistor_properties = 'resistor r=p_r0*'
 resistor_3t = False

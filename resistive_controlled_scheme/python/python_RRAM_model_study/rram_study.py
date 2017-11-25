@@ -43,7 +43,7 @@ p_Cth = 3.1825e-16   # from (0:inf);# Effective thermal capacitance (J/K)
 p_Tau_th = 2.3e-10   # from (0:inf);# Effective thermal time constant (s)
 
 # Voltage parameters
-v_read = 0.1 # already in voltages array, no interpolation needed
+v_read = 0.1  # already in voltages array, no interpolation needed
 v_set = 1.8
 v_write = 2*v_set
 v_min = 0.1
@@ -58,8 +58,11 @@ compatible_r = target_r
 g_step = 1e-11
 v_step = 1e-2
 
-plot_3d_r = False # True
-plot_3d_g = False #True
+###################
+# plot Parameters
+###################
+plot_3d_r = False
+plot_3d_g = False
 # configure plotly
 # creates .plotly/.config and ./plotly/.credentials
 
@@ -136,7 +139,7 @@ if plot_3d_r:
         title='Read resistance: gap vs read_voltage'
     )
     fig_r = plotly.graph_objs.Figure(data=data_3d_r, layout=layout_3d_r)
-    plotly.offline.plot(fig_r, filename = expo + 'read_resistance_3d.html')
+    plotly.offline.plot(fig_r, filename=expo + 'read_resistance_3d.html')
 
     data_3d_i = [
         plotly.graph_objs.Surface(
@@ -150,7 +153,7 @@ if plot_3d_r:
         title='RRAM current: gap vs read_voltage'
     )
     fig_i = plotly.graph_objs.Figure(data=data_3d_i, layout=layout_3d_i)
-    plotly.offline.plot(fig_i, filename = expo + 'eq_current_3d.html')
+    plotly.offline.plot(fig_i, filename=expo + 'eq_current_3d.html')
 
 
 #################
@@ -167,10 +170,10 @@ temperature = p_T0
 gamma = p_gamma0 - p_beta*np.power(gaps/p_g1, 3)
 print('gamma shape: ' + str(gamma.shape))
 gap_aux_1 = np.exp(-p_q*p_Eag/p_kb/temperature)
-gap_1 = gap_aux_1*np.exp( np.dot( gamma.T, v_m*p_a0/p_L*p_q/p_kb/temperature ) )
-gap_2 = gap_aux_1*np.exp( np.dot(-gamma.T, v_m*p_a0/p_L*p_q/p_kb/temperature ) )
-gap_ddt = -p_Vel0*( gap_1 - gap_2 )
-gap_ddt_th = 1e6 #float("inf") #2500
+gap_1 = gap_aux_1*np.exp(np.dot(gamma.T, v_m*p_a0/p_L*p_q/p_kb/temperature ) )
+gap_2 = gap_aux_1*np.exp(np.dot(-gamma.T, v_m*p_a0/p_L*p_q/p_kb/temperature ) )
+gap_ddt = -p_Vel0*(gap_1 - gap_2)
+gap_ddt_th = 1e6  #float("inf") #2500
 gap_ddt[gap_ddt > gap_ddt_th] = gap_ddt_th
 gap_ddt[gap_ddt < -gap_ddt_th] = -gap_ddt_th
 print('gap_ddt shape: ' + str(gap_ddt.shape))

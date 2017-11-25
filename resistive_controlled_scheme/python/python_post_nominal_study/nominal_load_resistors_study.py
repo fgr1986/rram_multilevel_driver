@@ -31,6 +31,9 @@ def find_nearest_sorted(sorted_array, value):
 # To obtain the target resistances/resistive loads
 # initial gaps defined in the netlists
 initial_gaps = np.array([1.2e-9, 1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
+# maximum r_load, to avoid varaibility, per gap
+clip_r_read = True
+maximum_r_read = np.array([0.5e6, 0.6e6, 0.7e6, 0.8e6, 0.8e6, 0.8e6])
 # data from ../stand_alone_simulations/resistive_controlled_scheme/results
 print('\n\tPrinting data for every gap in ' + str(initial_gaps) + '\n\n')
 cell = '1t1r'
@@ -45,9 +48,6 @@ print('\tSimulated levels (' + str(r_load_min) + '  ohms per level): '
 print('\tComputed levels: ' + str(target_levels))
 r_loads = np.linspace(r_load_min,
                       simulated_levels*r_load_min, simulated_levels)
-# maximum r_load, to avoid varaibility, per gap
-maximum_r_read = np.array([0.5e6, 0.6e6, 0.7e6, 0.8e6, 1e6, 1e6])
-clip_r_read = False
 if clip_r_read:
     generated_files_folder = 'exported_results_nominal/clip_range_r_read/'
     pre = generated_files_folder + cell + '_'

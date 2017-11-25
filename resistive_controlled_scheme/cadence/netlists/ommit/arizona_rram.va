@@ -70,6 +70,14 @@ module RRAM(Nt, Nb);
 	real Iread;     // Read current @Vread (A)
 
 	// fgarcia modification
+	// transient's variability
+	parameter integer rram_t_variab = 0;
+	parameter integer rram_seed=0;
+	integer i_seed;
+	// gap_ddt = gap_ddt + gaus = mean=0, std=gap_ddt_sigma,
+	parameter real gap_ddt_sigma=5e-4;
+	real aux_rand;
+	// outputs
 	real rram_v;
 	real rram_i;
 	// uncomment for debugging
@@ -84,6 +92,8 @@ module RRAM(Nt, Nb);
 		@(initial_step)  begin
 			temperature = T0;
 			gap = gap_ini;
+			// fgarcia variability
+			i_seed = rram_seed;
 		end
 
 		$bound_step(tstep);	// Bound the time step
@@ -95,6 +105,14 @@ module RRAM(Nt, Nb);
 
 		// Gap dynamics
 		gap_ddt = -Vel0*( exp(-q*Eag/kb/temperature)*exp(gamma*a0/L*q*V(Nt,Nb)/kb/temperature) - exp(-q*Ear/kb/temperature)*exp(-gamma*a0/L*q*V(Nt,Nb)/kb/temperature) );
+		// fgarcia
+		// variability
+		if (rram_t_variab>0 && abs(V(Nt, Nb))>1e-4)
+		begin
+			aux_rand = $rdist_normal( i_seed, 0.0, gap_ddt_sigma );
+			gap_ddt = gap_ddt + aux_rand;
+		end
+		// integrate
 		gap = gap + gap_ddt*dt;
 
 		// Limitation on the gap growth

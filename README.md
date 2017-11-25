@@ -10,7 +10,7 @@ circuit design and post-simulation scripts to easily program RRAM cells into the
 
 ## TODO
 * Clean crossbar autogeneration script
-* 1t1r MC
+* 1t1r MC (cliped g_3-5)
 
 # Requirements
 * Cadence Spectre Circuit Simulator
@@ -20,6 +20,12 @@ circuit design and post-simulation scripts to easily program RRAM cells into the
 	* Plotly
 	* Matplotlib
 * Gnuplot 5.2+
+
+# Netlist Simulation
+Netlists have been designed to be simulated with Cadence Spectre.
+Adecuarte the technology paths and then run the simulation with:
+
+		spectre ++aps=conservative ++parasitics arizona_rram_1t1r.scs
 
 # Project structure
 
