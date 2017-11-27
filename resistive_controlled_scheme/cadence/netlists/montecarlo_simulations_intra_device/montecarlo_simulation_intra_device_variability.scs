@@ -11,14 +11,14 @@ parameters fw_firstrun=1 fw_seed=12345 fw_numruns=1000
 // memristor intra-device variability
 statistics{
 	process{
-		vary p_rram_seed dist=gauss std=500 percent=yes
+		vary p_rram_seed dist=unif N=fw_numruns
 	}
 }
 
 
 // Start of reliability_montecarlo (montecarlo) analysis
 reliability_montecarlo montecarlo variations=process donominal=yes
-	+ savefamilyplots=no  //set to yes if you want to save the transients
+	+ savefamilyplots=yes  //set to yes if you want to save the transients
 	+ firstrun=fw_firstrun seed=fw_seed numruns=fw_numruns
 	+ scalarfile="../monteCarlo/mc_data"  //exported data file
 	+ paramfile="../monteCarlo/mc_param"
