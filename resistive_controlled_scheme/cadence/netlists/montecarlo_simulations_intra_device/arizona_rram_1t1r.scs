@@ -12,7 +12,7 @@ global 0 vdd! vss!
 include "/opt/technology/tsmc40nm_18/tsmcN40/../models/spectre/toplevel.scs" section=top_tt
 
 include "../ommit/arizona_rram_cells.scs"
-include "../ommit/montecarlo/full_range_r_read/1t1r_g_idx_0_loads_subcircuit.scs"
+include "../ommit/montecarlo/full_range_r_read/1t1r_g_idx_5_loads_subcircuit.scs"
 include "montecarlo_simulation_intra_device_variability.scs"
 
 // Parameters
@@ -42,7 +42,7 @@ parameters
 + p_rram_gap_ini_0 = max(0.1e-9, min(p_rram_gap_ini_0b, 1.7e-9))
 // clip resistance range or full range
 + p_clip=0
-+ p_gap_idx=0
++ p_gap_idx=5
 // level
 + p_level=32
 + p_total_levels=32-1 // for sweep

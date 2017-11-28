@@ -1,7 +1,7 @@
 simulator lang=spectre
 
 // simulation
-parameters fw_firstrun=1 fw_seed=12345 fw_numruns=1000
+parameters fw_firstrun=1 fw_seed=12345 fw_numruns=500
 
 // Variability is modeled using gamma0 parameter, according to
 // Chen, P., & Yu, S. (2015). Compact Modeling of RRAM Devices and Its Applications in 1T1R and 1S1R Array Design.
