@@ -33,12 +33,15 @@ def find_nearest_sorted(sorted_array, value):
 initial_gaps = np.array([1.2e-9, 1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
 # maximum r_load, to avoid varaibility, per gap
 clip_r_read = True
+r_th = 5e3
 maximum_r_read = np.array([0.5e6, 0.6e6, 0.7e6, 0.8e6, 0.8e6, 0.8e6])
 # data from ../stand_alone_simulations/resistive_controlled_scheme/results
 print('\n\tPrinting data for every gap in ' + str(initial_gaps) + '\n\n')
 cell = '1t1r'
 print('\tCell type: ' + cell)
-data_file = '../../cadence/results/nominal_results/nominal_g_0-5_' + cell + '_last.csv'
+export_ocean = True
+cadence_folder = '../../cadence/results/nominal_results/'
+data_file = cadence_folder + 'nominal_g_0-5_' + cell + '_last.csv'
 n_gaps = initial_gaps.shape[0]
 simulated_levels = 1024
 target_levels = 32
@@ -54,6 +57,7 @@ if clip_r_read:
 else:
     generated_files_folder = 'exported_results_nominal/full_range_r_read/'
     pre = generated_files_folder + cell + '_'
+
 ############################
 # preparing folder
 ############################
@@ -76,16 +80,27 @@ full_data = np.genfromtxt(data_file, delimiter=',')
 # r_read vs r_load
 ############################
 
-# data in X0 Y0, X1, Y1 format, grab all Y values
-last_r_read = np.array([full_data[full_data.shape[0]-1, 1::2]])
-r_length = int(last_r_read.shape[1]/n_gaps)
-last_r_read = last_r_read.reshape(n_gaps, r_length)
+if export_ocean:
+    last_r_read = full_data
+else:
+    # if exported from viva:
+    # first row: headers
+    # (maybe inbetween rows)
+    # second/last row: data in X0 Y0, X1, Y1 format, grab all Y values
+    last_r_read = np.array([full_data[full_data.shape[0]-1, 1::2]])
+    r_length = int(last_r_read.shape[1]/n_gaps)
+    last_r_read = last_r_read.reshape(n_gaps, r_length)
+
 # clip read_resistances to desired ranges
-max_last_r_read_idx = np.full(maximum_r_read.shape,
-                              last_r_read.shape[1]).astype(int)
+# tragically, in some cases (due to non-desired effects or parasitic components
+# lower levels SHARE the read resistance, so we need also to clip the lower
+# resistance boundaries
+max_range_idx = last_r_read[:, last_r_read.shape[1]-1].astype(int)
+min_range_idx = np.full(maximum_r_read.shape, 0).astype(int)
 if clip_r_read:
     for g_idx, g in enumerate(last_r_read):
-        max_last_r_read_idx[g_idx] = int(np.argmax(g > maximum_r_read[g_idx]))
+        max_range_idx[g_idx] = int(np.argmax(g > maximum_r_read[g_idx]))
+        min_range_idx[g_idx] = int(np.argmax(g > g[0] + r_th))
 
 # Export computed data for Gnuplot printing
 file = open(pre + 'simulated_read_resistance.data', 'w')
@@ -108,8 +123,8 @@ if plot_2d:
     for g_idx, g in enumerate(last_r_read):
         data_read_r.append(
             plotly.graph_objs.Scatter(
-                x=r_loads[0:max_last_r_read_idx[g_idx]],
-                y=g[0:max_last_r_read_idx[g_idx]],
+                x=r_loads[min_range_idx[g_idx]:max_range_idx[g_idx]],
+                y=g[min_range_idx[g_idx]:max_range_idx[g_idx]],
                 mode='lines+markers',
                 name='read_r for initial gap ' + str(initial_gaps[g_idx])
             )
@@ -143,8 +158,8 @@ if plot_2d:
 ##########################################################
 sim_read_r = np.zeros([n_gaps, target_levels])
 for g_idx, g in enumerate(last_r_read):
-    sim_read_r[g_idx] = np.linspace(np.min(g[0:max_last_r_read_idx[g_idx]]),
-                                    np.max(g[0:max_last_r_read_idx[g_idx]]),
+    sim_read_r[g_idx] = np.linspace(np.min(g[min_range_idx[g_idx]:max_range_idx[g_idx]]),
+                                    np.max(g[min_range_idx[g_idx]:max_range_idx[g_idx]]),
                                     target_levels)
 
 # required resistor loads
@@ -157,11 +172,11 @@ np.savetxt(pre + "simple_index_x.data",
            np.transpose(simple_index), delimiter=",")
 
 # find target gaps for each target resistance
-# at v_read [1:max_last_r_read_idx[g_idx]]
+# at v_read [1:max_range_idx[g_idx]]
 for g_idx, g in enumerate(sim_read_r):
     for t_idx, r in enumerate(g):
         new_r, r_idx = find_nearest_sorted(last_r_read[g_idx,
-                                           0:max_last_r_read_idx[g_idx]], r)
+                                           min_range_idx[g_idx]:max_range_idx[g_idx]], r)
         sim_read_r[g_idx, t_idx] = new_r
         required_loads[g_idx, t_idx] = r_loads[r_idx]
 
