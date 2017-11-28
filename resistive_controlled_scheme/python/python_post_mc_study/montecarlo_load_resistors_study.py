@@ -17,7 +17,7 @@ initial_gaps = np.array([1.2e-9, 1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
 print('\n\tPrinting data for every gap in ' + str(initial_gaps) + '\n\n')
 cell = '1t1r'
 r_range = 'full_range'
-# r_range = 'clip_range_r_read'
+# r_range = 'clip_range'
 experiment = 'only_intra_device_variability'
 # experiment = 'inter_intra_device_variability'
 
@@ -26,7 +26,8 @@ base_cadence_results_folder = '../../cadence/results/mc_results/'
 crf = base_cadence_results_folder + experiment + '/' + r_range + '/'
 exp_folder = 'exported_results_montecarlo/' + experiment + '/' + r_range + '/'
 levels = 32
-mc_sims = 1000
+mc_sims = 500
+# mc_sims = 1000
 for g_idx in np.arange(initial_gaps.shape[0]):
     print('\tCell type: ' + cell + ', g: ' + str(initial_gaps[g_idx]))
 
