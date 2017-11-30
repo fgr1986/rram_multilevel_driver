@@ -32,7 +32,7 @@ def find_nearest_sorted(sorted_array, value):
 # initial gaps defined in the netlists
 initial_gaps = np.array([1.2e-9, 1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
 # maximum r_load, to avoid varaibility, per gap
-clip_r_read = True
+clip_r_read = False
 r_th = 5e3
 maximum_r_read = np.array([0.5e6, 0.6e6, 0.7e6, 0.8e6, 0.8e6, 0.8e6])
 # data from ../stand_alone_simulations/resistive_controlled_scheme/results
@@ -40,7 +40,7 @@ print('\n\tPrinting data for every gap in ' + str(initial_gaps) + '\n\n')
 cell = '1t1r'
 print('\tCell type: ' + cell)
 export_ocean = True
-cadence_folder = '../../cadence/results/nominal_results/'
+cadence_folder = '../../cadence/results/driver_characterization_results/'
 data_file = cadence_folder + 'nominal_g_0-5_' + cell + '_last.csv'
 n_gaps = initial_gaps.shape[0]
 simulated_levels = 1024

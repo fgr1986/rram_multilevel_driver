@@ -39,7 +39,7 @@ set datafile separator ","
 ####################
 
 set term svg noenhanced size 1400,1800 fname 'Times' fsize 35
-set output "lin_eq_loads.svg"
+set output "exported_gnuplot/lin_eq_loads.svg"
 
 set multiplot layout 3,2
 # set lmargin 10
