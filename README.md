@@ -15,39 +15,47 @@ circuit design and post-simulation scripts to easily program RRAM cells into the
 # Requirements
 * Cadence Spectre Circuit Simulator
 * Python 3.5+
-	* Pandas
-	* Numpy
-	* Plotly
-	* Matplotlib
+  * Pandas
+  * Numpy
+  * Plotly
+  * Matplotlib
 * Gnuplot 5.2+
 
 # Netlist Simulation
 Netlists have been designed to be simulated with Cadence Spectre.
 Adecuarte the technology paths and then run the simulation with:
 
-		spectre ++aps=conservative ++parasitics arizona_rram_1t1r.scs
+    spectre ++aps=conservative ++parasitics arizona_rram_1t1r.scs
 
 # Project structure
 
 Folders
 ```
 resistive_controlled_scheme...[root]
-  * cadence...............................[Spectre resources ]
-    * results.............................[csv with transients and read resistances]
-      * nominal_results...................[transients for level characterization]
-      * mc_results........................[MC results]
-          * mc_clip_range_r_read..........[Limited resistance range results]
-          * mc_full_range_r_read..........[Full resistance range results]
-    * netlists............................[Spectre scs]
-        * characterization_simulations....[Simulations to characterize 1R and 1T1R RRAM cells]
-        * montecarlo_simulations..........[MC Simulations]
-        * nominal_simulations.............[Nominal Simulations to characterize levels]
-        * ommit...........................[Auxiliar subcircuits: RRAM cells, resistive loads, muxes...]
-    * python..............................[Python scripts ]
-      * python_circuitry_generation.......[Scripts to automate RRAMs/muxes/loads generation]
-      * python_post_mc_study..............[Scripts to automate MC results analysis]
-      * python_post_nominal_study.........[Scripts to automate nominal/levels results analysis]
-      * python_RRAM_model_study...........[Scripts to analyze the RRAM model]
+  * cadence.........................................................[Spectre resources ]
+    * results.......................................................[csv with transients and read resistances]
+      * rram_characterization_results...............................[transients for rram characterization]
+      * driver_characterization_results.............................[transients for level characterization]
+      * nominal_results.............................................[transients for nominal simulations]
+      * mc_results..................................................[MC results]
+          * only_intra_device_variability...........................[Only intra device variability considered]
+              * full_range..........................................[Whole resistance range considered]
+              * clip_range..........................................[Optimized resistance range considered]
+          * inter_intra_device_variability..........................[device to device and intra device variability considered]
+              * full_range..........................................[Whole resistance range considered]
+              * clip_range..........................................[Optimized resistance range considered]
+    * netlists......................................................[Spectre scs]
+        * rram_characterization_simulations.........................[Netlists for rram characterization]
+        * driver_characterization_simulations.......................[Netlists for level characterization]
+        * nominal_simulations.......................................[Netlists for nominal simulations]
+        * montecarlo_simulations_inter_intra_device_simulations.....[device to device and intra device variability considered]
+        * montecarlo_simulations_intra_device_simulations...........[Only intra device variability considered]
+        * ommit.....................................................[Auxiliar subcircuits: RRAM cells, resistive loads, muxes...]
+    * python........................................................[Python scripts ]
+      * python_circuitry_generation.................................[Scripts to automate RRAMs/muxes/loads generation]
+      * python_post_mc_study........................................[Scripts to automate MC results analysis]
+      * python_post_driver_characterization_study...................[Scripts to automate nominal/levels results analysis]
+      * python_rram_model_study.....................................[Scripts to analyze the RRAM model]
   * LICENSE
   * README
 ```
@@ -76,19 +84,19 @@ results may vary depending on it. You must rerun the whole methodology.
 
 # From the paper submitted to IEEE
 
-	Memristor crossbar arrays naturally accelerates
-	neural networks applications by carrying out
-	parallel multiply-add operations.
-	Due to the abrupt SET operation characterizing most
-	RRAM devices, on-chip training usually requires either from
-	iterative write/read stages, huge and variations-sensitive circuitry, or both,
-	in order to achieve multilevel capabilities.
-	This paper presents a novel architecture to achieve
-	multilevel capabilities with a short and fixed operation duration.
-	We rely on an ad-hoc scheme to self-control the abrupt SET,
-	choking the writing stimulus as the cell addresses the desired level.
-	We validated the proposal against thorough simulations
-	using RRAM cells fitting extremely fast physical devices
-	and a commercial $40$$nm$ CMOS technology, both exhibiting variability.
-	In every case the proposed architecture allowed progressive and almost-linear resistive
-	levels in each 1T1R and 1R crossbars structures.
+  Memristor crossbar arrays naturally accelerates
+  neural networks applications by carrying out
+  parallel multiply-add operations.
+  Due to the abrupt SET operation characterizing most
+  RRAM devices, on-chip training usually requires either from
+  iterative write/read stages, huge and variations-sensitive circuitry, or both,
+  in order to achieve multilevel capabilities.
+  This paper presents a novel architecture to achieve
+  multilevel capabilities with a short and fixed operation duration.
+  We rely on an ad-hoc scheme to self-control the abrupt SET,
+  choking the writing stimulus as the cell addresses the desired level.
+  We validated the proposal against thorough simulations
+  using RRAM cells fitting extremely fast physical devices
+  and a commercial $40$$nm$ CMOS technology, both exhibiting variability.
+  In every case the proposed architecture allowed progressive and almost-linear resistive
+  levels in each 1T1R and 1R crossbars structures.

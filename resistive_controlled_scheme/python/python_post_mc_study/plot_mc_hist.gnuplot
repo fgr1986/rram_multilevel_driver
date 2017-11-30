@@ -55,14 +55,14 @@ set title 'Histogram under RRAM/CMOS variability'
 
 set style fill solid 0.5 # fill style
 
-set output "hist.svg"
 
-#plot for[i=1:31] input_file u (hist(column(i+0),width)):(1.0) smooth freq w boxes ls 1 notitle
+base_folder = 'exported_results_montecarlo/inter_intra_device_variability/full_range/'
 
 # store max/min vals for bins computation
 ############################
 ## Requires gnuplot 5.2!!
 ###########################
+full_size = 32*6
 array maxes[32*6]
 array mines[32*6]
 array widths[32*6]
@@ -72,7 +72,7 @@ set term svg noenhanced #size 1800,1000 fname 'Times' #fsize 35
 print 'Preprocessing files'
 set output '/dev/null'
 do for[g=0:5]{
-	input_file = 'exported_results_montecarlo/full_range_r_read/1t1r_g_'.g.'_raw.data'
+	input_file = base_folder.'/1t1r_g_'.g.'_raw.data'
 	print 'file: '.input_file
 	do for [i=1:32]{
 		# set autoscale xmin
@@ -81,32 +81,37 @@ do for[g=0:5]{
 		maxes[32*g+i]=GPVAL_DATA_X_MAX
 		mines[32*g+i]=GPVAL_DATA_X_MIN
 		widths[32*g+i] = 1e-3*(maxes[32*g+i]-mines[32*g+i])/n
-		print '    processing g_ '.g.' l_'.i
+		print '    processing g_'.g.' l_'.i
 	}
 }
-set term svg noenhanced size 600,2200 font 'Times,25' # fname 'Times' #fsize 35
-set output "1t1r_full_range_hist.svg"
-unset title
+
 #function used to map a value to the intervals
 hist(x,width)=width*floor(1e-3*x/width)+width/2.0
 color(x) = x>180?360-x:x
+
+set term svg noenhanced size 1200,600 font 'Times,25' # fname 'Times' #fsize 35
+do for[g=0:5]{
+	set output "1t1r_full_range_hist_g".g.".svg"
+	input_file = base_folder.'1t1r_g_'.g.'_raw.data'
+	plot for[i=1:32] input_file u (hist(column(i+0),widths[32*g+i])):(1.0) smooth freq w boxes ls i notitle
+	unset output
+}
+
+
+set term svg noenhanced size 600,2200 font 'Times,25' # fname 'Times' #fsize 35
+set output "1t1r_full_range_hist.svg"
+unset title
 # set boxwidth widths[15]*0.9
 set multiplot layout 6,1
 do for[g=0:5]{
-	input_file = 'exported_results_montecarlo/full_range_r_read/1t1r_g_0_raw.data'
+	input_file = base_folder.'1t1r_g_'.g.'_raw.data'
+	print input_file
 	plot for[i=1:32] input_file u (hist(column(i+0),widths[32*g+i])):(1.0) smooth freq w boxes ls i notitle
 }
 unset multiplot
 # set xrange [mines[1]:maxes[32]]
 unset output
 
-set term svg noenhanced size 1200,600 font 'Times,25' # fname 'Times' #fsize 35
-do for[g=0:5]{
-	set output "1t1r_full_range_hist_g".g.".svg"
-	input_file = 'exported_results_montecarlo/full_range_r_read/1t1r_g_'.g.'_raw.data'
-	plot for[i=1:32] input_file u (hist(column(i+0),widths[32*g+i])):(1.0) smooth freq w boxes ls i notitle
-	unset output
-}
 # set term svg noenhanced size 1800,1000 font 'Times,35' # fname 'Times' #fsize 35
 # unset xrange
 # set output "hist_detail.svg"
