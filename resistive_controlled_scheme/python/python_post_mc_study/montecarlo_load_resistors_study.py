@@ -16,10 +16,10 @@ initial_gaps = np.array([1.2e-9, 1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
 # data from ../stand_alone_simulations/resistive_controlled_scheme/results
 print('\n\tPrinting data for every gap in ' + str(initial_gaps) + '\n\n')
 cell = '1t1r'
-r_range = 'full_range'
-# r_range = 'clip_range'
-experiment = 'only_intra_device_variability'
-# experiment = 'inter_intra_device_variability'
+# r_range = 'full_range'
+r_range = 'clip_range'
+# experiment = 'only_intra_device_variability'
+experiment = 'inter_intra_device_variability'
 
 # exported from spectre using oceanExport
 base_cadence_results_folder = '../../cadence/results/mc_results/'
