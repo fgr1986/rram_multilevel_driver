@@ -12,7 +12,7 @@ global 0 vdd! vss!
 include "/opt/technology/tsmc40nm_18/tsmcN40/../models/spectre/toplevel.scs" section=top_localmconly
 
 include "../ommit/arizona_rram_cells.scs"
-include "../ommit/nominal/loads_subcircuit.scs"
+include "../ommit/driver_circuitry/loads_subcircuit.scs"
 include "nominal_simulation.scs"
 
 // Parameters
@@ -47,7 +47,9 @@ parameters
 + p_up=5n p_fall=5n p_delay=10n p_write_length=100n
 // write amp nominal
 + p_v_set=1.8 // fom simulations
-+ p_write_amp=2*p_v_set
+// + p_write_amp=2*p_v_set
+// V_write
++ p_write_amp= p_level<p_total_levels ? 2*p_v_set : (p_clip<1 ? 0 : 2*p_v_set)
 
 // level
 + p_level=1
