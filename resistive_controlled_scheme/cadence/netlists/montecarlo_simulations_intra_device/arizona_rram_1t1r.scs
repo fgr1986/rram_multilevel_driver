@@ -48,7 +48,7 @@ parameters
 + p_total_levels=32-1 // for sweep
 
 // resistances
-// p_r0 adds variability
+// p_r0 adds variability to loads and control loads
 + p_r0=1
 
 // vdd
