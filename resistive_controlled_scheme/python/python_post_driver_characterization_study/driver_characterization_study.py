@@ -190,13 +190,6 @@ for g_idx, g in enumerate(sim_read_r):
     for t_idx, r in enumerate(g):
         new_r, r_idx = find_nearest_sorted(last_r_read[g_idx,
                                            min_range_idx[g_idx]:max_range_idx[g_idx]], r)
-        if g_idx==5 and t_idx<2:
-            print('old ' + str(r))
-            print('new ' + str(new_r))
-            print('idx ' + str(r_idx))
-            print('min_idx ' + str(min_range_idx[g_idx]))
-            print('max_idx ' + str(max_range_idx[g_idx]))
-            print('r_load ' + str(r_loads[r_idx]))
         sim_read_r[g_idx, t_idx] = new_r
         # set the required load for this level (in this gap simulation)
         # uses the most suitable (relative) r_idx: considering that
