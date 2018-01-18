@@ -16,18 +16,19 @@ initial_gaps = np.array([1.2e-9, 1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
 # data from ../stand_alone_simulations/resistive_controlled_scheme/results
 print('\n\tPrinting data for every gap in ' + str(initial_gaps) + '\n\n')
 cell = '1t1r'
-# r_range = 'full_range'
-r_range = 'clip_range'
-# experiment = 'only_intra_device_variability'
-experiment = 'inter_intra_device_variability'
+r_range = 'full_range'
+# r_range = 'clip_range'
+experiment = 'only_intra_device_variability' # to the date, 500 MC
+experiment = 'inter_intra_device_variability' # to the date 1e3 MC
 
 # exported from spectre using oceanExport
 base_cadence_results_folder = '../../cadence/results/mc_results/'
 crf = base_cadence_results_folder + experiment + '/' + r_range + '/'
 exp_folder = 'exported_results_montecarlo/' + experiment + '/' + r_range + '/'
 levels = 32
-mc_sims = 500
-# mc_sims = 1000
+# mc_sims = 500
+mc_sims = 1000
+selected_levels = np.array(np.linspace(0,31,32))
 for g_idx in np.arange(initial_gaps.shape[0]):
     print('\tCell type: ' + cell + ', g: ' + str(initial_gaps[g_idx]))
 
@@ -70,18 +71,19 @@ for g_idx in np.arange(initial_gaps.shape[0]):
         # data
         r_read_traces = []
         for l_idx, l in enumerate(full_data):
-            # full_data[l_idx, 1] is an integer with the level
-            r_read_traces.append(
-                plotly.graph_objs.Histogram(
-                    x=l,  # full_data[l_idx, 1:],
-                    name='l_' + str(l_idx),
-                    opacity=0.75
+            if l_idx in selected_levels:
+                # full_data[l_idx, 1] is an integer with the level
+                r_read_traces.append(
+                    plotly.graph_objs.Histogram(
+                        x=l,  # full_data[l_idx, 1:],
+                        name='l_' + str(l_idx),
+                        opacity=0.75
+                    )
                 )
-            )
-            if plot_matplotlib:
-                plt.hist(l)
-                plt.xlabel('Read Resistance at 0.1V [KOhms]')
-                plt.ylabel('# of occurrences')
+                if plot_matplotlib:
+                    plt.hist(l)
+                    plt.xlabel('Read Resistance at 0.1V [KOhms]')
+                    plt.ylabel('# of occurrences')
         if plot_matplotlib:
             plt.show()
         # layout
