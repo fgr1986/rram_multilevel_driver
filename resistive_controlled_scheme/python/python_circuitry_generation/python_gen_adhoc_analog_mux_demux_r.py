@@ -46,9 +46,9 @@ else:
 # import files
 if clip_r_read:
     print('\t* Notice that r_read is constrained, not in the full range')
-    data_file = '../python_post_nominal_study/exported_results_nominal/clip_range_r_read/' + pre_min + '_ideal_load_resistances.data'
+    data_file = '../python_post_driver_characterization_study/exported_results_nominal/clip_range_r_read/' + pre_min + '_ideal_load_resistances.data'
 else:
-    data_file = '../python_post_nominal_study/exported_results_nominal/full_range_r_read/' + pre_min + '_ideal_load_resistances.data'
+    data_file = '../python_post_driver_characterization_study/exported_results_nominal/full_range_r_read/' + pre_min + '_ideal_load_resistances.data'
 # resistor parameters
 resistor_properties = 'resistor r=p_r0*'
 resistor_3t = False
