@@ -56,11 +56,24 @@ set title 'Histogram under RRAM/CMOS variability'
 set style fill solid 0.5 # fill style
 
 
-base_folder = 'exported_results_montecarlo/inter_intra_device_variability/clip_range/'
-output_folder = 'exported_gnuplot/inter_intra_device_variability/clip_range/'
-m_title = '1t1r_clip_range_hist_g'
+# base_folder = 'exported_results_montecarlo/inter_intra_device_variability/clip_range/'
+# output_folder = 'exported_gnuplot/inter_intra_device_variability/clip_range/'
+# m_title = '1t1r_clip_range_hist_g'
+base_folder = 'exported_results_montecarlo/inter_intra_device_variability/full_range/'
+output_folder = 'exported_gnuplot/inter_intra_device_variability/full_range/'
+m_title = '1t1r_full_range_hist_g'
 cell_type = '1t1r'
 mc_num = 1000
+# for full
+# dist_r(g_idx) = g_idx==0 ? 100 : g_idx<3 ? 200 : g_idx==3 ? 400 : g_idx==4 ? 500 : 600
+# for clip
+dist_r(g_idx) = g_idx<3 ? 100 : 200
+max_r(g_idx) = g_idx==0 ? 700 : g_idx<3 ? 1300 : g_idx==3 ? 1900 : g_idx==4 ? 3000 : 3700
+
+# full_range 
+levels_dist(g_idx) = 1
+# clip_range
+# levels_dist(g_idx) = g_idx < 3 ? 1 : 2
 
 # store max/min vals for bins computation
 ############################
@@ -69,7 +82,6 @@ mc_num = 1000
 # for 6 different initial HRS
 # cfs = [1.2, 1.3, 1.367, 1.5, 1.6, 1.7]
 init_cf(g_idx) = g_idx==2 ? 5-1.367 : 5-(1.2 + 0.1*g_idx)
-levels_dist(g_idx) = g_idx < 3 ? 1 : 2
 
 full_size = 32*6
 array maxes[32*6]
@@ -112,7 +124,7 @@ do for[g=0:5]{
 }
 
 
-set output output_folder.'final'.m_title.'svg'
+set output output_folder.'final_'.m_title.'.svg'
 unset title
 # set boxwidth widths[15]*0.9
 
@@ -126,8 +138,6 @@ set term svg noenhanced size 2000,3000 font 'Times,48' # fname 'Times' #fsize 35
 set multiplot layout 3,2
 
 
-dist_r(g_idx) = g_idx==0 ? 100 : g_idx<3 ? 200 : g_idx==3 ? 400 : g_idx==4 ? 500 : 600
-max_r(g_idx) = g_idx==0 ? 700 : g_idx<3 ? 1300 : g_idx==3 ? 1900 : g_idx==4 ? 3000 : 3700
 
 do for[g=0:5]{
 	input_file = base_folder.'1t1r_g_'.g.'_raw.data'
