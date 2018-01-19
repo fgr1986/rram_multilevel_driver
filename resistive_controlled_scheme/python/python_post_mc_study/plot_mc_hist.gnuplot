@@ -60,6 +60,8 @@ base_folder = 'exported_results_montecarlo/inter_intra_device_variability/clip_r
 output_folder = 'exported_gnuplot/inter_intra_device_variability/clip_range/'
 m_title = '1t1r_clip_range_hist_g'
 cell_type = '1t1r'
+mc_num = 1000
+
 # store max/min vals for bins computation
 ############################
 ## Requires gnuplot 5.2!!
@@ -67,7 +69,7 @@ cell_type = '1t1r'
 # for 6 different initial HRS
 # cfs = [1.2, 1.3, 1.367, 1.5, 1.6, 1.7]
 init_cf(g_idx) = g_idx==2 ? 5-1.367 : 5-(1.2 + 0.1*g_idx)
-level_dist(g_idx) = g_idx < 3 ? 1 : 2
+levels_dist(g_idx) = g_idx < 3 ? 1 : 2
 
 full_size = 32*6
 array maxes[32*6]
@@ -81,7 +83,7 @@ set output '/dev/null'
 do for[g=0:5]{
 	input_file = base_folder.'/'.cell_type.'_g_'.g.'_raw.data'
 	print 'file: '.input_file
-	do for [i=1:32]{
+	do for [i=1:32:levels_dist(g)]{
 		# set autoscale xmin
 		# set autoscale xmax
 		plot input_file using i:i
@@ -103,7 +105,8 @@ do for[g=0:5]{
 	scf = sprintf("%g", cf)
 	set title 'Initial CF length '.scf.' nm'
 	input_file = base_folder.'1t1r_g_'.g.'_raw.data'
-	plot for[i=1:32] input_file u (hist(column(i+0),widths[32*g+i])):(1.0) smooth freq w boxes ls i notitle
+	set yrange [0:mc_num]
+	plot for[i=1:32:levels_dist(g)] input_file u (hist(column(i+0),widths[32*g+i])):(1.0) smooth freq w boxes ls i notitle
 	unset output
 }
 
@@ -131,9 +134,9 @@ do for[g=0:5]{
 	cf = init_cf(g)
 	scf = sprintf("%g", cf)
 	set title 'Initial CF length '.scf.' nm'
-	
+	set yrange [0:mc_num]
 	set xtics 0,dist_r(g),max_r(g)
-	plot for[i=1:32] input_file u (hist(column(i+0),widths[32*g+i])):(1.0) smooth freq w boxes ls i notitle
+	plot for[i=1:32:levels_dist(g)] input_file u (hist(column(i+0),widths[32*g+i])):(1.0) smooth freq w boxes ls i notitle
 }
 unset multiplot
 # set xrange [mines[1]:maxes[32]]
