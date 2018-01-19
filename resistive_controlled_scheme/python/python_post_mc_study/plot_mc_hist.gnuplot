@@ -105,7 +105,8 @@ do for[g=0:5]{
 	scf = sprintf("%g", cf)
 	set title 'Initial CF length '.scf.' nm'
 	input_file = base_folder.'1t1r_g_'.g.'_raw.data'
-	set yrange [0:mc_num]
+	
+	set yrange [0:]
 	plot for[i=1:32:levels_dist(g)] input_file u (hist(column(i+0),widths[32*g+i])):(1.0) smooth freq w boxes ls i notitle
 	unset output
 }
@@ -134,8 +135,9 @@ do for[g=0:5]{
 	cf = init_cf(g)
 	scf = sprintf("%g", cf)
 	set title 'Initial CF length '.scf.' nm'
-	set yrange [0:mc_num]
 	set xtics 0,dist_r(g),max_r(g)
+	
+	set yrange [0:]
 	plot for[i=1:32:levels_dist(g)] input_file u (hist(column(i+0),widths[32*g+i])):(1.0) smooth freq w boxes ls i notitle
 }
 unset multiplot
