@@ -65,7 +65,7 @@ output_folder = 'exported_gnuplot/'
 ###########################
 # for 6 different initial HRS
 # cfs = [1.2, 1.3, 1.367, 1.5, 1.6, 1.7]
-init_cf(g_idx) = g_idx==2 ? 1.367 : 1.2 + 0.1*g_idx
+init_cf(g_idx) = g_idx==2 ? 5-1.367 : 5-(1.2 + 0.1*g_idx)
 
 full_size = 32*6
 array maxes[32*6]
