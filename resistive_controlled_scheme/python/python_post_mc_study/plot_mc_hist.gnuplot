@@ -56,9 +56,10 @@ set title 'Histogram under RRAM/CMOS variability'
 set style fill solid 0.5 # fill style
 
 
-base_folder = 'exported_results_montecarlo/inter_intra_device_variability/full_range/'
-output_folder = 'exported_gnuplot/'
-
+base_folder = 'exported_results_montecarlo/inter_intra_device_variability/clip_range/'
+output_folder = 'exported_gnuplot/inter_intra_device_variability/clip_range/'
+m_title = '1t1r_clip_range_hist_g'
+cell_type = '1t1r'
 # store max/min vals for bins computation
 ############################
 ## Requires gnuplot 5.2!!
@@ -66,6 +67,7 @@ output_folder = 'exported_gnuplot/'
 # for 6 different initial HRS
 # cfs = [1.2, 1.3, 1.367, 1.5, 1.6, 1.7]
 init_cf(g_idx) = g_idx==2 ? 5-1.367 : 5-(1.2 + 0.1*g_idx)
+level_dist(g_idx) = g_idx < 3 ? 1 : 2
 
 full_size = 32*6
 array maxes[32*6]
@@ -77,7 +79,7 @@ set term svg noenhanced #size 1800,1000 fname 'Times' #fsize 35
 print 'Preprocessing files'
 set output '/dev/null'
 do for[g=0:5]{
-	input_file = base_folder.'/1t1r_g_'.g.'_raw.data'
+	input_file = base_folder.'/'.cell_type.'_g_'.g.'_raw.data'
 	print 'file: '.input_file
 	do for [i=1:32]{
 		# set autoscale xmin
@@ -91,12 +93,12 @@ do for[g=0:5]{
 }
 
 #function used to map a value to the intervals
-hist(x,width)=width*floor(1e-3*x/width)+width/2.0
+hist(x,width)=(width*floor(1e-3*x/width)+width/2.0)
 color(x) = x>180?360-x:x
 
 set term svg noenhanced size 1200,600 font 'Times,25' # fname 'Times' #fsize 35
 do for[g=0:5]{
-	set output output_folder."1t1r_full_range_hist_g".g.".svg"
+	set output output_folder.m_title.g.'.svg'
 	cf = init_cf(g)
 	scf = sprintf("%g", cf)
 	set title 'Initial CF length '.scf.' nm'
@@ -106,7 +108,7 @@ do for[g=0:5]{
 }
 
 
-set output output_folder."1t1r_full_range_hist.svg"
+set output output_folder.'final'.m_title.'svg'
 unset title
 # set boxwidth widths[15]*0.9
 
