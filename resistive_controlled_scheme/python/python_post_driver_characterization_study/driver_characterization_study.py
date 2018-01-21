@@ -198,9 +198,9 @@ for g_idx, g in enumerate(sim_read_r):
         required_loads[g_idx, t_idx] = r_loads[r_idx + min_range_idx[g_idx]]
 
 # Export computed data for Gnuplot printing
-np.savetxt(pre + "ideal_load_resistances.data",
+np.savetxt(pre + "calibrated_load_resistances.data",
            np.transpose(required_loads), delimiter=",")
-np.savetxt(pre + "ideal_read_r_for_load_resistances.data",
+np.savetxt(pre + "read_r_for_calibrated_load_resistances.data",
            np.transpose(sim_read_r), delimiter=",")
 
 # plot results
@@ -292,7 +292,7 @@ for g_idx, g in enumerate(eq_distributed_loads):
 # Export computed data for Gnuplot printing
 np.savetxt(pre + "equidistanced_load_resistances.data",
            np.transpose(eq_distributed_loads), delimiter=",")
-np.savetxt(pre + "equidistanced_read_r_for_load_resistances.data",
+np.savetxt(pre + "read_r_for_equidistanced_load_resistances.data",
            np.transpose(eq_d_read_r), delimiter=",")
 
 # plot
