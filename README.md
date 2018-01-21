@@ -67,7 +67,7 @@ resistive_controlled_scheme...[root]
   * README
 ```
 
-# Technologies used in related article submitted to IEEE TCAS1
+# Technologies used in article submitted to IEEE TCAS1
 
 Different CMOS/RRAM models can be used. See requirements section.
 The following models were used for the results shown in IEEE TCAS1 submission. 
@@ -92,7 +92,7 @@ A commercial 40nm technology was used.
 Substitute it with the most convenient one, but take into account that
 results may vary depending on it. You must rerun the whole methodology.
 
-# From the paper submitted to IEEE TCAS1
+# Abstract from the paper submitted to IEEE TCAS1
 
   Memristor crossbar arrays naturally accelerates
   neural networks applications by carrying out

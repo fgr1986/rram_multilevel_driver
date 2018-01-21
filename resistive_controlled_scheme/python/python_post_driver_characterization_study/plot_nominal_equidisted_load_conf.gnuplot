@@ -38,8 +38,14 @@ set datafile separator ","
 ## second file
 ####################
 
-set term svg noenhanced size 1400,1800 fname 'Times' fsize 35
-set output "exported_gnuplot/lin_eq_loads.svg"
+set term svg noenhanced size 1400,1800 font 'Times,25' # fname 'Times' #fsize 35
+set output "exported_gnuplot/lin_equidisted_loads.svg"
+
+
+input_file_1 = 'exported_results_nominal/full_range_r_read/1r_equidistanced_load_resistances.data'
+input_file_2 = 'exported_results_nominal/full_range_r_read/1r_read_r_for_equidistanced_load_resistances.data'
+input_file_3 = 'exported_results_nominal/full_range_r_read/1t1r_equidistanced_load_resistances.data'
+input_file_4 = 'exported_results_nominal/full_range_r_read/1t1r_read_r_for_equidistanced_load_resistances.data'
 
 set multiplot layout 3,2
 # set lmargin 10
@@ -54,43 +60,43 @@ unset key
 set xlabel "Level"
 set ylabel "Load Resistance [KOhms]"
 set title '1R cell Used R_LOAD'
-plot 'exported_results_nominal/full_range_r_read/1r_equidistanced_load_resistances.data' u (1e-3*($1)) w lp ls 1 ps 0.5  axes x1y1, \
-		'exported_results_nominal/full_range_r_read/1r_equidistanced_load_resistances.data' u (1e-3*($2)) w lp ls 2 ps 0.5  axes x1y1, \
-		'exported_results_nominal/full_range_r_read/1r_equidistanced_load_resistances.data' u (1e-3*($3)) w lp ls 3 ps 0.5  axes x1y1, \
-		'exported_results_nominal/full_range_r_read/1r_equidistanced_load_resistances.data' u (1e-3*($4)) w lp ls 4 ps 0.5  axes x1y1, \
-		'exported_results_nominal/full_range_r_read/1r_equidistanced_load_resistances.data' u (1e-3*($5)) w lp ls 5 ps 0.5  axes x1y1, \
-		'exported_results_nominal/full_range_r_read/1r_equidistanced_load_resistances.data' u (1e-3*($6)) w lp ls 6 ps 0.5  axes x1y1
+plot input_file_1 u  (1e-3*($1)) w lp ls 1 ps 0.5  axes x1y1, \
+		input_file_1 u  (1e-3*($2)) w lp ls 2 ps 0.5  axes x1y1, \
+		input_file_1 u  (1e-3*($3)) w lp ls 3 ps 0.5  axes x1y1, \
+		input_file_1 u  (1e-3*($4)) w lp ls 4 ps 0.5  axes x1y1, \
+		input_file_1 u  (1e-3*($5)) w lp ls 5 ps 0.5  axes x1y1, \
+		input_file_1 u  (1e-3*($6)) w lp ls 6 ps 0.5  axes x1y1
 
 set xlabel "Level"
 set ylabel "Read Resistance at .1V [KOhms]"
 set title '1R cell Achieved Read Resistance'
-plot 'exported_results_nominal/full_range_r_read/1r_equidistanced_read_r_for_load_resistances.data' u (1e-3*($1)) w lp ls 1 ps 0.5  axes x1y1, \
-		'exported_results_nominal/full_range_r_read/1r_equidistanced_read_r_for_load_resistances.data' u (1e-3*($2)) w lp ls 2 ps 0.5  axes x1y1, \
-		'exported_results_nominal/full_range_r_read/1r_equidistanced_read_r_for_load_resistances.data' u (1e-3*($3)) w lp ls 3 ps 0.5  axes x1y1, \
-		'exported_results_nominal/full_range_r_read/1r_equidistanced_read_r_for_load_resistances.data' u (1e-3*($4)) w lp ls 4 ps 0.5  axes x1y1, \
-		'exported_results_nominal/full_range_r_read/1r_equidistanced_read_r_for_load_resistances.data' u (1e-3*($5)) w lp ls 5 ps 0.5  axes x1y1, \
-		'exported_results_nominal/full_range_r_read/1r_equidistanced_read_r_for_load_resistances.data' u (1e-3*($6)) w lp ls 6 ps 0.5  axes x1y1
+plot input_file_2 u  (1e-3*($1)) w lp ls 1 ps 0.5  axes x1y1, \
+		input_file_2 u  (1e-3*($2)) w lp ls 2 ps 0.5  axes x1y1, \
+		input_file_2 u  (1e-3*($3)) w lp ls 3 ps 0.5  axes x1y1, \
+		input_file_2 u  (1e-3*($4)) w lp ls 4 ps 0.5  axes x1y1, \
+		input_file_2 u  (1e-3*($5)) w lp ls 5 ps 0.5  axes x1y1, \
+		input_file_2 u  (1e-3*($6)) w lp ls 6 ps 0.5  axes x1y1
 
 set xlabel "Level"
 set ylabel "Load Resistance [KOhms]"
 set title '1T1R cell Used R_LOAD'
-plot 'exported_results_nominal/full_range_r_read/1t1r_equidistanced_load_resistances.data' u (1e-3*($1)) w lp ls 1 ps 0.5  axes x1y1 , \
-		'exported_results_nominal/full_range_r_read/1t1r_equidistanced_load_resistances.data' u (1e-3*($2)) w lp ls 2 ps 0.5  axes x1y1 , \
-		'exported_results_nominal/full_range_r_read/1t1r_equidistanced_load_resistances.data' u (1e-3*($3)) w lp ls 3 ps 0.5  axes x1y1 , \
-		'exported_results_nominal/full_range_r_read/1t1r_equidistanced_load_resistances.data' u (1e-3*($4)) w lp ls 4 ps 0.5  axes x1y1 , \
-		'exported_results_nominal/full_range_r_read/1t1r_equidistanced_load_resistances.data' u (1e-3*($5)) w lp ls 5 ps 0.5  axes x1y1 , \
-		'exported_results_nominal/full_range_r_read/1t1r_equidistanced_load_resistances.data' u (1e-3*($6)) w lp ls 6 ps 0.5  axes x1y1
+plot input_file_3 u  (1e-3*($1)) w lp ls 1 ps 0.5  axes x1y1 , \
+		input_file_3 u  (1e-3*($2)) w lp ls 2 ps 0.5  axes x1y1 , \
+		input_file_3 u  (1e-3*($3)) w lp ls 3 ps 0.5  axes x1y1 , \
+		input_file_3 u  (1e-3*($4)) w lp ls 4 ps 0.5  axes x1y1 , \
+		input_file_3 u  (1e-3*($5)) w lp ls 5 ps 0.5  axes x1y1 , \
+		input_file_3 u  (1e-3*($6)) w lp ls 6 ps 0.5  axes x1y1
 
 
 set xlabel "Level"
 set ylabel "Read Resistance at .1V [KOhms]"
 set title '1T1R cell Achieved Read Resistance'
-plot 'exported_results_nominal/full_range_r_read/1t1r_equidistanced_read_r_for_load_resistances.data' u (1e-3*($1)) w lp ls 1 ps 0.5  axes x1y1, \
-			'exported_results_nominal/full_range_r_read/1t1r_equidistanced_read_r_for_load_resistances.data' u (1e-3*($2)) w lp ls 2 ps 0.5  axes x1y1, \
-			'exported_results_nominal/full_range_r_read/1t1r_equidistanced_read_r_for_load_resistances.data' u (1e-3*($3)) w lp ls 3 ps 0.5  axes x1y1, \
-			'exported_results_nominal/full_range_r_read/1t1r_equidistanced_read_r_for_load_resistances.data' u (1e-3*($4)) w lp ls 4 ps 0.5  axes x1y1, \
-			'exported_results_nominal/full_range_r_read/1t1r_equidistanced_read_r_for_load_resistances.data' u (1e-3*($5)) w lp ls 5 ps 0.5  axes x1y1, \
-			'exported_results_nominal/full_range_r_read/1t1r_equidistanced_read_r_for_load_resistances.data' u (1e-3*($6)) w lp ls 6 ps 0.5  axes x1y1
+plot input_file_4 u  (1e-3*($1)) w lp ls 1 ps 0.5  axes x1y1, \
+			input_file_4 u  (1e-3*($2)) w lp ls 2 ps 0.5  axes x1y1, \
+			input_file_4 u  (1e-3*($3)) w lp ls 3 ps 0.5  axes x1y1, \
+			input_file_4 u  (1e-3*($4)) w lp ls 4 ps 0.5  axes x1y1, \
+			input_file_4 u  (1e-3*($5)) w lp ls 5 ps 0.5  axes x1y1, \
+			input_file_4 u  (1e-3*($6)) w lp ls 6 ps 0.5  axes x1y1
 
 set key title 'Initial CF length'
 # set key below
