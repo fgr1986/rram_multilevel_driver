@@ -55,13 +55,20 @@ set title 'Histogram under RRAM/CMOS variability'
 
 set style fill solid 0.5 # fill style
 
+# only intra device variability
+# base_folder = 'exported_results_montecarlo/only_intra_device_variability/full_range/'
+# output_folder = 'exported_gnuplot/only_intra_device_variability/full_range/'
+# m_title = '1t1r_full_range_hist_g'
 
-# base_folder = 'exported_results_montecarlo/inter_intra_device_variability/clip_range/'
-# output_folder = 'exported_gnuplot/inter_intra_device_variability/clip_range/'
-# m_title = '1t1r_clip_range_hist_g'
-base_folder = 'exported_results_montecarlo/inter_intra_device_variability/full_range/'
-output_folder = 'exported_gnuplot/inter_intra_device_variability/full_range/'
-m_title = '1t1r_full_range_hist_g'
+# inter intra device variability
+# both clip_range and full_range
+base_folder = 'exported_results_montecarlo/inter_intra_device_variability/clip_range/'
+output_folder = 'exported_gnuplot/inter_intra_device_variability/clip_range/'
+m_title = '1t1r_clip_range_hist_g'
+# base_folder = 'exported_results_montecarlo/inter_intra_device_variability/full_range/'
+# output_folder = 'exported_gnuplot/inter_intra_device_variability/full_range/'
+# m_title = '1t1r_full_range_hist_g'
+
 cell_type = '1t1r'
 mc_num = 1000
 # for full
