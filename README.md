@@ -1,9 +1,12 @@
 # rram_multilevel_driver
-Architecture for RRAM multilevel programming
+Architecture for 2-step (non-iterative) RRAM multilevel programming
 
 ## Description
 The present framework provides the circuit designer with the design
 and software tools to ensure the reliable programming of MLC RRAMs.
+
+This architecture/methodology aims to be used with MLC RRAM cells suffering from
+abrupt SET operations that otherwise require from multiple iterations to accurately tune the cell into the desired resistive state.
 
 Valid for both 1T1R and 1R schemes, we provide the configurable
 circuit design and post-simulation scripts to easily program RRAM cells into the desired multilevel value.
