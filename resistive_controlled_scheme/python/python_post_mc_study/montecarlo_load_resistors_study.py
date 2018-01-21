@@ -16,24 +16,24 @@ initial_gaps = np.array([1.2e-9, 1.3e-9, 1.367e-9, 1.5e-9, 1.6e-9, 1.7e-9])
 # data from ../stand_alone_simulations/resistive_controlled_scheme/results
 print('\n\tPrinting data for every gap in ' + str(initial_gaps) + '\n\n')
 cell = '1t1r'
-r_range = 'full_range'
-# r_range = 'clip_range'
-experiment = 'only_intra_device_variability' # to the date, 500 MC
-experiment = 'inter_intra_device_variability' # to the date 1e3 MC
+# r_range = 'full_range'
+r_range = 'clip_range'
+# experiment = 'only_intra_device_variability'  # to the date, 500 MC
+experiment = 'inter_intra_device_variability'  # to the date 1e3 MC
 
 # exported from spectre using oceanExport
 base_cadence_results_folder = '../../cadence/results/mc_results/'
 crf = base_cadence_results_folder + experiment + '/' + r_range + '/'
 exp_folder = 'exported_results_montecarlo/' + experiment + '/' + r_range + '/'
 levels = 32
-# mc_sims = 500
-mc_sims = 1000
+mc_sims = 500
+# mc_sims = 1000
 selected_levels = np.array(np.linspace(0,31,32))
 for g_idx in np.arange(initial_gaps.shape[0]):
     print('\tCell type: ' + cell + ', g: ' + str(initial_gaps[g_idx]))
 
-    pre = exp_folder + cell + '_g_' + str(g_idx) + '_'
-    generated_files_folder = pre + '/'
+    generated_files_folder = exp_folder + cell + '_g_' + str(g_idx) + '/'
+    pre = generated_files_folder + cell + '_g_' + str(g_idx) + '_'
     data_file = crf + 'mc_' + cell + '_g_' + str(g_idx) + '/mc_data'
     ############################
     # preparing folder
@@ -106,7 +106,7 @@ for g_idx in np.arange(initial_gaps.shape[0]):
     ############################
     levels = full_data.shape[0]
     # Plot results
-    plot_cdf = False
+    plot_cdf = True
     if plot_cdf:
         # data/r_
         r_read_traces = []
