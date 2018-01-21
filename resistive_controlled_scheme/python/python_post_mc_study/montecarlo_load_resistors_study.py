@@ -28,7 +28,7 @@ exp_folder = 'exported_results_montecarlo/' + experiment + '/' + r_range + '/'
 levels = 32
 mc_sims = 500
 # mc_sims = 1000
-selected_levels = np.array(np.linspace(0,31,32))
+selected_levels = np.array(np.linspace(0, levels-1, levels))
 for g_idx in np.arange(initial_gaps.shape[0]):
     print('\tCell type: ' + cell + ', g: ' + str(initial_gaps[g_idx]))
 
