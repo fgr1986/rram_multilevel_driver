@@ -21,8 +21,6 @@ This examples show how variability makes impractical, with the current (40nm and
 the accurately MLC capabilities across different devices present in the crossbar.
 
 We make use of
-## TODO
-* Clean crossbar autogeneration script
 
 # Requirements
 * Cadence Spectre Circuit Simulator
