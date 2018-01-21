@@ -14,6 +14,11 @@ circuit design and post-simulation scripts to easily program RRAM cells into the
 
 # Requirements
 * Cadence Spectre Circuit Simulator
+* CMOS / RRAM PDK:
+	* CMOS PDK to be studied. [Open source Example: FreePDKTM] (https://www.eda.ncsu.edu/wiki/FreePDK) 
+	* RRAM PDK to be studied.
+		* [Open source example: ASU RRAM PDK] (http://faculty.engineering.asu.edu/shimengyu/model-downloads/)
+		* [Open source example: Aristotle University of Thessalonica / Southampton University RRAM Model] (https://eprints.soton.ac.uk/411693/) DOI; 10.1109/TCAD.2018.2791468
 * Python 3.5+
   * Pandas
   * Numpy
