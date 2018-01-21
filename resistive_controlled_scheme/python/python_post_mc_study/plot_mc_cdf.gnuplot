@@ -43,18 +43,19 @@ set datafile separator ","
 ## second file
 ####################
 
-set term svg noenhanced size 1800,1000 fname 'Times' fsize 35
-set output "cdf.svg"
+# set term svg noenhanced size 1800,1000 fname 'Times' fsize 35
+set term svg noenhanced size 1200,600 font 'Times,25' # fname 'Times' #fsize 35
+set output "exported_gnuplot/cdf.svg"
 
 set xlabel "Read Resistance [KOhms]"
 set ylabel "CDF"
 set title 'CDF under RRAM/CMOS variability'
-input_file = 'exported_results_montecarlo/full_range_r_read/1r_g_2_cdf.data'
 
+input_file = 'exported_results_montecarlo/inter_intra_device_variability/clip_range/1t1r_g_2/1t1r_g_2_cdf.data'
 
 color(x) = x>180?360-x:x
 plot for [i=1:64:2] input_file u (1e-3*column(i)):(column(i+1)):color(i) w lp ls 1 axes x1y1 notitle
- 
+
 
 unset output
 
