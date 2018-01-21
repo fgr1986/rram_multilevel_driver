@@ -44,7 +44,7 @@ set datafile separator ","
 ####################
 
 # set term svg noenhanced size 1800,1000 fname 'Times' fsize 35
-set term svg noenhanced size 1200,800 font 'Times,30' # fname 'Times' #fsize 35
+set term svg noenhanced size 1200,800 font 'Times,35' # fname 'Times' #fsize 35
 
 set xlabel "Read Resistance [KOhms]"
 set ylabel "CDF"
@@ -72,7 +72,7 @@ do for[g=0:5]{
 	set title 'CDF for '.sll.' levels, '.scf.' nm initial CF length'
 
 	set yrange [0:]
-  # set xrange [0:720]
+  # set xrange [0:750]
 
   plot for [i=1:2*levels:levels_dist(g)] input_file u (1e-3*column(i)):(column(i+1)):color(i) w lp ls 1 axes x1y1 notitle
 	unset output
