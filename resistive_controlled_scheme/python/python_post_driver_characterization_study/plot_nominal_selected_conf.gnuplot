@@ -43,7 +43,7 @@ input_file_2 = 'exported_results_nominal/clip_range_r_read/1t1r_read_r_for_calib
 # g between 0-5
 selected_g = 2+1
 
-set term svg noenhanced size 1000,1500 fname 'Times' font 'Times,40' # fname 'Times' #fsize 35
+set term svg noenhanced size 1100,1300 fname 'Times' font 'Times,38' # fname 'Times' #fsize 35
 
 set output output_file."final_selected_loads.svg"
 
