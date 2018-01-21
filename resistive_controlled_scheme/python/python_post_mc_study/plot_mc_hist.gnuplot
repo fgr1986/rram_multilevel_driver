@@ -77,10 +77,10 @@ mc_num = 1000
 dist_r(g_idx) = g_idx<3 ? 100 : 200
 max_r(g_idx) = g_idx==0 ? 700 : g_idx<3 ? 1300 : g_idx==3 ? 1900 : g_idx==4 ? 3000 : 3700
 
-# full_range 
+# full_range
 levels_dist(g_idx) = 1
 # clip_range
-# levels_dist(g_idx) = g_idx < 3 ? 1 : 2
+levels_dist(g_idx) = g_idx < 3 ? 1 : 2
 
 # store max/min vals for bins computation
 ############################
@@ -124,7 +124,7 @@ do for[g=0:5]{
 	scf = sprintf("%g", cf)
 	set title 'Initial CF length '.scf.' nm'
 	input_file = base_folder.'1t1r_g_'.g.'_raw.data'
-	
+
 	set yrange [0:]
 	plot for[i=1:32:levels_dist(g)] input_file u (hist(column(i+0),widths[32*g+i])):(1.0) smooth freq w boxes ls i notitle
 	unset output
@@ -153,7 +153,7 @@ do for[g=0:5]{
 	scf = sprintf("%g", cf)
 	set title 'Initial CF length '.scf.' nm'
 	set xtics 0,dist_r(g),max_r(g)
-	
+
 	set yrange [0:]
 	plot for[i=1:32:levels_dist(g)] input_file u (hist(column(i+0),widths[32*g+i])):(1.0) smooth freq w boxes ls i notitle
 }
