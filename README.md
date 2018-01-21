@@ -10,7 +10,6 @@ circuit design and post-simulation scripts to easily program RRAM cells into the
 
 ## TODO
 * Clean crossbar autogeneration script
-* 1t1r MC (cliped g_3-5)
 
 # Requirements
 * Cadence Spectre Circuit Simulator
@@ -65,7 +64,10 @@ resistive_controlled_scheme...[root]
   * README
 ```
 
-# Technologies
+# Technologies used in related article submitted to IEEE TCAS1
+
+Different CMOS/RRAM models can be used. See requirements section.
+The following models were used for the results shown in IEEE TCAS1 submission. 
 
 ## RRAM Model
 RRAM Model from Arizona State University
@@ -87,7 +89,7 @@ A commercial 40nm technology was used.
 Substitute it with the most convenient one, but take into account that
 results may vary depending on it. You must rerun the whole methodology.
 
-# From the paper submitted to IEEE
+# From the paper submitted to IEEE TCAS1
 
   Memristor crossbar arrays naturally accelerates
   neural networks applications by carrying out
