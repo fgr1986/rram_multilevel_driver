@@ -76,8 +76,3 @@ save n_gate
 
 
 save rram_0.mem_0:rram_r_read
-save rram_1.mem_0:rram_r_read
-save rram_2.mem_0:rram_r_read
-save rram_3.mem_0:rram_r_read
-save rram_4.mem_0:rram_r_read
-save rram_5.mem_0:rram_r_read

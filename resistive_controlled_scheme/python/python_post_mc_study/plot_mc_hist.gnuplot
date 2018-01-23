@@ -55,13 +55,41 @@ set title 'Histogram under RRAM/CMOS variability'
 
 set style fill solid 0.5 # fill style
 
+# only intra device variability
+# base_folder = 'exported_results_montecarlo/only_intra_device_variability/full_range/'
+# output_folder = 'exported_gnuplot/only_intra_device_variability/full_range/'
+# m_title = '1t1r_full_range_hist_g'
 
-base_folder = 'exported_results_montecarlo/inter_intra_device_variability/full_range/'
+# inter intra device variability
+# both clip_range and full_range
+base_folder = 'exported_results_montecarlo/inter_intra_device_variability/clip_range/'
+output_folder = 'exported_gnuplot/inter_intra_device_variability/clip_range/'
+m_title = '1t1r_clip_range_hist_g'
+# base_folder = 'exported_results_montecarlo/inter_intra_device_variability/full_range/'
+# output_folder = 'exported_gnuplot/inter_intra_device_variability/full_range/'
+# m_title = '1t1r_full_range_hist_g'
+
+cell_type = '1t1r'
+mc_num = 1000
+# for full
+# dist_r(g_idx) = g_idx==0 ? 100 : g_idx<3 ? 200 : g_idx==3 ? 400 : g_idx==4 ? 500 : 600
+# for clip
+dist_r(g_idx) = g_idx<3 ? 100 : 200
+max_r(g_idx) = g_idx==0 ? 700 : g_idx<3 ? 1300 : g_idx==3 ? 1900 : g_idx==4 ? 3000 : 3700
+
+# full_range
+levels_dist(g_idx) = 1
+# clip_range
+levels_dist(g_idx) = g_idx < 3 ? 1 : 2
 
 # store max/min vals for bins computation
 ############################
 ## Requires gnuplot 5.2!!
 ###########################
+# for 6 different initial HRS
+# cfs = [1.2, 1.3, 1.367, 1.5, 1.6, 1.7]
+init_cf(g_idx) = g_idx==2 ? 5-1.367 : 5-(1.2 + 0.1*g_idx)
+
 full_size = 32*6
 array maxes[32*6]
 array mines[32*6]
@@ -72,9 +100,9 @@ set term svg noenhanced #size 1800,1000 fname 'Times' #fsize 35
 print 'Preprocessing files'
 set output '/dev/null'
 do for[g=0:5]{
-	input_file = base_folder.'/1t1r_g_'.g.'_raw.data'
+	input_file = base_folder.'/'.cell_type.'_g_'.g.'_raw.data'
 	print 'file: '.input_file
-	do for [i=1:32]{
+	do for [i=1:32:levels_dist(g)]{
 		# set autoscale xmin
 		# set autoscale xmax
 		plot input_file using i:i
@@ -86,27 +114,48 @@ do for[g=0:5]{
 }
 
 #function used to map a value to the intervals
-hist(x,width)=width*floor(1e-3*x/width)+width/2.0
+hist(x,width)=(width*floor(1e-3*x/width)+width/2.0)
 color(x) = x>180?360-x:x
 
 set term svg noenhanced size 1200,600 font 'Times,25' # fname 'Times' #fsize 35
 do for[g=0:5]{
-	set output "1t1r_full_range_hist_g".g.".svg"
+	set output output_folder.m_title.g.'.svg'
+	cf = init_cf(g)
+	scf = sprintf("%g", cf)
+	set title 'Initial CF length '.scf.' nm'
 	input_file = base_folder.'1t1r_g_'.g.'_raw.data'
-	plot for[i=1:32] input_file u (hist(column(i+0),widths[32*g+i])):(1.0) smooth freq w boxes ls i notitle
+
+	set yrange [0:]
+	plot for[i=1:32:levels_dist(g)] input_file u (hist(column(i+0),widths[32*g+i])):(1.0) smooth freq w boxes ls i notitle
 	unset output
 }
 
 
-set term svg noenhanced size 600,2200 font 'Times,25' # fname 'Times' #fsize 35
-set output "1t1r_full_range_hist.svg"
+set output output_folder.'final_'.m_title.'.svg'
 unset title
 # set boxwidth widths[15]*0.9
-set multiplot layout 6,1
+
+# set term svg noenhanced size 600,2200 font 'Times,25' # fname 'Times' #fsize 35
+# set multiplot layout 6,1
+
+# set term svg noenhanced size 3200,1200 font 'Times,35' # fname 'Times' #fsize 35
+# set multiplot layout 2,3
+
+set term svg noenhanced size 2000,3000 font 'Times,48' # fname 'Times' #fsize 35
+set multiplot layout 3,2
+
+
+
 do for[g=0:5]{
 	input_file = base_folder.'1t1r_g_'.g.'_raw.data'
 	print input_file
-	plot for[i=1:32] input_file u (hist(column(i+0),widths[32*g+i])):(1.0) smooth freq w boxes ls i notitle
+	cf = init_cf(g)
+	scf = sprintf("%g", cf)
+	set title 'Initial CF length '.scf.' nm'
+	set xtics 0,dist_r(g),max_r(g)
+
+	set yrange [0:]
+	plot for[i=1:32:levels_dist(g)] input_file u (hist(column(i+0),widths[32*g+i])):(1.0) smooth freq w boxes ls i notitle
 }
 unset multiplot
 # set xrange [mines[1]:maxes[32]]

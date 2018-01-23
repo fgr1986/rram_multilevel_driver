@@ -43,20 +43,39 @@ set datafile separator ","
 ## second file
 ####################
 
-set term svg noenhanced size 1800,1000 fname 'Times' fsize 35
-set output "cdf.svg"
+# set term svg noenhanced size 1800,1000 fname 'Times' fsize 35
+set term svg noenhanced size 1200,800 font 'Times,35' # fname 'Times' #fsize 35
 
 set xlabel "Read Resistance [KOhms]"
 set ylabel "CDF"
 set title 'CDF under RRAM/CMOS variability'
-input_file = 'exported_results_montecarlo/full_range_r_read/1r_g_2_cdf.data'
 
+base_folder = 'exported_results_montecarlo/inter_intra_device_variability/clip_range/'
+output_folder = 'exported_gnuplot/inter_intra_device_variability/clip_range/'
+m_file = 'cdf_1t1r_g_'
+levels = 32
+
+init_cf(g_idx) = g_idx==2 ? 5-1.367 : 5-(1.2 + 0.1*g_idx)
+# data x/y, so for 32 levels 2, for 64 levels 4
+levels_dist(g_idx) = g_idx < 3 ? 2 : 4
 
 color(x) = x>180?360-x:x
-plot for [i=1:64:2] input_file u (1e-3*column(i)):(column(i+1)):color(i) w lp ls 1 axes x1y1 notitle
- 
 
-unset output
+do for[g=0:5]{
+  set output output_folder.m_file.g.'.svg'
+	input_file = base_folder.'1t1r_g_'.g.'/1t1r_g_'.g.'_cdf.data'
+	print input_file
+	cf = init_cf(g)
+	scf = sprintf("%g", cf)
+  ll = 2*levels/levels_dist(g)
+	sll = sprintf("%g", ll)
+	set title 'CDF for '.sll.' levels, '.scf.' nm initial CF length'
 
+	set yrange [0:]
+  # set xrange [0:750]
+
+  plot for [i=1:2*levels:levels_dist(g)] input_file u (1e-3*column(i)):(column(i+1)):color(i) w lp ls 1 axes x1y1 notitle
+	unset output
+}
 
 quit

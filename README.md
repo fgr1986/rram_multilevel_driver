@@ -1,19 +1,26 @@
 # rram_multilevel_driver
-Architecture for RRAM multilevel programming
+Architecture for 2-step (non-iterative) RRAM multilevel programming
 
 ## Description
 The present framework provides the circuit designer with the design
 and software tools to ensure the reliable programming of MLC RRAMs.
+
+This architecture/methodology aims to be used with MLC RRAM cells suffering from
+abrupt SET operations that otherwise require from multiple iterations to accurately tune the cell into the desired resistive state.
 
 Valid for both 1T1R and 1R schemes, we provide the configurable
 circuit design and post-simulation scripts to easily program RRAM cells into the desired multilevel value.
 
 ## TODO
 * Clean crossbar autogeneration script
-* 1t1r MC (cliped g_3-5)
 
 # Requirements
 * Cadence Spectre Circuit Simulator
+* CMOS / RRAM PDK:
+	* CMOS PDK to be studied. [Open source Example: FreePDKTM] (https://www.eda.ncsu.edu/wiki/FreePDK) 
+	* RRAM PDK to be studied.
+		* [Open source example: ASU RRAM PDK] (http://faculty.engineering.asu.edu/shimengyu/model-downloads/)
+		* [Open source example: Aristotle University of Thessalonica / Southampton University RRAM Model] (https://eprints.soton.ac.uk/411693/) DOI; 10.1109/TCAD.2018.2791468
 * Python 3.5+
   * Pandas
   * Numpy
@@ -60,7 +67,10 @@ resistive_controlled_scheme...[root]
   * README
 ```
 
-# Technologies
+# Technologies used in article submitted to IEEE TCAS1
+
+Different CMOS/RRAM models can be used. See requirements section.
+The following models were used for the results shown in IEEE TCAS1 submission. 
 
 ## RRAM Model
 RRAM Model from Arizona State University
@@ -82,7 +92,7 @@ A commercial 40nm technology was used.
 Substitute it with the most convenient one, but take into account that
 results may vary depending on it. You must rerun the whole methodology.
 
-# From the paper submitted to IEEE
+# Abstract from the paper submitted to IEEE TCAS1
 
   Memristor crossbar arrays naturally accelerates
   neural networks applications by carrying out
