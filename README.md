@@ -12,6 +12,7 @@ Valid for both 1T1R and 1R schemes, we provide the configurable
 circuit design and post-simulation scripts to easily program RRAM cells into the desired multilevel value.
 
 ## TODO
+* Create full folder structure and upload images
 * Clean crossbar autogeneration script
 
 # Requirements
