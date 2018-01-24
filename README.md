@@ -39,6 +39,9 @@ Adecuarte the technology paths and then run the simulation with:
 
 # Project structure
 
+**Please, be aware that some scripts (aka those using gnuplot) require from specific folder structures**
+Read Carefully the console output after running the scripts
+
 Folders
 ```
 resistive_controlled_scheme...[root]
