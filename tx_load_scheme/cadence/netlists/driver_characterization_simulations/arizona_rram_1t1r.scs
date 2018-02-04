@@ -49,7 +49,7 @@ parameters
 // level
 + p_level=5
 // + p_total_levels=1024-1 // for sweep
-+ p_total_levels=3-1 // for sweep
++ p_total_levels=32-1 // for sweep
 
 // resistances
 // p_r0 adds variability to loads and control loads
@@ -90,13 +90,14 @@ v_aux  (n_gate       0) bsource v= v(n_write)>0.5 ? p_vdd : 0
 tx_a (vdd! to_rram n_gate_loads vdd!) pch_mac l=tx_p_l w=4*tx_p_w m=1 nf=1
 tx_b (0    to_rram n_gate_loads 0)    nch_mac l=tx_p_l w=2*tx_p_w m=1 nf=1
 //
+ic n_gate_loads=p_vdd
 
 // 1T1R with parasitics
 rram_0 (n_write n_to_rram n_gate)  rram_cell_1t1r rram_variab=p_rram_variab rram_seed=p_rram_seed rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_0
 
 // resistor loads
 // (source gate drain bulk)
-rl_0 (n_to_rram, n_gate_loads) resistive_loads mux_level=p_level
+rl_0 (n_to_rram) tx_loads mux_level=p_level
 
 // v_mux (n_to_rram n_control_4 ) vsource type=dc dc=0
 //

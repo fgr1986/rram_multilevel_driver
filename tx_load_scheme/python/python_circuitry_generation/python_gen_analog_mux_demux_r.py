@@ -29,7 +29,7 @@ analog_mux_file = "analog_mux.va"
 loads_subcircuit = "loads_subcircuit.scs"
 tx_properties = "nch_mac l=tx_p_l w=tx_p_w m=1 nf=1"
 # (source gate drain bulk)
-# tx_0 (n_control_0 n_gate_loads 0 n_control_0) pch_mac ...
+# tx_0 (n_0 n_gate_loads 0 n_0) pch_mac ...
 
 ############################
 # preparing folder
@@ -90,15 +90,15 @@ fl_loads_scs.write("subckt tx_loads (to_rram)\n\n")
 # write
 fl_loads_scs.write("\tparameters mux_level=0\n")
 for i in range(analog_mux_inputs-1, 0, -1):
-    # tx_0 (n_control_0 n_gate_loads 0 n_control_0)
-    fl_loads_scs.write("\ttx_" + str(i) + " (n_control_" + str(i)
+    # tx_0 (n_0 n_gate_loads 0 n_0)
+    fl_loads_scs.write("\ttx_" + str(i) + " (n_" + str(i)
                        + " n_gate_loads"
-                       + " n_control_" + str(i-1)
+                       + " n_" + str(i-1)
                        + " 0"
                        )
     fl_loads_scs.write(") " + tx_properties + "\n")
 # last transistor
-fl_loads_scs.write("\ttx_0 (n_control_0"
+fl_loads_scs.write("\ttx_0 (n_0"
                    + " n_gate_loads"
                    + " 0"
                    + " 0"
