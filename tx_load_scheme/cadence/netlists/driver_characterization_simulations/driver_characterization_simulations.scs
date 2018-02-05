@@ -1,0 +1,97 @@
+simulator lang=spectre
+
+// Start of sensible_nodes_sweep (sweep) analysis
+rram_sweep sweep param=p_level start=0 stop=p_total_levels step=1{
+// rram_sweep sweep param=tx_p_w start=120n stop=12u step=1000n{
+// rram_sweep sweep param=p_tx_p_l start=40n stop=1.5u dec=5{
+	// Start of reliability_framework_tran (tran) analysis
+	reliability_framework_tran tran save=selected stop=p_sim_time
+		+ method=gear2only annotate=no maxiters=5
+		// + maxstep=p_max_step
+		// + paramset=psettiming
+} // end sweep
+
+
+// New options
+simulatorOptions options temp=p_temp tnom=27 scale=1.0 gmin=1e-12 rforce=1 maxnotes=5 maxwarns=5 digits=5 cols=80
+	////////////////////////////////////////////////
+	// Additional convergence options,  if needed //
+	////////////////////////////////////////////////
+		// + reltol=1e-9 vabstol=1e-10 iabstol=1e-12
+		// + reltol=1e-8 vabstol=1e-9 iabstol=1e-11
+		// + pivrel=1e-3 reltol=1e-10 vabstol=1e-10 iabstol=1e-13 // used for characterization
+		// + pivrel=1e-3 reltol=1e-10 vabstol=1e-10 iabstol=1e-13
+
+
+/////////////////
+//Save options //
+/////////////////
+saveOptions options save=selected saveahdlvars=selected
+
+////////////////////
+//Save statements //
+////////////////////
+
+save n_write
+save n_gate
+
+// save n_level
+// save n_control_0
+
+//////////////////
+// Resistive loads and analog mux
+//////////////////
+// save rl_0.m_0:select
+// save rl_0.m_0:in
+// save rl_0.m_0:v_in
+
+// save rl_0.n_0
+// save rl_0.n_1
+// save rl_0.n_2
+// save rl_0.n_3
+// save rl_0.n_4
+// save rl_0.n_5
+// save rl_0.n_6
+// save rl_0.n_7
+// save rl_0.to_ram
+
+//////////////////
+// Parasitics
+//////////////////
+// save rram_0.tx_src
+// save rram_0.tx_drain
+// save rram_0.mid1
+// save rram_0.mid2
+
+
+//////////////////
+// rram 0
+//////////////////
+// save rram_0.mem_0:gap_ddt
+// save rram_0.mem_0:rram_g
+// save rram_0.mem_0:rram_temperature
+// save rram_0.mem_0:rram_v
+// save rram_0.mem_0:rram_i
+// save rram_0.mem_0:rram_r
+// save rram_0.mem_0:rram_r_read
+
+
+save n_control_0
+save n_control_1
+save n_control_2
+save n_control_3
+save n_control_4
+save n_control_5
+save n_control_6
+save n_control_7
+save n_control_8
+save n_control_9
+save n_control_10
+save n_control_11
+save n_control_12
+save n_control_13
+save n_control_14
+save n_control_15
+save n_to_rram
+save n_gate_loads
+save rram_0.mem_0:rram_r_read

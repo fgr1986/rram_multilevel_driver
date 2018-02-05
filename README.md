@@ -1,5 +1,5 @@
 # rram_multilevel_driver
-Architecture for 2-step (non-iterative) RRAM multilevel programming
+Architecture for 2-stage (non-iterative) RRAM multilevel programming
 
 ## Description
 The present framework provides the circuit designer with the design
@@ -12,12 +12,13 @@ Valid for both 1T1R and 1R schemes, we provide the configurable
 circuit design and post-simulation scripts to easily program RRAM cells into the desired multilevel value.
 
 ## TODO
+* Create full folder structure and upload images
 * Clean crossbar autogeneration script
 
 # Requirements
 * Cadence Spectre Circuit Simulator
 * CMOS / RRAM PDK:
-	* CMOS PDK to be studied. [Open source Example: FreePDKTM] (https://www.eda.ncsu.edu/wiki/FreePDK) 
+	* CMOS PDK to be studied. [Open source Example: FreePDKTM] (https://www.eda.ncsu.edu/wiki/FreePDK)
 	* RRAM PDK to be studied.
 		* [Open source example: ASU RRAM PDK] (http://faculty.engineering.asu.edu/shimengyu/model-downloads/)
 		* [Open source example: Aristotle University of Thessalonica / Southampton University RRAM Model] (https://eprints.soton.ac.uk/411693/) DOI; 10.1109/TCAD.2018.2791468
@@ -73,10 +74,10 @@ resistive_controlled_scheme...[root]
   * README
 ```
 
-# Technologies used in article submitted to IEEE TCAS1
+# Technologies used in article submitted to IOP Nanotechnology
 
 Different CMOS/RRAM models can be used. See requirements section.
-The following models were used for the results shown in IEEE TCAS1 submission. 
+The following models were used for the results shown in IOP Nanotechnology http://iopscience.iop.org/journal/0957-4484 submission.
 
 ## RRAM Model
 RRAM Model from Arizona State University
@@ -98,21 +99,21 @@ A commercial 40nm technology was used.
 Substitute it with the most convenient one, but take into account that
 results may vary depending on it. You must rerun the whole methodology.
 
-# Abstract from the paper submitted to IEEE TCAS1
+# Abstract from the paper submitted to IOP Nanotechnology
 
-  Memristor crossbar arrays naturally accelerates
-  neural networks applications by carrying out
-  parallel multiply-add operations.
-  Due to the abrupt SET operation characterizing most
-  RRAM devices, on-chip training usually requires either from
-  iterative write/read stages, huge and variations-sensitive circuitry, or both,
-  in order to achieve multilevel capabilities.
-  This paper presents a novel architecture to achieve
-  multilevel capabilities with a short and fixed operation duration.
-  We rely on an ad-hoc scheme to self-control the abrupt SET,
-  choking the writing stimulus as the cell addresses the desired level.
-  We validated the proposal against thorough simulations
-  using RRAM cells fitting extremely fast physical devices
-  and a commercial $40$$nm$ CMOS technology, both exhibiting variability.
-  In every case the proposed architecture allowed progressive and almost-linear resistive
-  levels in each 1T1R and 1R crossbars structures.
+Memristor crossbar arrays naturally accelerate
+neural networks applications by carrying out
+parallel multiply-add operations.
+Due to the abrupt SET operation characterizing most
+RRAM devices, on-chip training usually requires either from
+iterative write/read stages, large and variations-sensitive circuitry, or both,
+in order to achieve multilevel capabilities.
+This paper presents a novel architecture to program
+multilevel devices with a short and fixed operation duration.
+We rely on an ad-hoc scheme to self-control the abrupt SET,
+choking the writing stimulus as the cell addresses the desired level.
+We validated the proposal against thorough simulations
+using RRAM cells fitting extremely fast physical devices
+and a commercial 40nm CMOS technology, both exhibiting variability.
+For every case the proposed architecture allowed progressive and almost-linear resistive
+levels in each 1T1R and 1R crossbars structures.

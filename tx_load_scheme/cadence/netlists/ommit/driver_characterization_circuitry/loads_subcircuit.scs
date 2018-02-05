@@ -1,0 +1,37 @@
+simulator lang=spectre
+
+ahdl_include "analog_mux.va"
+
+//////////////////////////////////
+// tx loads and analog_mux cell //
+// v1.0 01/11/2017              //
+//////////////////////////////////
+
+subckt tx_loads (to_rram)
+
+	parameters mux_level=0
+	tx_15 (n_15 n_gate_loads n_14 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+	tx_14 (n_14 n_gate_loads n_13 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+	tx_13 (n_13 n_gate_loads n_12 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+	tx_12 (n_12 n_gate_loads n_11 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+	tx_11 (n_11 n_gate_loads n_10 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+	tx_10 (n_10 n_gate_loads n_9 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+	tx_9 (n_9 n_gate_loads n_8 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+	tx_8 (n_8 n_gate_loads n_7 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+	tx_7 (n_7 n_gate_loads n_6 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+	tx_6 (n_6 n_gate_loads n_5 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+	tx_5 (n_5 n_gate_loads n_4 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+	tx_4 (n_4 n_gate_loads n_3 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+	tx_3 (n_3 n_gate_loads n_2 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+	tx_2 (n_2 n_gate_loads n_1 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+	tx_1 (n_1 n_gate_loads n_0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+	tx_0 (n_0 n_gate_loads 0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+
+
+	// analog_mux connection
+
+	m_0 (n_15 n_14 n_13 n_12 n_11 n_10 
+		+ n_9 n_8 n_7 n_6 n_5 n_4 n_3 n_2 n_1 n_0 
+		+  to_rram) analog_mux level=mux_level
+
+ends tx_loads
