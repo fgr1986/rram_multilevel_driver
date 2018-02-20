@@ -8,8 +8,8 @@ global 0 vdd! vss!
 
 // Including parsed model. Original: '/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs'
 // top_localmconly top_tt
-include "/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs" section=top_localmconly
-// include "/eda/technology/tsmc_40n/pdk/models/spectre/toplevel.scs" section=top_localmconly
+// include "/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs" section=top_localmconly
+include "/eda/technologies/tsmc_40nm/pdk/models/spectre/toplevel.scs" section=top_tt
 
 include "../ommit/arizona_rram_cells.scs"
 include "../ommit/driver_characterization_circuitry/loads_subcircuit.scs"
@@ -34,7 +34,7 @@ parameters
 // clip resistance range or full range
 + p_clip=0
 // gap selection
-+ p_gap_idx=0
++ p_gap_idx=3
 // Initial state
 + p_rram_gap_ini_0b = p_gap_idx<1 ? 1.2e-9 :
 			+ p_gap_idx<2 ? 1.3e-9 :
@@ -49,7 +49,7 @@ parameters
 // level
 + p_level=5
 // + p_total_levels=1024-1 // for sweep
-+ p_total_levels=32-1 // for sweep
++ p_total_levels=2048-1 // for sweep
 
 // resistances
 // p_r0 adds variability to loads and control loads
@@ -58,13 +58,13 @@ parameters
 // vdd
 + p_vdd=1.8
 // write pulse
-+ p_up=5n p_fall=5n p_delay=10n p_write_length=100n
++ p_up=0.5n p_fall=0.5n p_delay=10n p_write_length=100n
 // write amp nominal
-+ p_v_set=1.8 // fom simulations
++ p_v_set=2 // fom simulations
 // + p_write_amp=2*p_v_set
 // V_write
 // + p_write_amp= p_level<p_total_levels ? 2*p_v_set : (p_clip<1 ? 0 : 2*p_v_set)
-+ p_write_amp= 1.2*p_v_set
++ p_write_amp= 1*p_v_set
 
 
 // transistor
@@ -85,30 +85,39 @@ V0 (n_write 0) vsource type=pulse delay=p_delay val0=0 val1=p_write_amp rise=p_u
 ////////////////////////////
 
 // gate control
-v_aux  (n_gate       0) bsource v= v(n_write)>0.5 ? p_vdd : 0
-// v_aux2 (n_gate_loads 0) bsource v= 1.8-v(n_to_rram)/1.7
-tx_a (vdd! to_rram n_gate_loads vdd!) pch_mac l=tx_p_l w=4*tx_p_w m=1 nf=1
-tx_b (0    to_rram n_gate_loads 0)    nch_mac l=tx_p_l w=2*tx_p_w m=1 nf=1
+v_aux  (n_gate         0) bsource v= 1.8 //v(n_write)>0.5 ? p_vdd : 0
+v_aux2 (n_gate_loads   0) bsource v= 1.8
+// v_aux3 (n_gate_loads_b 0) bsource v= 0
+// tx_a (vdd! to_rram n_gate_loads vdd!) pch_mac l=tx_p_l w=2*tx_p_w m=1 nf=1
+// tx_b (0    to_rram n_gate_loads 0)    nch_mac l=tx_p_l w=2*tx_p_w m=1 nf=1
 //
-ic n_gate_loads=p_vdd
+// ic n_gate_loads=p_vdd
 
-// 1T1R with parasitics
+// 1T1R with parasitics rram_cell_1t1r
+// rram_0 (n_write n_to_rram n_gate)  rram_cell_1t1r rram_variab=p_rram_variab rram_seed=p_rram_seed rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_0
 rram_0 (n_write n_to_rram n_gate)  rram_cell_1t1r rram_variab=p_rram_variab rram_seed=p_rram_seed rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_0
 
 // resistor loads
 // (source gate drain bulk)
-rl_0 (n_to_rram) tx_loads mux_level=p_level
+// rl_0 (n_to_rram) tx_loads mux_level=p_level
 
-// v_mux (n_to_rram n_control_4 ) vsource type=dc dc=0
-//
-// tx_4 (n_control_4 n_gate_loads n_control_3 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
-// tx_3 (n_control_3 n_gate_loads n_control_2 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
-// tx_2 (n_control_2 n_gate_loads n_control_1 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
-// tx_1 (n_control_1 n_gate_loads n_control_0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
-// tx_0 (n_control_0 n_gate_loads 0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+// rl_0 (n_to_rram 0) resistor r=5k
+cl_0 (n_to_rram 0) capacitor c=p_level*5f
+// tx_15n (vdd! n_to_rram 0 vdd!) pch_mac l=tx_p_l w=tx_p_w m=1 nf=1
 
-
-// tx_0 (n_to_rram n_gate_loads 0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
-
-// tx_1 (n_to_rram n_gate_loads n_control_0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
-// tx_0 (n_control_0 n_gate_loads 0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+// tx_15n (n_to_rram n_gate_loads   0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+// tx_14n (n_to_rram n_gate_loads   0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+// tx_13n (n_to_rram n_gate_loads   0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+// tx_12n (n_to_rram n_gate_loads   0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+// tx_11n (n_to_rram n_gate_loads   0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+// tx_10n (n_to_rram n_gate_loads   0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+// tx_9n  (n_to_rram n_gate_loads   0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+// tx_8n  (n_to_rram n_gate_loads   0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+// tx_7n  (n_to_rram n_gate_loads   0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+// tx_6n  (n_to_rram n_gate_loads   0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+// tx_5n  (n_to_rram n_gate_loads   0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+// tx_4n  (n_to_rram n_gate_loads   0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+// tx_3n  (n_to_rram n_gate_loads   0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+// tx_2n  (n_to_rram n_gate_loads   0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+// tx_1n  (n_to_rram n_gate_loads   0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1
+// tx_0n  (n_to_rram n_gate_loads   0 0) nch_mac l=tx_p_l w=tx_p_w m=1 nf=1

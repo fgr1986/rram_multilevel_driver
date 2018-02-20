@@ -110,5 +110,5 @@ subckt rram_cell_1r_no_parasitics (plus minus)
 	// HRS
 	+ rram_gap_ini=1.367e-9
 
-	mem_0 (plus minus) T0=rram_T0 gap_ini=rram_gap_ini tstep=rram_tstep Vread=rram_Vread gamma0=rram_gamma0 rram_t_seed=rram_seed rram_t_variab=rram_variab
-ends rram_cell_1r
+	mem_0 (plus minus) RRAM T0=rram_T0 gap_ini=rram_gap_ini tstep=rram_tstep Vread=rram_Vread gamma0=rram_gamma0 rram_t_seed=rram_seed rram_t_variab=rram_variab
+ends rram_cell_1r_no_parasitics

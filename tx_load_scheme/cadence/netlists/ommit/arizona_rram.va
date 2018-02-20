@@ -80,7 +80,7 @@ module RRAM(Nt, Nb);
 	real rram_v;
 	real rram_i;
 	// uncomment for debugging
-	// real rram_r;
+  real rram_r;
 	real rram_g;
 	real rram_temperature;
 	real rram_r_read;
@@ -151,10 +151,10 @@ module RRAM(Nt, Nb);
 		rram_g = gap;
 		rram_temperature = temperature;
 		// uncomment for debugging
-		// if (abs(V(Nt,Nb))> 0)
-		// begin
-		// 		rram_r = V(Nt,Nb)/I(Nt,Nb);
-		// end
+		if (abs(V(Nt,Nb))> 0)
+		begin
+				rram_r = V(Nt,Nb)/I(Nt,Nb);
+		end
 
 
 		p_time = $abstime;	// Record current timestep for the previous timestep at next timestep

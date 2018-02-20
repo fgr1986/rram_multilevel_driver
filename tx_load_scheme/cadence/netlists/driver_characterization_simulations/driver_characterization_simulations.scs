@@ -1,7 +1,7 @@
 simulator lang=spectre
 
 // Start of sensible_nodes_sweep (sweep) analysis
-rram_sweep sweep param=p_level start=0 stop=p_total_levels step=1{
+rram_sweep sweep param=p_level start=0 stop=p_total_levels step=1 {
 // rram_sweep sweep param=tx_p_w start=120n stop=12u step=1000n{
 // rram_sweep sweep param=p_tx_p_l start=40n stop=1.5u dec=5{
 	// Start of reliability_framework_tran (tran) analysis
@@ -9,6 +9,7 @@ rram_sweep sweep param=p_level start=0 stop=p_total_levels step=1{
 		+ method=gear2only annotate=no maxiters=5
 		// + maxstep=p_max_step
 		// + paramset=psettiming
+
 } // end sweep
 
 
@@ -72,7 +73,7 @@ save n_gate
 // save rram_0.mem_0:rram_temperature
 // save rram_0.mem_0:rram_v
 // save rram_0.mem_0:rram_i
-// save rram_0.mem_0:rram_r
+save rram_0.mem_0:rram_r
 // save rram_0.mem_0:rram_r_read
 
 
@@ -84,14 +85,18 @@ save n_control_4
 save n_control_5
 save n_control_6
 save n_control_7
-save n_control_8
-save n_control_9
-save n_control_10
-save n_control_11
-save n_control_12
-save n_control_13
-save n_control_14
-save n_control_15
+// save n_control_8
+// save n_control_9
+// save n_control_10
+// save n_control_11
+// save n_control_12
+// save n_control_13
+// save n_control_14
+// save n_control_15
+
+save n_gate_loads2
 save n_to_rram
 save n_gate_loads
 save rram_0.mem_0:rram_r_read
+save rram_0.mem_0:rram_r
+save rram_0.mem_0:rram_v
