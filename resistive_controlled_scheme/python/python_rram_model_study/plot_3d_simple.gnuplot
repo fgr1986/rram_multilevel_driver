@@ -52,7 +52,7 @@ set view 120,60
 # set palette defined ( 0 "#C1DAE8", 1e-19 "#fffaef", 50 "#ffd35a", 100 "#ed2c29")
 set palette defined ( 0 "#ed2c29", 10 "#ffd35a", 50 "#fffaef", 100 "#C1DAE8")
 
-set term svg noenhanced size 1200,900 fname 'Times' fsize 25
+set term svg noenhanced size 1200,900 font 'Times,25' # fname 'Times' fsize 25
 
 # set logscale z
 set format z "%2.0te%L"

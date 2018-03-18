@@ -14,6 +14,8 @@ set style line 3 lt 1 lw 4 pt 7 ps 0.5 lc rgb '#ff7800' # other colors
 set style line 4 lt 1 lw 4 pt 7 ps 0.5 lc rgb '#4ec000' # other colors
 set style line 5 lt 1 lw 4 pt 7 ps 0.5 lc rgb '#a049c0' # other colors
 set style line 6 lt 1 lw 4 pt 7 ps 0.5 lc rgb '#8e0200' # other colors
+set style line 7 lt 1 lw 4 pt 7 ps 0.5 lc rgb '#ae0230' # other colors
+set style line 8 lt 1 lw 4 pt 7 ps 0.5 lc rgb '#2230230' # other colors
 set style fill solid
 
 set format x "%g"
@@ -40,7 +42,7 @@ set datafile separator ","
 #############################
 
 set term svg noenhanced size 1400,1800 font 'Times,35' # fname 'Times' #fsize 35
-set output "read_resistances.svg"
+set output "temperature_vs_read_resistance.svg"
 set xlabel "Time [ns]"
 
 set multiplot layout 3,1
@@ -57,11 +59,11 @@ get_title(x)= sprintf("%d %s", get_load(x), ' ohms')
 
 set title 'Temperature'
 set ylabel "Temperature [K]"
-plot for [i=1:levels:level_sep] input_file u (1e9*column(1)):(column(i+1)) every xtickdec w lp ls (i/level_sep+1) axes x1y1 notitle
+plot for [i=1:levels:level_sep] input_file u (1e9*column(1)):(column(i+1)) every xtickdec w lp ls (7-i/level_sep+1) axes x1y1 notitle
 
 set title 'Read Resistance'
 set ylabel "Read resistance  at 0.1V [KOhms]"
-plot for [i=1:levels:level_sep] input_file u (1e9*column(1)):(column(levels+i+1)) every xtickdec w lp ls (i/level_sep+1) axes x1y1 notitle
+plot for [i=1:levels:level_sep] input_file u (1e9*column(1)):(column(levels+i+1)) every xtickdec w lp ls (7-i/level_sep+1) axes x1y1 notitle
 
 
 
@@ -74,7 +76,7 @@ unset xlabel
 unset ylabel
 set yrange [0:1]
 
-plot for [i=1:levels:level_sep] 2 w lp ls (i/level_sep+1) t get_title(i)
+plot for [i=1:levels:level_sep] 2 w lp ls (7-i/level_sep+1) t get_title(i)
 
 
 unset border
