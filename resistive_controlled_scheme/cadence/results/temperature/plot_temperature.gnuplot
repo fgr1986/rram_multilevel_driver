@@ -39,10 +39,9 @@ set datafile separator ","
 # file 1, read Resistances
 #############################
 
-set term svg noenhanced size 1400,1800 font 'Times,25' # fname 'Times' #fsize 35
+set term svg noenhanced size 1400,1800 font 'Times,35' # fname 'Times' #fsize 35
 set output "read_resistances.svg"
-set xlabel "Load resistance [KOhms]"
-set ylabel "Read resistance  at 0.1V [KOhms]"
+set xlabel "Time [ns]"
 
 set multiplot layout 3,1
 
@@ -52,13 +51,17 @@ input_file='processed.csv'
 levels=32
 level_sep=4
 r_diff=250
-get_load(x)=r_diff*level
+xtickdec=20
+get_load(x)=r_diff*x
+get_title(x)= sprintf("%d %s", get_load(x), ' ohms')
 
 set title 'Temperature'
-plot for [i=1:levels:level_sep] input_file u (column(1)):(column(i+1)) w lp ls i axes x1y1 notitle
+set ylabel "Temperature [K]"
+plot for [i=1:levels:level_sep] input_file u (1e9*column(1)):(column(i+1)) every xtickdec w lp ls (i/level_sep+1) axes x1y1 notitle
 
 set title 'Read Resistance'
-plot for [i=1:levels:level_sep] input_file u (column(1)):(column(levels+i+1)) w lp ls i axes x1y1 notitle
+set ylabel "Read resistance  at 0.1V [KOhms]"
+plot for [i=1:levels:level_sep] input_file u (1e9*column(1)):(column(levels+i+1)) every xtickdec w lp ls (i/level_sep+1) axes x1y1 notitle
 
 
 
@@ -71,7 +74,8 @@ unset xlabel
 unset ylabel
 set yrange [0:1]
 
-plot for [i=1:levels:level_sep] 2 w lp ls 1 t get_load(i).' ohms', \
+plot for [i=1:levels:level_sep] 2 w lp ls (i/level_sep+1) t get_title(i)
+
 
 unset border
 unset yrange
