@@ -65,11 +65,13 @@ resistive_controlled_scheme...[root]
         * montecarlo_simulations_inter_intra_device_simulations.....[device to device and intra device variability considered]
         * montecarlo_simulations_intra_device_simulations...........[Only intra device variability considered]
         * ommit.....................................................[Auxiliar subcircuits: RRAM cells, resistive loads, muxes...]
+	* system_behavioral_simulations.............................[Netlists for the simulation of the system(behavioral)]
     * python........................................................[Python scripts ]
       * python_circuitry_generation.................................[Scripts to automate RRAMs/muxes/loads generation]
       * python_post_mc_study........................................[Scripts to automate MC results analysis]
       * python_post_driver_characterization_study...................[Scripts to automate nominal/levels results analysis]
       * python_rram_model_study.....................................[Scripts to analyze the RRAM model]
+    * fsm_control...................................................[VHDL code for the FSM control]
   * LICENSE
   * README
 ```
