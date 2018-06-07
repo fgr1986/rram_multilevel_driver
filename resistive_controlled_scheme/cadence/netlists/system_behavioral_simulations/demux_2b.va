@@ -1,0 +1,32 @@
+`include "constants.vams"
+`include "disciplines.vams"
+
+module demux_2b(n_out, n_in, n_en);
+
+	// optimized for 1t1rcell,
+	// inital gaps at 1.367e-09
+	// and 32 levels
+
+	parameter level=1;
+	inout n_in;
+	electrical n_in;
+	inout n_en;
+	electrical n_en;
+	inout [3:0] n_out;
+	electrical [3:0] n_out;
+	integer select;
+	genvar c;
+
+	analog begin
+		select = level;
+		generate c (0,3,1) begin
+			if( V(n_en)==0 ) begin
+				I(n_out[c], n_in) <+ 0;
+			end else if( c==select ) begin
+				V(n_out[c], n_in) <+ 0;
+			end else begin
+				I(n_out[c], n_in) <+ 0;
+			end
+		end
+	end
+endmodule

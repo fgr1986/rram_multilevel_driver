@@ -1,0 +1,158 @@
+////////////////////////////
+// Single rram experiment //
+// v0.1 28/09/2017        //
+////////////////////////////
+
+simulator lang=spectre
+global 0 vdd! vss!
+
+// Including parsed model. Original: '/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs'
+// top_localmconly top_tt
+// include "/opt/technology/tsmc40nm_18/models/spectre/toplevel.scs" section=top_localmconly
+include "/eda/technologies/tsmc_40nm/pdk/models/spectre/toplevel.scs" section=top_localmconly
+
+include "../ommit/arizona_rram_cells.scs"
+include "example_loads.scs"
+include "system_behavioral_simulation.scs"
+// include "aux_subcircuits.scs"
+ahdl_include "demux_2b.va"
+
+// Parameters
+parameters
+
+// simulation
++ p_sim_time=30n + 5*p_write_length
+// + p_max_step=10p
+// + p_max_step=1000p
+// temperature
++ p_T0=300
++ p_temp=(p_T0-273.15) // in celsius
+
+// rram initial state
++ p_gamma0=16.5
++ p_rram_seed=p_level
++ p_rram_variab=0
++ p_LRS=75
++ p_HRS=1e9
+// Initial state
++ p_rram_gap_ini_0b = p_gap_idx<1 ? 1.2e-9 :
+			+ p_gap_idx<2 ? 1.3e-9 :
+			+ p_gap_idx<3 ? 1.367e-9 :
+			+ p_gap_idx<4 ? 1.5e-9 :
+			+ p_gap_idx<5 ? 1.6e-9 :
+			+ 1.7e-9
+// check boundaries
++ p_rram_gap_ini_0 = max(0.1e-9, min(p_rram_gap_ini_0b, 1.7e-9))
+// clip resistance range or full range
++ p_clip=0
++ p_gap_idx=0
+
+// level
++ p_level=16
++ p_total_levels=32-1 // for sweep
+
+// resistances
+// p_r0 adds variability to loads and control loads
++ p_r0=1
+
+// vdd
++ p_vdd=1.8
+// write pulse
++ p_up=5n p_fall=5n p_delay=10n p_write_length=100n
+// write amp nominal
++ p_v_set=1.8 // fom simulations
+// + p_write_amp=2*p_v_set
+// V_write
++ p_write_amp= p_level<p_total_levels ? 2*p_v_set : (p_clip<1 ? 0 : 2*p_v_set)
++ p_reset = -2.35
+
++ p_end_reset=(p_delay+2*p_write_length) p_start_set=(p_end_reset + 1n) p_end_set=(p_start_set + p_write_length)
++ p_reset_th=-12u
+//-650m
+// voltage supply
+VDD      ( vdd!     0 ) vsource dc=p_vdd type=dc
+VSS      ( vss!     0 ) vsource dc=0     type=dc
+
+
+
+/////////////////////////////////////////////////////////////
+// BEHAVIORAL MODEL OF THE HDL SYNTH. MODULLES
+/////////////////////////////////////////////////////////////
+
+///////////////////////
+// Two stage control
+///////////////////////
+// clk
+V_clk(clk 0) vsource type=pulse delay=0 val0=0 val1=p_vdd rise=0.1n fall=0.1n width=0.4n period=1n
+// start signal
+V_start(start_op 0) vsource type=pwl wave=[0 0 (p_delay-1.1n)  0 (p_delay-1n) p_vdd  p_delay p_vdd (p_delay+0.1n) 0]
+// counters
+v_counter_0 (counter_0 0) bsource v=v(EN_RESET)>0 ? max(floor($time*1e9)-p_delay*1e9, 0) : v(EN_SET)>0 ? max(floor($time*1e9)-p_start_set*1e9, 0) : 0
+// fsm
+v_fsm0 (fsm_0 0) vsource type=pwl wave=[0 0 (p_delay-0.1n)  0 p_delay p_vdd        p_end_reset p_vdd p_start_set 0]
+v_fsm1 (fsm_1 0) vsource type=pwl wave=[0 0 p_end_reset 0 p_start_set p_vdd    p_end_set p_vdd   (p_end_set+0.1n) 0 ]
+// enablers
+V_en_reset (EN_RESET 0) vsource type=pwl wave=[0 0 (p_delay-0.1n+1n)  0 (p_delay+1n) p_vdd        (1n+p_end_reset) p_vdd  (p_start_set +1n) 0]
+V_en_set (EN_SET 0)     vsource type=pwl wave=[0 0 (p_end_reset+1n) 0   (p_start_set+1n) p_vdd    (1n+p_end_set) p_vdd    (p_end_set+0.1n +1n) 0 ]
+// decoder in
+V_addr_0(addr_0 0) vsource type=pwl wave=[0 0 (p_delay-1.1n)  0 (p_delay-1n) p_vdd  p_delay p_vdd (p_delay+0.1n) 0]
+V_addr_1(addr_1 0) vsource type=pwl wave=[0 0 (p_delay-1.1n)  0 (p_delay-1n) p_vdd  p_delay p_vdd (p_delay+0.1n) 0]
+V_addr_2(addr_2 0) vsource type=dc dc=0
+V_addr_3(addr_3 0) vsource type=dc dc=0
+
+///////////////////////////////////
+// left floating
+///////////////////////////////////
+
+v_sel_0    ( n_sel_0     0 ) bsource v= v(n_col_1)>0.5 ? 0 : -p_vdd
+v_sel_2    ( n_sel_2     0 ) bsource v= v(n_col_1)>0.5 ? 0 : -p_vdd
+//v_drain_0  ( n_drain_0   0 ) vsource dc=0     type=dc
+//v_drain_2  ( n_drain_2   0 ) vsource dc=0     type=dc
+//v_col_0    ( n_col_0     0 ) vsource dc=0     type=dc
+//v_col_2    ( n_col_2     0 ) vsource dc=0     type=dc
+
+/////////////////////////////////////////////////////////////
+// BEHAVIORAL MODEL OF THE ANALOG MODULES
+/////////////////////////////////////////////////////////////
+
+// Bandgap reference voltages
+VRAW (V_RAW 0) bsource v=4
+VRESET (V_RESET 0) bsource v=v(EN_RESET)>0 ? p_reset :0
+VSET (V_SET 0) bsource v=v(EN_SET)>0 ? p_write_amp : 0
+VPOWER (n_power 0) bsource v=v(V_RESET) + v(V_SET)
+// Reset comparator
+VENDRESET (END_RESET 0) bsource v= v(n_power)<-2 ? ($time>12n ? (i(rram_11)>p_reset_th ? p_vdd : 0) : 0) : 0
+// Analog Mux write
+VWRITE (n_col_1 0) bsource v=v(EN_SET)==p_vdd ? v(n_power) : ( v(EN_RESET)>0 ? ( v(END_RESET) < 1 ? v(n_power) : 0 ) : 0 )
+// Selectors
+v_sel     (n_sel_1 0) bsource v= v(n_col_1)>0.5 ? p_vdd : 0
+// Addr
+V_addr(ADD 0) vsource type=pwl wave=[0 0 (p_delay-1.1n)  0 (p_delay-1n) 3  p_delay 3 (p_delay+0.1n) 0]
+// Decoders
+v_dec_0 (V_WR 0) bsource v=v(n_col_1)
+v_dec_1 (V_LOAD 0) bsource v=v(n_drain_1)
+v_dec_2 (V_SEL 0) bsource v=v(n_sel_1)
+
+
+////////////////////////////
+// Write circuit
+////////////////////////////
+
+// Level
+v_lev (LEV 0) vsource type=dc dc=p_level
+// resistor loads
+rl_0 (n_drain_1 EN_RESET) resistive_loads mux_level=p_level
+// c_min (n_drain_1 0) capacitor c=1m
+
+// small 3x3 crossbar 1T1R with parasitics
+rram_00 (n_col_0 n_drain_0 n_sel_0)  rram_cell_1t1r rram_variab=p_rram_variab rram_seed=p_rram_seed rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_0
+rram_01 (n_col_1 n_drain_0 n_sel_0)  rram_cell_1t1r rram_variab=p_rram_variab rram_seed=p_rram_seed rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_0
+rram_02 (n_col_2 n_drain_0 n_sel_0)  rram_cell_1t1r rram_variab=p_rram_variab rram_seed=p_rram_seed rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_0
+rram_10 (n_col_0 n_drain_1 n_sel_1)  rram_cell_1t1r rram_variab=p_rram_variab rram_seed=p_rram_seed rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_0
+rram_11 (n_col_1 n_drain_1 n_sel_1)  rram_cell_1t1r rram_variab=p_rram_variab rram_seed=p_rram_seed rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_0
+rram_12 (n_col_2 n_drain_1 n_sel_1)  rram_cell_1t1r rram_variab=p_rram_variab rram_seed=p_rram_seed rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_0
+rram_20 (n_col_0 n_drain_2 n_sel_2)  rram_cell_1t1r rram_variab=p_rram_variab rram_seed=p_rram_seed rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_0
+rram_21 (n_col_1 n_drain_2 n_sel_2)  rram_cell_1t1r rram_variab=p_rram_variab rram_seed=p_rram_seed rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_0
+rram_22 (n_col_2 n_drain_2 n_sel_2)  rram_cell_1t1r rram_variab=p_rram_variab rram_seed=p_rram_seed rram_T0=p_T0 rram_gamma0=p_gamma0 rram_gap_ini=p_rram_gap_ini_0
+
+

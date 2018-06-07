@@ -1,0 +1,45 @@
+// Behavioral model of two stage write control
+// See VHDL code for synhthesis
+
+`include "disciplines.vams"
+`include "constants.vams"
+`define N_Counts 100
+`define N_offset 0
+// Counter counts N_Counts and provides a pulse every N_offset counts
+// Pulse is width of clock
+module TimeCounter(rst,clk,out);
+  input rst,clk;
+  output out;
+  voltage rst,out,clk;
+
+  parameter real max_out = 1.8;
+  parameter real edge_time = 0;
+
+  real vout,clk_pulse;
+  integer count,clk_shape;
+
+  analog begin
+      @(initial_step) begin
+         count = -1;
+      end
+
+      @(cross(V(rst)-0.6,+1)) begin
+         count = -1;
+      end
+
+      @(cross(V(clk)-0.6,+1)) begin
+         count = count + 1;
+         clk_shape = 1;
+         if (count > (`N_Counts-1))
+               count = 0;
+
+         clk_pulse = (count == `N_offset) ? max_out : 0;
+      end
+
+      @(cross(V(clk)-0.6,-1)) begin
+         clk_shape = 0;
+      end
+
+      V(out) <+ transition(clk_pulse*clk_shape,edge_time,edge_time);
+  end
+endmodule

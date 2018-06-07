@@ -1,0 +1,37 @@
+/////////////////////////////////
+//
+// Stable voltage references
+// Behavioral Model, see
+// Garcia-Redondo, F., Aparicio, H., Lopez-Vallejo, M., Ituero, P., & Lopez-Barrio, C. (2016).
+// Characterization of analog modules:
+// Reliability analyses of radiation, temperature and variations effects.
+// In 2016 Conference on Design of Circuits and Integrated Systems (DCIS)
+// IEEE. https://doi.org/10.1109/DCIS.2016.7845361
+//
+// SA Based comparator, see
+// Garcia-Redondo, F., & Lopez-Vallejo, M. (2017).
+// On the Design and Analysis of Reliable RRAM-CMOS Hybrid Circuits.
+// IEEE Transactions on Nanotechnology, 16(3), 514–522.
+// https://doi.org/10.1109/TNANO.2017.2697311
+/////////////////////////////////
+
+
+subckt voltage_current_control (en_set en_reset to_rram end_reset)
+  parameters max_current=p_write_amp/1e2  ref_current=-p_write_amp/p_HRS
+
+  V0 (n_write 0) bsource v=p_write_amp*v(en_set) -p_write_amp*v(en_reset)
+  i_c (n_write to_rram) bsource i=min(i(n_write), max_current)
+  reset_comp (end_reset 0) bsource v=i(to_rram)>ref_current ? p_vdd : 0
+
+ends voltage_current_control
+
+
+
+subckt voltage_current_control (clk en_set en_reset to_rram end_reset fsm_0 fsm_1)
+  parameters p_end_reset=p_delay+2*p_write_length p_end_set=p_delay+3*p_write_length+1
+  V_clk(clk 0) vsource type=pulse delay=0 val0=0 val1=p_vdd rise=0.1n fall=0.1n width=0.4n
+  V_en_reset(en_reset 0) vsource type=pulse delay=p_delay val0=0 val1=p_vdd rise=p_up fall=p_fall width=2*p_write_length
+  V_en_set(en_set 0)     vsource type=pulse delay=p_delay+2*p_write_length+1n val0=0 val1=p_vdd rise=p_up fall=p_fall width=p_write_length
+  v_fsm0 (fsm_0 0) vsource type=pwl wave=[0 0 p_delay-1n 0 p_delay p_vdd p_end_reset p_vdd p_end_reset+1 0]
+  v_fsm1 (fsm_1 0) vsource type=pwl wave=[0 0 p_end_reset 0 p_end_reset+1 p_vdd p_end_set p_vdd p_end_set+1 0]
+ends voltage_current_control

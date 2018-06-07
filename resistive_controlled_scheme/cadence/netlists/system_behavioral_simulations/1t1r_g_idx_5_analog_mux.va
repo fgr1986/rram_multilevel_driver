@@ -1,0 +1,36 @@
+`include "constants.vams"
+`include "disciplines.vams"
+
+module analog_mux(n_out, n_in, n_en_reset);
+
+	// optimized for 1t1rcell, 
+	// inital gaps at 1.7e-09 
+	// and 32 levels 
+
+	parameter level=0;
+	inout n_in;
+	inout n_en_reset;
+	electrical n_in;
+	electrical n_en_reset;
+	inout [31:0] n_out;
+	electrical [31:0] n_out;
+	integer select;
+	genvar c;
+
+	analog begin
+		select = level;
+		generate c (0,31,1) begin
+			if( V(n_en_reset)>0 ) begin
+				V(n_in) <+ 0;
+				I(n_out[c], n_in) <+ 0;
+			end else begin
+				if( c==select ) begin
+					V(n_out[c], n_in) <+ 0;
+				end else begin
+					I(n_out[c], n_in) <+ 0;
+				end
+			end
+		end
+		
+	end
+endmodule
