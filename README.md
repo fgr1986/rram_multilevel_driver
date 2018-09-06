@@ -1,9 +1,14 @@
 # rram_multilevel_driver
 Architecture for 2-stage (non-iterative) RRAM multilevel programming
 
-```
-García-Redondo, F., & López-Vallejo, M. (2018). Self-controlled multilevel writing architecture for fast training in neuromorphic RRAM applications. Nanotechnology, 29(40), 405203. https://doi.org/10.1088/1361-6528/aad2fa
-```
+Published in:
+> García-Redondo, F., & López-Vallejo, M. (2018).
+> Self-controlled multilevel writing architecture for fast training in neuromorphic RRAM applications.
+> Nanotechnology, 29(40), 405203.
+> DOI: 10.1088/1361-6528/aad2fa
+> https://doi.org/10.1088/1361-6528/aad2fa
+>
+> --- [Self-controlled multilevel writing architecture for fast training in neuromorphic RRAM applications.](https://doi.org/10.1088/1361-6528/aad2fa)
 
 ## Description
 The present framework provides the circuit designer with the design
@@ -84,9 +89,13 @@ resistive_controlled_scheme...[root]
 
 Different CMOS/RRAM models can be used. See requirements section.
 The following models were used for the results shown in IOP Nanotechnology http://iopscience.iop.org/journal/0957-4484 submission.
-```
-García-Redondo, F., & López-Vallejo, M. (2018). Self-controlled multilevel writing architecture for fast training in neuromorphic RRAM applications. Nanotechnology, 29(40), 405203. https://doi.org/10.1088/1361-6528/aad2fa
-```
+
+Published in:
+> García-Redondo, F., & López-Vallejo, M. (2018).
+> Self-controlled multilevel writing architecture for fast training in neuromorphic RRAM applications.
+> Nanotechnology, 29(40), 405203.
+> DOI: 10.1088/1361-6528/aad2fa
+> https://doi.org/10.1088/1361-6528/aad2fa
 
 ## RRAM Model
 RRAM Model from Arizona State University
